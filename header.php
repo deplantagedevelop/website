@@ -1,7 +1,9 @@
+<?php include('lib/connection.php'); ?>
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>De Plantage</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
