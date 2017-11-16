@@ -1,3 +1,9 @@
+<?php
+include('lib/connection.php');
+
+$statement = "SELECT title, description FROM news";
+$result = $conn->query($statement);
+?>
 <html>
 <head>
     <title>De Plantage</title>
@@ -8,6 +14,12 @@
     <script src="/assets/js/main.js"></script>
 </head>
 <body>
-<h1>test</h1>
+<table>
+    <?php
+        foreach($result->fetchAll() as $result) {
+            echo "<tr><td>". $result["title"] ."</td></tr>";
+        }
+    ?>
+</table>
 </body>
 </html>
