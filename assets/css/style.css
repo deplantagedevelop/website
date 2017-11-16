@@ -98,6 +98,7 @@ html, body {
     text-align: center;
     flex-grow: 0;
     flex-basis: 50%;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .home-products > .single-product:first-of-type {
@@ -129,6 +130,7 @@ html, body {
     background-color: rgba(255,255,255, 0.9);
     padding: 0 25px;
     margin-bottom: 20px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 .home-news {
@@ -143,6 +145,7 @@ html, body {
     text-align: center;
     flex-basis: calc(100% / 3);
     flex-grow: 0;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
 .home-news .news-image {
@@ -168,6 +171,13 @@ html, body {
 
 .home-news .single-news .news-info p {
     font-style: italic;
+}
+
+.home-news .single-news .btn {
+    display: inline-block;
+    bottom: 0;
+    margin-bottom: 25px;
+    align-self: flex-end;
 }
 
 /* Content */
