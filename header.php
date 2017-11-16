@@ -13,7 +13,7 @@
     <div class="main-header">
         <div class="header-left">
             <div class="logo">
-                <img src="/assets/images/logo.png">
+                <a href="/"><img src="/assets/images/logo.png"></a>
             </div>
         </div>
         <div class="header-right">
@@ -25,9 +25,10 @@
         <div class="nav-bar">
             <ul id="menu">
                 <li><a href="/">Home</a></li>
+                <li><a href="/nieuws">Nieuws</a></li>
                 <li><a href="/shop">Producten</a></li>
                 <li><a href="/over-ons">Over ons</a></li>
-                <li><a href="/nieuws">Nieuws</a></li>
+                <li><a href="/reviews">Reviews</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
