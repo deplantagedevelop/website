@@ -4,9 +4,10 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/nieuws">Nieuws</a></li>
                 <li><a href="/shop">Producten</a></li>
                 <li><a href="/over-ons">Over ons</a></li>
-                <li><a href="/nieuws">Nieuws</a></li>
+                <li><a href="/reviews">Reviews</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
