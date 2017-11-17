@@ -1,3 +1,7 @@
+<?php include('lib/connection.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -5,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css">
 </head>
 <body>
 <section class="header">
