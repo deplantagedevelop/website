@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
 </head>
 <body>
 <section class="header">
@@ -20,7 +21,7 @@
             </div>
         </div>
         <div class="header-right">
-
+            <a href="/inloggen"><img src="/assets/images/login.png">Inloggen/Registreren</a>
         </div>
     </div>
     <div class="header-mobile"></div>

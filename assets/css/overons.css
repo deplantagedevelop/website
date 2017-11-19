@@ -5,12 +5,27 @@
 }
 
 .main-info .upper {
-
     width: 100%;
     background-color: #f6f6f6;
     margin-top: 30px;
-    padding: 0px 20px;
+
+}
+
+.inner {
+    padding: 15px 25px;
+
+}
+
+.inner h1 {
+    margin-top: 0;
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+.inner p {
+    margin-top: 0;
     font-size: 20px;
+    padding-top: 10px;
 }
 
 .main-info .upper1,
@@ -18,10 +33,26 @@
     width: 30%;
     background-color: #f6f6f6;
     margin-top: 30px;
-    display: inline-block;
 }
 
-.upper2, .upper3 {
-    margin-left: 5%
+.pictures {
+    display: flex;
+    width: 100%;
 }
+
+.main-info .upper2, .upper3 {
+    margin-left: 5%;
+}
+
+@media screen and (max-width: 768px) {
+    .inner h1 {
+        font-size: 25px;
+    }
+
+    .inner p {
+        font-size: 13.5px;
+    }
+}
+
+
 

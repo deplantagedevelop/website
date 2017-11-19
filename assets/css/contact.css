@@ -4,8 +4,8 @@
 }
 
 .main-contact {
-    display: flex;
-}
+     display: flex;
+ }
 
 .main-contact .contact-form {
     width: 60%;
@@ -21,7 +21,7 @@
 
 .info-block {
     background-color: #f6f6f6;
-    padding: 5px 25px;
+    padding: 5px 25px 5px 15px;
     margin-bottom: 25px;
 }
 
@@ -88,7 +88,7 @@
 }
 
 #map {
-    height: 60%;
+    height: 50%;
 }
 
 
@@ -131,6 +131,10 @@
         min-height: 100px;
     }
 
+    .g-recaptcha {
+        transform:scale(0.85);
+        transform-origin:0 0;
+    }
 
 
 }
