@@ -52,5 +52,8 @@
 <script src="/assets/js/jquery-3.2.1.min.js"></script>
 <script src="/assets/js/slicknav.min.js"></script>
 <script src="/assets/js/slick.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="/assets/js/main.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDa5sVbnUrzZ85Ij9Ti2gcXLSvaoR_HWxA&callback=initMap"
+        type="text/javascript"></script>
 </html>
