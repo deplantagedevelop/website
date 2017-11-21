@@ -57,7 +57,7 @@
     font-size: 16px;
     transition: 0.5s;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .contact-form .loginsubmit button:hover {
@@ -76,6 +76,11 @@
 .reqinner {
     color: red;
 }
+
+.sentregister {
+    margin-top: 15px;
+}
+
 
 @media screen and (max-width: 768px) {
     .full-content {

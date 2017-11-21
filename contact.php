@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-
 ?>
+
 <section class="content main-content">
     <div class="heading">
         <h2>Contactformulier</h2>
