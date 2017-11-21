@@ -8,7 +8,7 @@ $(document).ready(function(){
         dots: false,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 1750
+        autoplaySpeed: 3500
     });
 
     $('.slide').height(

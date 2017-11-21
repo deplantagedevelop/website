@@ -1,0 +1,25 @@
+.shop-content {
+    display: flex;
+    margin-top: 40px;
+}
+
+.shop-content .shop-left {
+    width: calc(25% - 100px);
+    margin-right: 40px;
+}
+
+.shop-content .shop-left ul {
+    -webkit-padding-start: 0;
+    list-style: none;
+}
+
+.shop-content .shop-right {
+    width: 75%;
+}
+
+.shop-content .title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3c3c3c;
+    display: block;
+    font-size: 20px;
+}
