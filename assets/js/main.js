@@ -14,6 +14,7 @@ $(document).ready(function(){
     $('.slide').height(
         $(document).height() - $('.header').height()
     );
+
 });
 
 $( window ).resize(function() {
