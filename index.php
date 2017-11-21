@@ -2,8 +2,8 @@
     include('header.php');
 
     $newsitems = $conn->query('SELECT * FROM news ORDER BY ID DESC LIMIT 3');
+?>
 
-    ?>
 <section class="home-slider">
     <div class="slider">
         <div class="slide" style="background: url('assets/images/slider/slide2.jpg') no-repeat center center">

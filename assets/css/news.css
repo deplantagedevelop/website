@@ -1,0 +1,15 @@
+.content-news {
+    padding-top: 135px;
+}
+
+.main-news {
+    display: flex;
+}
+
+.main-news .news-category {
+    width: 10%;
+}
+
+.main-news .news-item {
+    width: 90%;
+}

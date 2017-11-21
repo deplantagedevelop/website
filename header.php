@@ -1,4 +1,8 @@
-<?php include('lib/connection.php'); ?>
+<?php include('lib/connection.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -7,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
+
 </head>
 <body>
 <section class="header">
