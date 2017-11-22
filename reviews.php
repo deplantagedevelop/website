@@ -19,7 +19,6 @@ include('header.php');
     $message="";
     $anonymous="1";
     $star="";
-    $_POST["star"]="";
     $starsTrue = true;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $firstnameTrue = false;
