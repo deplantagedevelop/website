@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     include('lib/connection.php');
     include('functions/queries.php');
@@ -22,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/shop.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
 </head>
 <body>
 <section class="header">
