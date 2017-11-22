@@ -24,6 +24,35 @@
 
 .shop-content .shop-right {
     width: 75%;
+}
+
+.shop-content .shop-right .products-filters {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3c3c3c;
+}
+
+.shop-content .shop-right .products-filters .left-filter, .right-filter {
+    display: inline-block;
+}
+
+.products-filters .right-filter {
+    float: right;
+}
+
+.products-filters .search-form {
+    display: inline-block;
+}
+
+.search {
+    height: 27px;
+    margin-left: 10px;
+}
+
+.shop-content .shop-right .products-filters .select-filter {
+    height: 27px;
+}
+
+.shop-content .shop-right .shop-products {
     display: flex;
     flex-wrap: wrap;
 }
@@ -69,4 +98,38 @@
     border-bottom: 1px solid #3c3c3c;
     display: block;
     font-size: 20px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .shop-content .product {
+        width: calc(50% - 40px);
+    }
+
+    .shop-content .shop-left {
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .shop-content .product {
+        width: calc(50% - 40px);
+    }
+
+    .shop-content .shop-right {
+        width: 100%;
+    }
+
+    .shop-content .shop-left {
+        width: 100%;
+    }
+
+    .shop-content {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 475px) {
+    .shop-content .product {
+        width: calc(100% - 40px);
+    }
 }

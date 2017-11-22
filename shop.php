@@ -8,11 +8,18 @@
         $class = '';
     }
 
+    if(isset($_GET['search'])) {
+        $search = $_GET['search'];
+        $searchquery = ' WHERE p.title LIKE "%' . $search . '%"';
+    } else {
+        $searchquery = '';
+    }
+
     /* Queries */
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc LEFT JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
     $categories->execute();
 
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery);
+    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery);
     $products->execute();
 ?>
 <section class="content main-content">
@@ -46,6 +53,23 @@
             <?php echo $products->rowCount(); ?> resultaten
         </div>
         <div class="shop-right">
+            <div class="products-filters">
+                <div class="left-filter">
+                    <span>Soorteer op:</span>
+                    <select class="select-filter">
+                        <option>Naam A-Z</option>
+                        <option>Prijs oplopend</option>
+                        <option>Prijs aflopend</option>
+                    </select>
+                </div>
+                <div class="right-filter">
+                    <span>Zoek:</span>
+                    <form method="get" class="search-form">
+                        <input type="text" name="search" class="search" placeholder="zoeken">
+                    </form>
+                </div>
+            </div>
+            <div class="shop-products">
             <?php
             if ($products->rowCount() > 0) {
                 foreach ($products as $product) {
@@ -65,6 +89,7 @@
                 }
             }
             ?>
+            </div>
         </div>
     </div>
 </section>

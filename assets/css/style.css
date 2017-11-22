@@ -118,6 +118,20 @@ html, body {
     bottom: 0;
 }
 
+.slicknav_btn {
+    background-color: transparent;
+    color: #3c3c3c;
+}
+
+.slicknav_menu .slicknav_icon-bar {
+    background-color: #ffffff;
+}
+
+.slicknav_menu .slicknav_menutxt {
+    color: #3c3c3c;
+    text-shadow: none;
+}
+
 /* Slider */
 .home-slider {
     overflow-x: hidden;
@@ -384,5 +398,17 @@ html, body {
 
     .footer-items .footer-item {
         margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .logo img {
+        max-width: 200px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .logo img {
+        max-width: 150px;
     }
 }
