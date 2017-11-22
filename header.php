@@ -9,6 +9,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
@@ -16,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/shop.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
 </head>
 <body>
 <section class="header">
