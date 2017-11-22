@@ -43,7 +43,7 @@
                     <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
+            <div class="header-mobile"></div>
         </div>
     </div>
-    <div class="header-mobile"></div>
 </section>
