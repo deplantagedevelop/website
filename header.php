@@ -8,6 +8,7 @@
 <!DOCTYPE HTML>
 <html lang="nl">
 <head>
+    <meta charset="UTF-8">
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
