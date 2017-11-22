@@ -1,4 +1,5 @@
 <?php include('lib/connection.php');
+
 ?>
 <!DOCTYPE HTML>
 <html>

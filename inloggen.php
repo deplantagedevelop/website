@@ -1,5 +1,21 @@
 <?php include('header.php'); ?>
 
+
+<?php
+if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
+    $loginquery = $conn->prepare("select * from customer where email = '$username' and password = '$pw'");
+    $loginquery->execute(array(
+        $username => $_POST["loginemail"],
+        $pw => $_POST["loginpassword"]
+    ));
+    $result = $loginquery->fetchAll();
+    var_dump($result);
+
+    $succeslogin = true;
+}
+
+?>
+
 <?php
 $firstname = $_POST["firstname"];
 $middlename = $_POST["middlename"];
@@ -18,7 +34,7 @@ $number    = preg_match('@[0-9]@', $password);
 
 $succes = false;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
     if ($password == $repassword && strlen($password) >= 8 && $number && $lowercase && $uppercase) {
         $sql = "INSERT INTO customer (firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                 VALUES (:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)";
@@ -79,14 +95,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h2>Login</h2>
             </div>
             <form method="post">
-                <input type="email" name="email" placeholder="E-mail*" required><br><br>
-                <input type="password" name="password" placeholder="Wachtwoord*"><br><br>
+                <input type="email" name="loginemail" placeholder="E-mail*" required><br><br>
+                <input type="password" name="loginpassword" placeholder="Wachtwoord*"><br><br>
                 <div class="loginsubmit">
-                    <button name="submit" type="submit" value="verzend">Inloggen</button>
+                    <button name="submitlogin" type="submit" value="verzend">Inloggen</button>
                 </div>
             </form>
 
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
+                if ($succeslogin === true) {
+                    echo "<div class='sentregister'>";
+                    var_dump($result);
+                    echo "</div>";
+                } else {
+                    echo "<div class='sentregister'>";
+                    echo "rip";
+                    echo "</div>";
+                }
+            }
+            ?>
+
         </div>
+
+
 
         <div class="register">
             <div class="headertext">
@@ -128,11 +160,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <div class="loginsubmit">
-                    <button name="submit" type="submit" value="verzend">Registreren</button>
+                    <button name="register" type="submit" value="verzend">Registreren</button>
                 </div>
 
                 <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['register']) {
                     if ($succes === true) {
                         echo "<div class='sentregister'>";
                         echo "U bent geregistreerd, u kunt vanaf nu inloggen!";
