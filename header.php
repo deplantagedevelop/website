@@ -1,9 +1,14 @@
-<?php include('lib/connection.php'); ?>
+<?php include('lib/connection.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
