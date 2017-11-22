@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     include('lib/connection.php');
     include('functions/queries.php');
@@ -13,6 +12,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
