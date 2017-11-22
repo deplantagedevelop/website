@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/reviews.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/shop.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
