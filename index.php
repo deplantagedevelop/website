@@ -62,7 +62,7 @@
                         <div class="news-info">
                             <h2><?php echo $newsitem["title"]; ?></h2>
                             <p><?php echo $description; ?></p>
-                            <a href="/" class="btn">Lees meer</a>
+                            <a href="/newsarticle?ID=<?php echo $newsitem["ID"]; ?>" class="btn">Lees meer</a>
                         </div>
                     </div>
                     <?php

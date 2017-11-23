@@ -52,7 +52,7 @@ function news()
         echo $news["title"];
         echo '</div>';
         shorten($news["description"], $descmax);
-        echo '<a href="newsarticle.php?ID=?' . $news["ID"] . '" alt="' . $news["title"] . '">Lees meer!</a>';
+        echo '<a href="newsarticle?ID=' . $news["ID"] . '" alt="' . $news["title"] . '">Lees meer!</a>';
         echo '</div></td></tr>';
     }
     echo '</table>';

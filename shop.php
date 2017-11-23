@@ -15,11 +15,29 @@
         $searchquery = '';
     }
 
+    if(isset($_GET['order'])) {
+        $order = $_GET['order'];
+        if($order === 'date-asc') {
+            $orderquery = ' ORDER BY date ASC';
+        } elseif ($order === 'date-desc') {
+            $orderquery = ' ORDER BY date DESC';
+        } elseif ($order === 'order-name') {
+            $orderquery = ' ORDER BY title ASC';
+        } elseif ($order === 'price-asc') {
+            $orderquery = ' ORDER BY price ASC';
+        } elseif ($order === 'price-desc') {
+            $orderquery = ' ORDER BY price DESC';
+        }
+    } else {
+        $order = '';
+        $orderquery = '';
+    }
+
     /* Queries */
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc LEFT JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
     $categories->execute();
 
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery);
+    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $orderquery);
     $products->execute();
 ?>
 <section class="content main-content">
@@ -55,11 +73,13 @@
         <div class="shop-right">
             <div class="products-filters">
                 <div class="left-filter">
-                    <span>Soorteer op:</span>
-                    <select class="select-filter">
-                        <option>Naam A-Z</option>
-                        <option>Prijs oplopend</option>
-                        <option>Prijs aflopend</option>
+                    <span>Sorteer op:</span>
+                    <select class="select-filter" id="product-filter">
+                        <option id="order-date-asc" name="date-asc" <?php if($order === 'date-asc') { echo 'selected'; } ?>>Datum oplopend</option>
+                        <option id="order-date-desc" name="date-desc" <?php if($order === 'date-desc') { echo 'selected'; } ?>>Datum aflopend</option>
+                        <option id="order-name" name="order-name" <?php if($order === 'order-name') { echo 'selected'; } ?>>Naam A-Z</option>
+                        <option id="order-price-asc" name="price-asc" <?php if($order === 'price-asc') { echo 'selected'; } ?>>Prijs oplopend</option>
+                        <option id="order-price-desc" name="price-desc" <?php if($order === 'price-desc') { echo 'selected'; } ?>>Prijs aflopend</option>
                     </select>
                 </div>
                 <div class="right-filter">
@@ -77,7 +97,7 @@
                     <div class="product">
                             <img src="/assets/images/products/<?php echo $product["image"]; ?>">
                             <div class="product-description">
-                                <b><?php echo $product["title"]; ?></b>
+                                <b><a href="/product?id=<?php echo $product["ID"]; ?>"><?php echo $product["title"]; ?></a></b>
                                 <i><?php echo $product["category"]; ?></i>
                                 <span class="price">&euro; <?php echo str_replace('.', ',', $product["price"]); ?></span>
                             </div>
@@ -87,6 +107,8 @@
                     </div>
                     <?php
                 }
+            } else {
+                echo '<h1>Er konden geen producten gevonden worden op uw zoekwoord, probeer het nogmaals met een ander woord.</h1>';
             }
             ?>
             </div>
