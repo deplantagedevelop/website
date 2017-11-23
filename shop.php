@@ -95,12 +95,14 @@
                 foreach ($products as $product) {
                     ?>
                     <div class="product">
+                        <a href="/product?id=<?php echo $product["ID"]; ?>">
                             <img src="/assets/images/products/<?php echo $product["image"]; ?>">
                             <div class="product-description">
-                                <b><a href="/product?id=<?php echo $product["ID"]; ?>"><?php echo $product["title"]; ?></a></b>
+                                <b><?php echo $product["title"]; ?></b>
                                 <i><?php echo $product["category"]; ?></i>
                                 <span class="price">&euro; <?php echo str_replace('.', ',', $product["price"]); ?></span>
                             </div>
+                        </a>
                         <div class="product-cart">
                             <a href="/shop"><img src="/assets/images/cart.png"></a>
                         </div>
