@@ -25,12 +25,12 @@ include('header.php');
         $firstnameTrue = false;
         $lastnameTrue = false;
         $starsTrue = false;
-        $firstname = $_POST["firstname"];
+        $firstname = ucfirst($_POST["firstname"]);
         $middlename = $_POST["middlename"];
-        $lastname = $_POST["lastname"];
+        $lastname = ucfirst($_POST["lastname"]);
         $anonymous = $_POST["anonymous"];
         $star = $_POST["star"];
-        $message = $_POST["message"];
+        $message = ucfirst($_POST["message"]);
         if ($_POST["anonymous"] == 0) {
             if (empty($_POST["firstname"])) {
                 $firstnameTrue = false;
