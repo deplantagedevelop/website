@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 include('lib/connection.php');
-    
+
 $ID = $_GET["ID"];
 
 ?>
