@@ -128,6 +128,25 @@
     }
 }
 
+@media only screen and (max-width: 500px) {
+    .shop-content .shop-right .shop-products {
+        display: block;
+    }
+
+    .shop-content .product {
+        width: calc(100% - 40px);
+    }
+
+    .products-filters .left-filter {
+        margin-top: 10px;
+    }
+
+    .products-filters .right-filter {
+        float: none;
+        margin-top: 10px;
+    }
+}
+
 @media only screen and (max-width: 475px) {
     .shop-content .product {
         width: calc(100% - 40px);

@@ -153,3 +153,56 @@ label.star:before {
     word-wrap: break-word;      /* IE */
 }
 
+@media only screen and (max-width: 650px) {
+    .show-review .review-left {
+        width: calc(100% / 2 - 45px)
+    }
+
+    .making-review {
+        display: block;
+    }
+
+    .making-review .review-info {
+        width: 100%;
+    }
+
+    .making-review .review {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .review-form input[type="text"], .review-form textarea {
+        height: auto;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 15px;
+    }
+
+    .review-form textarea {
+        min-height: 100px;
+    }
+}
+
+@media only screen and (max-width: 475px) {
+    .show-review {
+        display: block;
+    }
+
+    .show-review .review-left {
+        margin-right: 0;
+    }
+
+    .show-review .review-left {
+        width: calc(100% - 25px);
+    }
+
+    label.star {
+        padding-right: 10px;
+        float: none;
+    }
+
+    .stars {
+        max-width: 270px;
+        width: auto;
+    }
+}
