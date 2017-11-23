@@ -3,7 +3,6 @@ include('header.php');
 include('lib/connection.php');
 
 $ID = $_GET["ID"];
-
 ?>
 <section class="content content-newsarticle" >
     <div class="heading" >
@@ -22,7 +21,6 @@ $ID = $_GET["ID"];
                 echo '</div>';
             }
 ?>
-
 
 
     </div>
