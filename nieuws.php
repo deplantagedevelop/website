@@ -34,7 +34,6 @@ function shorten($text, $max)
     } else {
         echo substr($text, 0, $max - 3) . '...';
     }
-    echo '<br>(' . strlen($text) . ' meer tekens) ';
 }
 
 function news()
@@ -45,16 +44,19 @@ function news()
     $newsitem = $newsitems->fetchAll();
     $newsitems = NULL;
     foreach ($newsitem as $news) {
-        echo '<div class="newsarticle"><div class="newspicture">';
-        echo '<img src="/assets/images/' . $news["image"] . '" alt=' . $news["title"] . '>';
-        echo '</div><div class="newstext"><div class="newstitle">';
-        echo $news["title"];
-        echo '</div>';
-        shorten($news["description"], $descmax);
-        echo '<a href="newsarticle?ID=' . $news["ID"] . '" alt="' . $news["title"] . '">Lees meer!</a>';
-        echo '</div></td></tr>';
+        ?>
+        <div class="newsarticle">
+            <div class="newspicture">
+                <img src="/assets/images/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
+            </div>
+            <div class="newstext">
+                <div class="newstitle"><?php echo $news["title"]; ?></div>
+                <?php shorten($news["description"], $descmax); ?>
+                <a href="newsarticle?ID='<?php echo $news["ID"]; ?>'" alt="'<?php echo $news["title"]; ?>'">Lees meer!</a>
+            </div>
+        </div>
+        <?php
     }
-
 }
 
 ?>
