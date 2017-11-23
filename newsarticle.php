@@ -13,7 +13,7 @@ $ID = $_GET["ID"];
 
 
 //functions:
-$IDCHOP = substr($ID, 1);
+
 
 ?>
 <section class="content content-news" >
@@ -22,7 +22,7 @@ $IDCHOP = substr($ID, 1);
     <div class="main-newsarticle" >
         <?php
 
-$newsitems = $conn->prepare("SELECT * FROM news WHERE ID ='" . $IDCHOP . "'");
+$newsitems = $conn->prepare("SELECT * FROM news WHERE ID ='" . $ID . "'");
 $newsitems->execute();
 $newsitem = $newsitems->fetchAll();
 $newsitems = NULL;

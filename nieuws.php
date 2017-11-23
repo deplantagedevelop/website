@@ -34,7 +34,7 @@ function shorten($text, $max)
     } else {
         echo substr($text, 0, $max - 3) . '...';
     }
-    echo '(' . strlen($text) . ' meer tekens)';
+    echo '<br>(' . strlen($text) . ' meer tekens) ';
 }
 
 function news()
@@ -44,41 +44,46 @@ function news()
     $newsitems->execute();
     $newsitem = $newsitems->fetchAll();
     $newsitems = NULL;
-    echo '<table>';
     foreach ($newsitem as $news) {
-        echo '<tr><td><div class="newspicture">';
+        echo '<div class="newsarticle"><div class="newspicture">';
         echo '<img src="/assets/images/' . $news["image"] . '" alt=' . $news["title"] . '>';
-        echo '</div></td><td><div class="newstext"><div class="newstitle">';
+        echo '</div><div class="newstext"><div class="newstitle">';
         echo $news["title"];
         echo '</div>';
         shorten($news["description"], $descmax);
         echo '<a href="newsarticle.php?ID=?' . $news["ID"] . '" alt="' . $news["title"] . '">Lees meer!</a>';
-        echo '</div></td></tr>';
+        echo '</div></div>';
     }
-    echo '</table>';
+
 }
 
 ?>
 <section class="content content-news">
     <div class="heading">
-        <h1>Nieuws</h1>
     </div>
     <div class="main-news">
         <div class="news-category">
+            <span class="title">Categorieën</span>
             <ul>
                 <?php
                 foreach ($newscategory as $category) {
-                    $name = $category["name"];
-                    $category_id = $category["ID"];
-                    echo '<li><a href="?categorie=' . $category["ID"] . ';">' . $category["name"] . ' (' . $category["amount"] . ')</a>';
+                    if (isset($_GET['categorie'])) {
+                        if ($category["name"] === $_GET['categorie']) {
+                            $class = 'class="selected"';
+                        } else {
+                            $class = '';
+                        }
+                    }
+                    echo '<li><a href="?categorie=' . $category["ID"] . '"' . $class . '>' . $category["name"] . ' (' . $category["amount"] . ')</a>';
                 }
-                if(isset($_GET["categorie"])){
+                if (isset($_GET["categorie"])) {
                     echo '<li><a href="/nieuws.php">Toon alles</a></li>';
                 }
                 ?>
             </ul>
         </div>
         <div class="news-item">
+            <span class="title">Nieuws artikelen:</span>
             <?php
             news();
 
