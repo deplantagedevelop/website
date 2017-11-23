@@ -20,6 +20,7 @@ include('header.php');
     $anonymous="1";
     $star="";
     $starsTrue = true;
+    $send = "";
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $firstnameTrue = false;
         $lastnameTrue = false;
@@ -60,6 +61,7 @@ include('header.php');
                 ':star' => $star,
                 ':message' => $message
             ));
+            $send = true;
         }
 
 
@@ -75,9 +77,9 @@ include('header.php');
             <form method="post">
                 <div class="making-review">
                     <div class="review-info">
-                        <input type="text" name="firstname" placeholder="voornaam" value="<?php if($lastnameTrue == false || $starsTrue == false) { echo "$firstname"; }?>"> <?php if ($firstnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";} ?><br> <br>
-                        <input type="text" name="middlename" placeholder="tussenvoegsel" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) {echo "$middlename";}?>"> <br> <br>
-                        <input type="text" name="lastname" placeholder="achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";}?><br> <br>
+                        <input type="text" name="firstname" placeholder="Voornaam" value="<?php if($lastnameTrue == false || $starsTrue == false) { echo "$firstname"; }?>"> <?php if ($firstnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";} ?><br> <br>
+                        <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) {echo "$middlename";}?>"> <br> <br>
+                        <input type="text" name="lastname" placeholder="Achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";}?><br> <br>
                         <p> Anoniem </p>
                         <input type="radio" name="anonymous" value="1" required><span> Ja </span>
                         <input type="radio" name="anonymous" value="0" <?php if ($anonymous==0){echo"checked=\"true\"";}?>><span> Nee </span> <br>
@@ -97,8 +99,8 @@ include('header.php');
                                 <input class="star star-1" id="star-1" type="radio" name="star" value="1" <?php if($star==1 && ($lastnameTrue == false || $starsTrue == false)){echo"checked=\"true\"";}?>>
                                 <label class="star star-1" for="star-1"></label>
                         </div> <?php if ($starsTrue == false) { echo "<span class='starTrue'>Verplicht!</span>";}?>
-                        <p> Toelichting</p>
-                        <textarea name="message" placeholder="toelichting" required><?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$message";};?></textarea> <br> <br>
+                        <p> Toelichting <span class="max-300"> (Maximaal 300 tekens)</span> </p>
+                        <textarea name="message" placeholder="Toelichting" required maxlength="300"><?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$message";};?></textarea> <br> <br>
                         <button type="submit" name="submit" value="plaatsen"> Plaatsen </button>
                     </div>
                 </div>
@@ -106,7 +108,7 @@ include('header.php');
         </div>
     </div>
     <?php
-
+        if ($send == true) { echo "bedankt voor uw review!";}
     ?>
     <div class="review-gem">
         <?php

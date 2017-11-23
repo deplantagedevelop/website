@@ -206,3 +206,7 @@ label.star:before {
         width: auto;
     }
 }
+
+.max-300 {
+    font-size: 10px;
+}
