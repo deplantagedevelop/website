@@ -1,4 +1,7 @@
-<?php include('header.php'); ?>
+<?php include('header.php');
+$_POST['submitlogin'] = '';
+session_start();
+?>
 
 
 <?php
@@ -9,24 +12,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
         $pw => $_POST["loginpassword"]
     ));
     $result = $loginquery->fetchAll();
+
+    $SESSION = ["logged_in"];
+
     var_dump($result);
 
     $succeslogin = true;
 }
 
-?>
-
-<?php
-$firstname = $_POST["firstname"];
-$middlename = $_POST["middlename"];
-$lastname = $_POST["lastname"];
-$email = $_POST["email"];
-$phonenumber = $_POST["phonenumber"];
-$address = $_POST["address"];
-$city = $_POST["city"];
-$postalcode = $_POST["postalcode"];
-$password = $_POST["password"];
-$repassword = $_POST["repassword"];
+$firstname = '';
+$middlename = '';
+$lastname = '';
+$email = '';
+$phonenumber = '';
+$address = '';
+$city = '';
+$postalcode = '';
+$repassword = '';
 
 $uppercase = preg_match('@[A-Z]@', $password);
 $lowercase = preg_match('@[a-z]@', $password);
@@ -35,6 +37,19 @@ $number    = preg_match('@[0-9]@', $password);
 $succes = false;
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
+
+    $firstname = $_POST["firstname"];
+    $middlename = $_POST["middlename"];
+    $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
+    $phonenumber = $_POST["phonenumber"];
+    $address = $_POST["address"];
+    $city = $_POST["city"];
+    $postalcode = $_POST["postalcode"];
+    $password = $_POST["password"];
+    $repassword = $_POST["repassword"];
+
+
     if ($password == $repassword && strlen($password) >= 8 && $number && $lowercase && $uppercase) {
         $sql = "INSERT INTO customer (firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                 VALUES (:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)";
@@ -142,19 +157,16 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
 
                 <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required><br><br>
 
-                <input type="password" id="password1" name="password" placeholder="Wachtwoord*" required><br><br>
+                <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required><br><br>
 
-                <input type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br>
+                <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br>
 
-                <div class="requirements">
-                    <div class="validate-status">
-
-                    </div>
+                <div class="helper-text">
                     <ul>
-                        <li>Minimaal 8 karakters</li>
-                        <li>Minimaal 1 hoofdletter</li>
-                        <li>Minimaal 1 kleine letter</li>
-                        <li>Minimaal 1 getal</li>
+                        <li class="length">Minimaal 8 karakters</li>
+                        <li class="lowercase">Minimaal 1 kleine letter</li>
+                        <li class="uppercase">Minimaal 1 hoofdletter</li>
+                        <li  class="special">Minimaal 1 getal of speciaal karakter</li>
                         <li>Wachtwoorden komen overeen</li>
                     </ul>
                 </div>
