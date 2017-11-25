@@ -1,21 +1,20 @@
 <?php include('header.php');
-$_POST['submitlogin'] = '';
-session_start();
-?>
 
+if($user->is_loggedin() != "")
+{
+    $user->redirect('/');
+}
 
-<?php
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
-    $loginquery = $conn->prepare("select * from customer where email = '$username' and password = '$pw'");
-    $loginquery->execute(array(
-        $username => $_POST["loginemail"],
-        $pw => $_POST["loginpassword"]
-    ));
-    $result = $loginquery->fetchAll();
+    $email = $_POST['loginemail'];
+    $password = $_POST['loginpassword'];
 
-    $SESSION = ["logged_in"];
-
-    var_dump($result);
+    if($user->login($email, $password)) {
+        $user->redirect('/');
+        echo $_SESSION['user_session'];
+    } else {
+        $error = "Wrong Details !";
+    }
 
     $succeslogin = true;
 }
@@ -36,7 +35,7 @@ $number    = preg_match('@[0-9]@', $password);
 
 $succes = false;
 
-if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
+if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
 
     $firstname = $_POST["firstname"];
     $middlename = $_POST["middlename"];
@@ -121,7 +120,6 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
                 if ($succeslogin === true) {
                     echo "<div class='sentregister'>";
-                    var_dump($result);
                     echo "</div>";
                 } else {
                     echo "<div class='sentregister'>";
