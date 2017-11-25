@@ -49,8 +49,8 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-
     if ($password == $repassword && strlen($password) >= 8 && $number && $lowercase && $uppercase) {
+        $hashed_pass = password_hash($repassword, PASSWORD_DEFAULT);
         $sql = "INSERT INTO customer (firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                 VALUES (:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)";
         $stm = $conn->prepare($sql);
@@ -63,7 +63,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
             ':address' => $address,
             ':city' => $city,
             ':postalcode' => $postalcode,
-            ':password' => $repassword,
+            ':password' => $hashed_pass,
         ));
 
         $toklant = $email;
@@ -133,8 +133,6 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
 
         </div>
 
-
-
         <div class="register">
             <div class="headertext">
                 <h2>Registreren</h2>
@@ -142,23 +140,14 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
 
             <form method="post">
                 <input type="text" name="firstname" placeholder="Naam*" value="<?php echo $firstname ?>" required><br><br>
-
                 <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php echo $middlename ?>"><br><br>
-
                 <input type="text" name="lastname" placeholder="Achternaam*" value="<?php echo $lastname ?>"><br><br>
-
                 <input type="email" name="email" placeholder="E-mail*" value="<?php echo $email ?>" required><br><br>
-
                 <input type="text" name="phonenumber" placeholder="Telefoonnummer" value="<?php echo $phonenumber ?>"><br><br>
-
                 <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>" required><br><br>
-
                 <input type="text" name="city" placeholder="Woonplaats*" value="<?php echo $city ?>" required><br><br>
-
                 <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required><br><br>
-
                 <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required><br><br>
-
                 <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br>
 
                 <div class="helper-text">
