@@ -1,21 +1,20 @@
 <?php include('header.php');
-$_POST['submitlogin'] = '';
-session_start();
-?>
 
+if($user->is_loggedin() != "")
+{
+    $user->redirect('/');
+}
 
-<?php
 if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
-    $loginquery = $conn->prepare("select * from customer where email = '$username' and password = '$pw'");
-    $loginquery->execute(array(
-        $username => $_POST["loginemail"],
-        $pw => $_POST["loginpassword"]
-    ));
-    $result = $loginquery->fetchAll();
+    $email = $_POST['loginemail'];
+    $password = $_POST['loginpassword'];
 
-    $SESSION = ["logged_in"];
-
-    var_dump($result);
+    if($user->login($email, $password)) {
+        $user->redirect('/');
+        echo $_SESSION['user_session'];
+    } else {
+        $error = "Wrong Details !";
+    }
 
     $succeslogin = true;
 }
@@ -36,7 +35,7 @@ $number    = preg_match('@[0-9]@', $password);
 
 $succes = false;
 
-if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
+if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
 
     $firstname = $_POST["firstname"];
     $middlename = $_POST["middlename"];
@@ -49,8 +48,8 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-
     if ($password == $repassword && strlen($password) >= 8 && $number && $lowercase && $uppercase) {
+        $hashed_pass = password_hash($repassword, PASSWORD_DEFAULT);
         $sql = "INSERT INTO customer (firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                 VALUES (:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)";
         $stm = $conn->prepare($sql);
@@ -63,7 +62,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
             ':address' => $address,
             ':city' => $city,
             ':postalcode' => $postalcode,
-            ':password' => $repassword,
+            ':password' => $hashed_pass,
         ));
 
         $toklant = $email;
@@ -121,7 +120,6 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submitlogin']) {
                 if ($succeslogin === true) {
                     echo "<div class='sentregister'>";
-                    var_dump($result);
                     echo "</div>";
                 } else {
                     echo "<div class='sentregister'>";
@@ -133,8 +131,6 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
 
         </div>
 
-
-
         <div class="register">
             <div class="headertext">
                 <h2>Registreren</h2>
@@ -142,23 +138,14 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && $_POST['register']) {
 
             <form method="post">
                 <input type="text" name="firstname" placeholder="Naam*" value="<?php echo $firstname ?>" required><br><br>
-
                 <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php echo $middlename ?>"><br><br>
-
                 <input type="text" name="lastname" placeholder="Achternaam*" value="<?php echo $lastname ?>"><br><br>
-
                 <input type="email" name="email" placeholder="E-mail*" value="<?php echo $email ?>" required><br><br>
-
                 <input type="text" name="phonenumber" placeholder="Telefoonnummer" value="<?php echo $phonenumber ?>"><br><br>
-
                 <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>" required><br><br>
-
                 <input type="text" name="city" placeholder="Woonplaats*" value="<?php echo $city ?>" required><br><br>
-
                 <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required><br><br>
-
                 <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required><br><br>
-
                 <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br>
 
                 <div class="helper-text">

@@ -1,6 +1,15 @@
 <?php
     include('lib/connection.php');
+<<<<<<< HEAD
     include('functions/queries.php');
+=======
+    include('functions/user.php');
+    $user = new User($conn);
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+>>>>>>> pieter
 ?>
 <!DOCTYPE HTML>
 <html lang="nl">
@@ -27,7 +36,13 @@
     <div class="top-header">
         <div class="inner-header">
             <div class="account">
-                <a href="/inloggen">Inloggen</a>
+                <?php
+                if($user->is_loggedin()) {
+                    echo '<a href="/uitloggen">Uitloggen</a>';
+                } else {
+                    echo '<a href="/inloggen">Inloggen</a>';
+                }
+                ?>
             </div>
         </div>
 
