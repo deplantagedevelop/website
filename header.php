@@ -34,7 +34,7 @@
             <div class="account">
                 <?php
                 if($user->is_loggedin()) {
-                    echo '<a href="/uitloggen">Uitloggen</a>';
+                    echo '<a href="/logout">Uitloggen</a>';
                 } else {
                     echo '<a href="/inloggen">Inloggen</a>';
                 }

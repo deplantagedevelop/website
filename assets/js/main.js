@@ -33,6 +33,46 @@ $(document).ready(function(){
 
         window.location.href = locSnip + '?order=' + locAppend;
     });
+
+    $('#password1').keyup(function () {
+        if(this.value == $('#password2').val()) {
+            $('.same-pass').addClass('green-validation');
+        } else {
+            $('.same-pass').removeClass('green-validation');
+        }
+
+        if(this.value.length >= 8) {
+            $('.length').addClass('green-validation');
+        } else {
+            $('.length').removeClass('green-validation');
+        }
+
+        if(this.value.match('(?=.*?[A-Z])')) {
+            $('.uppercase').addClass('green-validation');
+        } else {
+            $('.uppercase').removeClass('green-validation');
+        }
+
+        if(this.value.match('(?=.*?[a-z])')) {
+            $('.lowercase').addClass('green-validation');
+        } else {
+            $('.lowercase').removeClass('green-validation');
+        }
+
+        if(this.value.match('(?=.*?[#?!@$%^&*-])')) {
+            $('.special').addClass('green-validation');
+        } else {
+            $('.special').removeClass('green-validation');
+        }
+    });
+
+    $('#password2').keyup(function () {
+        if(this.value == $('#password1').val()) {
+            $('.same-pass').addClass('green-validation');
+        } else {
+            $('.same-pass').removeClass('green-validation');
+        }
+    });
 });
 
 $( window ).resize(function() {
