@@ -19,7 +19,7 @@ $newscategories = NULL;
 //check for submit
 if (isset($_GET['categorie'])) {
     $category = $_GET['categorie'];
-    $newscategoryquery = ' WHERE nc.ID = "' . $category . '"';
+    $newscategoryquery = ' WHERE nc.name = "' . $category . '"';
 } else {
     $newscategoryquery = '';
     $class = '';
@@ -76,10 +76,12 @@ function news()
                             $class = '';
                         }
                     }
-                    echo '<li><a href="?categorie=' . $category["ID"] . '"' . $class . '>' . $category["name"] . ' (' . $category["amount"] . ')</a>';
+                    ?>
+                    <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
+                <?php
                 }
                 if (isset($_GET["categorie"])) {
-                    echo '<li><a href="/nieuws.php">Toon alles</a></li>';
+                    echo '<li><a href="/nieuws">Toon alles</a></li>';
                 }
                 ?>
             </ul>
