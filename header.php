@@ -29,7 +29,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css"
+    <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css">
+    <link rel="icon" href="/assets/images/favicon.png">
 </head>
 <body>
 <section class="header">
