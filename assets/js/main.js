@@ -15,6 +15,15 @@ $(document).ready(function(){
         $(document).height() - $('.header').height()
     );
 
+    if (window.location.pathname != '/') {
+        if(document.getElementById("map")) {
+            var map = - ('#map').height();
+        } else {
+            var map = '';
+        }
+        $('.content').css('min-height', $('body').height() - $('.header').height() - $('.footer').height() - map);
+    }
+
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -35,7 +44,7 @@ $(document).ready(function(){
     });
 
     $('#password1').keyup(function () {
-        if(this.value == $('#password2').val()) {
+        if((this.value == $('#password2').val()) && (this.value.length != 0)) {
             $('.same-pass').addClass('green-validation');
         } else {
             $('.same-pass').removeClass('green-validation');
@@ -59,7 +68,8 @@ $(document).ready(function(){
             $('.lowercase').removeClass('green-validation');
         }
 
-        if(this.value.match('(?=.*?[#?!@$%^&*-])')) {
+        var numberRegex = /\d/g;
+        if(this.value.match('(?=.*?[#?!@$%^&*-])') || numberRegex.test(this.value)) {
             $('.special').addClass('green-validation');
         } else {
             $('.special').removeClass('green-validation');
@@ -67,7 +77,7 @@ $(document).ready(function(){
     });
 
     $('#password2').keyup(function () {
-        if(this.value == $('#password1').val()) {
+        if((this.value == $('#password1').val()) && (this.value.length != 0)) {
             $('.same-pass').addClass('green-validation');
         } else {
             $('.same-pass').removeClass('green-validation');

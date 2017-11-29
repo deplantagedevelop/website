@@ -30,6 +30,7 @@
 
 .main-news a {
     color: #99CA3C;
+    display: block;
 }
 
 .news-item .newsarticle .newspicture {

@@ -1,5 +1,9 @@
 <?php include('header.php');
 
+$succes = false;
+$emailerror = false;
+$loginerror = false;
+
 if($user->is_loggedin() != "")
 {
     if($user->has_role('Administrator')) {
@@ -15,11 +19,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
         if($user->has_role('Administrator')) {
             $user->redirect('/dashboard');
         }
+        $succeslogin = true;
     } else {
-        $error = "Wrong Details !";
+        $loginerror = true;
     }
-
-    $succeslogin = true;
 }
 
 $firstname = '';
@@ -35,9 +38,6 @@ $repassword = '';
 $uppercase = preg_match('@[A-Z]@', $password);
 $lowercase = preg_match('@[a-z]@', $password);
 $number    = preg_match('@[0-9]@', $password);
-
-$succes = false;
-$emailerror = false;
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
 
@@ -115,6 +115,13 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                     <button name="submitlogin" type="submit" value="verzend">Inloggen</button>
                 </div>
             </form>
+            <?php
+                if ($loginerror === true) {
+                    echo "<div class='sentregister'>";
+                    echo "De door u ingevoerde inloggegevens kloppen niet!";
+                    echo "</div>";
+                }
+            ?>
         </div>
 
         <div class="register">
@@ -149,7 +156,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                 </div>
 
                 <?php
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['register']) {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
                     echo "<div class='sentregister'>";
                     if ($succes === true) {
                         echo "U bent geregistreerd, u kunt vanaf nu inloggen!";
