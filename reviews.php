@@ -81,7 +81,7 @@ include('header.php');
                         <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) {echo "$middlename";}?>"> <br> <br>
                         <input type="text" name="lastname" placeholder="Achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";}?><br> <br>
                         <p> Anoniem </p>
-                        <input type="radio" name="anonymous" value="1" required><span> Ja </span>
+                        <input type="radio" name="anonymous" value="1" required <?php if($anonymous == 1){echo"checked=\"true\"";}?>><span> Ja </span>
                         <input type="radio" name="anonymous" value="0" <?php if ($anonymous==0){echo"checked=\"true\"";}?>><span> Nee </span> <br>
                     </div>
                     <div class="review">
