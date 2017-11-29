@@ -8,21 +8,21 @@ class User
         $this->db = $conn;
     }
 
-    public function register($firstname, $middlename, $lastname, $phonenumber, $address, $city, $postalcode, $email, $password){
+    public function register($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $password){
         try {
             $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $this->db->prepare("INSERT INTO users(firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
-                                                       VALUES(:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode :password)");
+            $stmt = $this->db->prepare("INSERT INTO customer(firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
+                                                       VALUES(:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)");
 
             $stmt->bindparam(":firstname", $firstname);
             $stmt->bindparam(":middlename", $middlename);
             $stmt->bindparam(":lastname", $lastname);
+            $stmt->bindparam(":email", $email);
             $stmt->bindparam(":phonenumber", $phonenumber);
             $stmt->bindparam(":address", $address);
             $stmt->bindparam(":city", $city);
             $stmt->bindparam(":postalcode", $postalcode);
-            $stmt->bindparam(":email", $email);
             $stmt->bindparam(":password", $hashed_pass);
             $stmt->execute();
 
@@ -64,5 +64,23 @@ class User
         session_destroy();
         unset($_SESSION['user_session']);
         return true;
+    }
+
+    public function has_role($role) {
+        if($this->is_loggedin()) {
+            $userID = $_SESSION['user_session'];
+            $stmt = $this->db->prepare("SELECT c.*, r.name AS role FROM customer AS c INNER JOIN roles AS r ON r.ID = c.RoleID WHERE c.ID = :userid LIMIT 1");
+            $stmt->execute(array(':userid' => $userID));
+            $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() > 0) {
+                if($userRow['role'] === $role) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
     }
 }

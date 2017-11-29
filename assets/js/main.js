@@ -15,6 +15,15 @@ $(document).ready(function(){
         $(document).height() - $('.header').height()
     );
 
+    if (window.location.pathname != '/') {
+        if(document.getElementById("map")) {
+            var map = - ('#map').height();
+        } else {
+            var map = '';
+        }
+        $('.content').css('min-height', $('body').height() - $('.header').height() - $('.footer').height() - map);
+    }
+
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -32,6 +41,47 @@ $(document).ready(function(){
             locSnip = window.location.href.split('?')[0];
 
         window.location.href = locSnip + '?order=' + locAppend;
+    });
+
+    $('#password1').keyup(function () {
+        if((this.value == $('#password2').val()) && (this.value.length != 0)) {
+            $('.same-pass').addClass('green-validation');
+        } else {
+            $('.same-pass').removeClass('green-validation');
+        }
+
+        if(this.value.length >= 8) {
+            $('.length').addClass('green-validation');
+        } else {
+            $('.length').removeClass('green-validation');
+        }
+
+        if(this.value.match('(?=.*?[A-Z])')) {
+            $('.uppercase').addClass('green-validation');
+        } else {
+            $('.uppercase').removeClass('green-validation');
+        }
+
+        if(this.value.match('(?=.*?[a-z])')) {
+            $('.lowercase').addClass('green-validation');
+        } else {
+            $('.lowercase').removeClass('green-validation');
+        }
+
+        var numberRegex = /\d/g;
+        if(this.value.match('(?=.*?[#?!@$%^&*-])') || numberRegex.test(this.value)) {
+            $('.special').addClass('green-validation');
+        } else {
+            $('.special').removeClass('green-validation');
+        }
+    });
+
+    $('#password2').keyup(function () {
+        if((this.value == $('#password1').val()) && (this.value.length != 0)) {
+            $('.same-pass').addClass('green-validation');
+        } else {
+            $('.same-pass').removeClass('green-validation');
+        }
     });
 });
 
