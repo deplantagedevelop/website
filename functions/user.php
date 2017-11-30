@@ -10,7 +10,11 @@ class User
 
     public function register($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $password){
         try {
-            $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
+            //Use options that denotes the algorithmic cost, salt is Deprecated in PHP 7.0 so don't use that!
+            $options = [
+                'cost' => 16
+            ];
+            $hashed_pass = password_hash($password, PASSWORD_BCRYPT, $options);
 
             $stmt = $this->db->prepare("INSERT INTO customer(firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                                        VALUES(:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)");
