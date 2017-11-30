@@ -5,6 +5,7 @@ class User
 
     function __construct($conn)
     {
+        //Use construct so we can use the current connection easily.
         $this->db = $conn;
     }
 
@@ -38,10 +39,14 @@ class User
 
     public function login($email, $password) {
         try {
+            //Get Login details by email.
             $stmt = $this->db->prepare("SELECT * FROM customer WHERE email = :email LIMIT 1");
             $stmt->execute(array(':email' => $email));
             $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            //Check if query returns minimal 1 row
             if($stmt->rowCount() > 0) {
+                //Check if hashed password is true, otherwise return false.
                 if(password_verify($password, $userRow['password'])) {
                     $_SESSION['user_session'] = $userRow['ID'];
                     return true;
@@ -55,6 +60,7 @@ class User
     }
 
     public function is_loggedin() {
+        //Check if there is a SESSION is set.
         if(isset($_SESSION['user_session'])) {
             return true;
         }
@@ -71,6 +77,8 @@ class User
     }
 
     public function has_role($role) {
+        //Check if user is logged in and get User ID from session.
+        //Get the user role of current user, so function can be used by a parameter with the user role that should have access to a page etc.
         if($this->is_loggedin()) {
             $userID = $_SESSION['user_session'];
             $stmt = $this->db->prepare("SELECT c.*, r.name AS role FROM customer AS c INNER JOIN roles AS r ON r.ID = c.RoleID WHERE c.ID = :userid LIMIT 1");
