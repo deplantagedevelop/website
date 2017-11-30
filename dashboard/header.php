@@ -1,10 +1,8 @@
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="../css/review.css">
-    </head>
-
-
-</html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/review.css">
+</head>
+<body>
 
 <?php
     ini_set('display_errors', 1);
@@ -13,4 +11,9 @@
 
     include($_SERVER['DOCUMENT_ROOT'] . '/lib/connection.php');
     include($_SERVER['DOCUMENT_ROOT'] . '/functions/user.php');
+
+    $user = new User($conn);
+    if(!$user->is_loggedin()) {
+        $user->redirect('404');
+    }
 
