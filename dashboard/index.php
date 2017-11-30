@@ -9,5 +9,6 @@
     } else {
         $user->redirect('/404');
     }
+    echo '<a href="reviews/"> reviews </a>';
 ?>
 <?php include('footer.php'); ?>
