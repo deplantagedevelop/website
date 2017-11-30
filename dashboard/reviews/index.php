@@ -1,8 +1,17 @@
-<?php
-    include_once('../header.php');
-    $user = new User($conn);
+<html>
+    <head>
 
-    if($user->has_role('Administrator')) {
-        echo 'test';
-    }
-    include('../footer.php');
+    </head>
+    <body>
+        <?php
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
+        $user = new User($conn);
+
+        if($user->has_role('Administrator')) {
+            echo 'test';
+        }
+        include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
+        ?>
+    </body>
+</html>
+
