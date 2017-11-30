@@ -1,10 +1,13 @@
-<?php //include('header.php');
-    echo $_SESSION['user_session'];
-//    $user = new User($conn);
-//    if($user->is_loggedin()) {
-//
-//    } else {
-//        $user->redirect('/404');
-//    }
+<?php include('header.php');
+    $user = new User($conn);
+    if($user->is_loggedin()) {
+        if($user->has_role('Administrator')) {
+            echo 'Ik ben admin';
+        } elseif ($user->has_role('Medewerker')) {
+            echo 'Ik ben medewerker';
+        }
+    } else {
+        $user->redirect('/404');
+    }
 ?>
-<?php //include('footer.php'); ?>
+<?php include('footer.php'); ?>
