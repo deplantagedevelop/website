@@ -39,6 +39,13 @@
 
     $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $orderquery);
     $products->execute();
+
+    $minprice = $conn->query('SELECT MIN(price) AS minprice FROM products');
+    $minprice->fetch(PDO::FETCH_ASSOC);
+
+    $maxprice = $conn->query('SELECT MAX(price) AS maxprice FROM products', PDO::FETCH_ASSOC);
+    $maxprice->fetch(PDO::FETCH_ASSOC);
+
 ?>
 <section class="content main-content">
     <div class="shop-content">
@@ -68,6 +75,11 @@
                 ?>
             </ul>
             <span class="title">Prijs</span>
+            <form method="get" class="price-form">
+                <input type="number" name="price-min" id="min-price" placeholder="<?php echo $minprice ?>">
+                <input type="number" name="price-max" id="max-price" placeholder="<?php echo $maxprice ?>">
+            </form>
+
             <?php echo $products->rowCount(); ?> resultaten
         </div>
         <div class="shop-right">
