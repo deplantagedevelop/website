@@ -30,6 +30,7 @@
 
 .main-news a {
     color: #99CA3C;
+    display: block;
 }
 
 .news-item .newsarticle .newspicture {
@@ -43,7 +44,7 @@
 }
 
 .newspicture img {
-    height: 125px;
+    max-height: 100%;
 }
 
 .newstext .newstitle {
@@ -55,6 +56,7 @@
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
     display: flex;
     margin-top: 30px;
+    max-height: 125px;
 }
 
 .main-newsarticle .image {

@@ -1,6 +1,8 @@
 <?php
     include('lib/connection.php');
-    include('functions/queries.php');
+    include('functions/user.php');
+    $user = new User($conn);
+
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -23,14 +25,21 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/overons.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css"
+    <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css">
+    <link rel="icon" href="/assets/images/favicon.png">
 </head>
 <body>
 <section class="header">
     <div class="top-header">
         <div class="inner-header">
             <div class="account">
-                <a href="/inloggen">Inloggen</a>
+                <?php
+                if($user->is_loggedin()) {
+                    echo '<a href="/logout">Uitloggen</a>';
+                } else {
+                    echo '<a href="/inloggen">Inloggen</a>';
+                }
+                ?>
             </div>
         </div>
 

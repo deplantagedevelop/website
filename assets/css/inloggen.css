@@ -3,7 +3,6 @@
     display: flex;
 }
 
-
 .full-content .login {
     width: 45%;
     padding-right: 5%;
@@ -81,6 +80,9 @@
     margin-top: 15px;
 }
 
+.green-validation {
+    color: #a7e434;
+}
 
 @media screen and (max-width: 768px) {
     .full-content {
@@ -102,4 +104,6 @@
         margin-top: 10px;
     }
 }
+
+
 

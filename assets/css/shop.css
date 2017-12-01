@@ -78,7 +78,7 @@
     display: block;
 }
 
-.shop-content .product .product-description a {
+.shop-content .product a {
     color: inherit;
     text-decoration: none;
 }

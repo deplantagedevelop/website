@@ -25,12 +25,12 @@ include('header.php');
         $firstnameTrue = false;
         $lastnameTrue = false;
         $starsTrue = false;
-        $firstname = $_POST["firstname"];
+        $firstname = ucfirst($_POST["firstname"]);
         $middlename = $_POST["middlename"];
-        $lastname = $_POST["lastname"];
+        $lastname = ucfirst($_POST["lastname"]);
         $anonymous = $_POST["anonymous"];
         $star = $_POST["star"];
-        $message = $_POST["message"];
+        $message = ucfirst($_POST["message"]);
         if ($_POST["anonymous"] == 0) {
             if (empty($_POST["firstname"])) {
                 $firstnameTrue = false;
@@ -81,7 +81,7 @@ include('header.php');
                         <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) {echo "$middlename";}?>"> <br> <br>
                         <input type="text" name="lastname" placeholder="Achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";}?><br> <br>
                         <p> Anoniem </p>
-                        <input type="radio" name="anonymous" value="1" required><span> Ja </span>
+                        <input type="radio" name="anonymous" value="1" required <?php if($anonymous == 1){echo"checked=\"true\"";}?>><span> Ja </span>
                         <input type="radio" name="anonymous" value="0" <?php if ($anonymous==0){echo"checked=\"true\"";}?>><span> Nee </span> <br>
                     </div>
                     <div class="review">
