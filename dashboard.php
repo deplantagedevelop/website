@@ -15,7 +15,7 @@ $countReviews = $conn->prepare("select count(*) from reviews");
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -39,7 +39,8 @@ $countReviews = $conn->prepare("select count(*) from reviews");
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/contact">&nbsp Reviews</a></li>
                 <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/over-ons">&nbsp Contact</a></li>
                 <li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="/reviews">&nbsp Over ons</a></li>
-                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/contact">&nbsp Product van de maand</a></li>
+                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/contact">&nbsp Product van de maand</a>
+                </li>
                 <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/contact">&nbsp Overige instellingen</a></li>
             </ul>
         </div>
@@ -48,103 +49,110 @@ $countReviews = $conn->prepare("select count(*) from reviews");
         <div class="dashrightupper">
             <a>DASHBOARD</a>
         </div>
-        <div class="dashrightunder">
 
+        <div class="dashrightunder">
             <div class="dashheader">
                 <a>Dashboard</a>
-
             </div>
 
-            <div class="dashblocksupper">
-                <div class="dashblock dashbestelling green">
-                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                    <a>20</a>
+            <div class="dashblocks">
+
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                        <a>99+</a>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Bestellingen</h2>
                     </div>
                 </div>
 
-                <div class="dashblock dashbestelling blue">
-                    <i class="fa fa-users" aria-hidden="true"></i>
-                    <?php
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <?php
                         $countUsers->execute();
-                        while ($row = $countUsers ->fetch()) {
+                        while ($row = $countUsers->fetch()) {
                             $hoeveelheidUsers = $row["count(*)"];
                         }
-                        echo "<a> $hoeveelheidUsers </a>";
-                    ?>
+                        echo "<a> $hoeveelheidUsers</a>";
+                        ?>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Accounts</h2>
                     </div>
                 </div>
 
-                <div class="dashblock dashbestelling">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    <?php
-                    $countContact->execute();
-                        while ($row = $countContact ->fetch()) {
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <?php
+                        $countContact->execute();
+                        while ($row = $countContact->fetch()) {
                             $hoeveelheidContact = $row["count(*)"];
                         }
                         echo "<a> $hoeveelheidContact </a>";
-                    ?>
+                        ?>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Contactformulieren</h2>
                     </div>
                 </div>
-            </div>
-            <div class="dashblocksunder">
-                <div class="dashblock dashbestelling">
-                    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    <?php
-                    $countProducten->execute();
-                    while ($row = $countProducten ->fetch()) {
-                        $hoeveelheidProducten = $row["count(*)"];
-                    }
-                    echo "<a> $hoeveelheidProducten </a>";
-                    ?>
+
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                        <?php
+                        $countProducten->execute();
+                        while ($row = $countProducten->fetch()) {
+                            $hoeveelheidProducten = $row["count(*)"];
+                        }
+                        echo "<a> $hoeveelheidProducten </a>";
+                        ?>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Producten</h2>
                     </div>
                 </div>
 
-                <div class="dashblock dashbestelling">
-                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                    <?php
-                    $countNews->execute();
-                    while ($row = $countNews ->fetch()) {
-                        $hoeveelheidNieuws = $row["count(*)"];
-                    }
-                    echo "<a> $hoeveelheidNieuws </a>";
-                    ?>
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                        <?php
+                        $countNews->execute();
+                        while ($row = $countNews->fetch()) {
+                            $hoeveelheidNieuws = $row["count(*)"];
+                        }
+                        echo "<a> $hoeveelheidNieuws </a>";
+                        ?>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Nieuwsartikelen</h2>
                     </div>
                 </div>
 
-                <div class="dashblock dashbestelling">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <?php
-                    $countReviews->execute();
-                    while ($row = $countReviews ->fetch()) {
-                        $hoeveelheidReviews = $row["count(*)"];
-                    }
-                    echo "<a> $hoeveelheidReviews </a>";
-                    ?>
+                <div class="dashblock">
+                    <div class="innerdashblock">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <?php
+                        $countReviews->execute();
+                        while ($row = $countReviews->fetch()) {
+                            $hoeveelheidReviews = $row["count(*)"];
+                        }
+                        echo "<a> $hoeveelheidReviews </a>";
+                        ?>
+                    </div>
                     <div class="dashblocktitle">
                         <h2>Reviews</h2>
                     </div>
                 </div>
-            </div>
-
-
-
-
 
             </div>
-
-
         </div>
-
     </div>
+</div>
 
 </div>
+
+</div>
+
