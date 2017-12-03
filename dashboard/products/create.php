@@ -4,17 +4,27 @@
     $user = new User($conn);
     $product = new Product($conn);
 
+    $categories = $product->getCategories();
+
     if(!$user->is_loggedin()) {
         $user->redirect('/404');
     }
 
     ?>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Productnaam"><br>
-        <textarea name="description" placeholder="Productnaam"></textarea><br>
+        <textarea name="description" placeholder="Beschrijving"></textarea><br>
         <input type="text" name="price" placeholder="Prijs"><br>
-        <input type="file" name="image"><br>
-        <input type="text" name="category" placeholder="Categorie"><br>
+        <input type="file" name="image" id="image"><br>
+        <select name="category">
+            <?php
+            foreach($categories as $category) {
+                ?>
+                <option value="<?php echo $category['ID'] ?>"><?php echo $category['name']; ?></option>
+                <?php
+            }
+            ?>
+        </select><br>
         <input type="submit" value="Toevoegen"><br>
     </form>
     <?php
@@ -23,10 +33,13 @@
         $title = $_POST['title'];
         $description = $_POST['description'];
         $price = $_POST['price'];
-        $image = $_POST['image'];
+        $image = $_FILES['image']['name'];
         $categoryID = $_POST['category'];
 
         $product->createProduct($title, $description, $price, $image, $categoryID);
+        $product->uploadImage();
+
+        echo 'Product toegevoegd!';
     }
 
 
