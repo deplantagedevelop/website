@@ -1,3 +1,87 @@
-.testen1234 {
-    color: blue;
+.review-left {
+    width: 30%;
+    background-color: #cccccc;
+}
+
+button {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.review-date {
+    font-size: 10px;
+}
+
+.show-review{
+    display: flex;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.show-review .review-left {
+    background-color: #f6f6f6;
+    width: calc(100% / 3 - 45px);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.review-middle {
+    text-align: center;
+}
+
+
+.review-star {
+    padding-top: 5px;
+}
+
+.review-gem {
+    margin-top: 60px;
+}
+
+.show-review p {
+    white-space: pre-wrap;      /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap;     /* Opera <7 */
+    white-space: -o-pre-wrap;   /* Opera 7 */
+    word-wrap: break-word;      /* IE */
+}
+
+.review-message {
+    margin-top: 5px;
+}
+
+.top-buttons-review {
+    visibility: hidden;
+    min-height: 30px;
+    background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(rgba(0,0,0,0.05)));
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+}
+
+.review-left:hover .top-buttons-review {
+    visibility: visible;
+    min-height: 30px;
+}
+
+.review-left:hover .buttom-buttons-review {
+    visibility: visible;
+}
+
+.cross {
+    float: right;
+    text-decoration: none;
+}
+
+.buttom-buttons-review {
+    visibility: hidden;
+    min-height: 30px;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0,0,0,0.05)));
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+}
+
+.react {
+    float: right;
+    cursor: pointer;
 }

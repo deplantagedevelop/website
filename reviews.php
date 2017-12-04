@@ -17,7 +17,7 @@ include('header.php');
     $middlename = "";
     $lastname="";
     $message="";
-    $anonymous="1";
+    $anonymous="3";
     $star="";
     $starsTrue = true;
     $send = "";
