@@ -3,8 +3,7 @@ class User
 {
     private $db;
 
-    function __construct($conn)
-    {
+    function __construct($conn) {
         //Use construct so we can use the current connection easily.
         $this->db = $conn;
     }

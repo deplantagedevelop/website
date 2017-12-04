@@ -8,10 +8,36 @@
         $class = '';
     }
 
+    if((isset($_GET['minprice'])) && !empty($_GET['maxprice'])) {
+        $minprice = $_GET['minprice'];
+        $minpricequery = ' WHERE p.price >= ' . $minprice;
+        $maxprice = $_GET['maxprice'];
+        $maxpricequery = ' AND p.price <= ' . $maxprice;
+    } else {
+        if(isset($_GET['minprice'])) {
+            $minprice = $_GET['minprice'];
+            $minpricequery = ' WHERE p.price >= ' . $minprice;
+        } else {
+            $minprice = '';
+            $minpricequery = '';
+        }
+
+        if(isset($_GET['maxprice'])) {
+            $maxprice = $_GET['maxprice'];
+            $maxpricequery = ' WHERE p.price <= ' . $maxprice;
+        } else {
+            $maxprice = '';
+            $maxpricequery = '';
+        }
+    }
+
+
+
     if(isset($_GET['search'])) {
         $search = $_GET['search'];
         $searchquery = ' WHERE p.title LIKE "%' . $search . '%"';
     } else {
+        $search = '';
         $searchquery = '';
     }
 
@@ -37,8 +63,13 @@
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc LEFT JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
     $categories->execute();
 
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $orderquery);
+    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery);
     $products->execute();
+
+    $productvars = $conn->prepare('SELECT MIN(price) AS minprice, MAX(price) AS maxprice FROM products');
+    $productvars->execute();
+    $productvar = $productvars->fetch(PDO::FETCH_ASSOC);
+
 ?>
 <section class="content main-content">
     <div class="shop-content">
@@ -68,6 +99,12 @@
                 ?>
             </ul>
             <span class="title">Prijs</span>
+            <form method="get" class="price-form">
+                <input type="number" class="price" name="minprice" id="min-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['minprice']; ?>" value="<?php echo $minprice; ?>">
+                <span>tot</span>
+                <input type="number" class="price" name="maxprice" id="max-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['maxprice']; ?>" value="<?php echo $maxprice; ?>">
+            </form>
+
             <?php echo $products->rowCount(); ?> resultaten
         </div>
         <div class="shop-right">
@@ -85,7 +122,7 @@
                 <div class="right-filter">
                     <span>Zoek:</span>
                     <form method="get" class="search-form">
-                        <input type="text" name="search" class="search" placeholder="zoeken">
+                        <input type="text" name="search" class="search" value="<?php echo $search; ?>" placeholder="zoeken">
                     </form>
                 </div>
             </div>
