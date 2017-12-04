@@ -33,11 +33,11 @@
         $title = $_POST['title'];
         $description = $_POST['description'];
         $price = $_POST['price'];
-        $image = $_FILES['image']['name'];
+        $image = uniqid() . "-" . $_FILES['image']['name'];
+        $imagefile = $_FILES['image'];
         $categoryID = $_POST['category'];
 
-        $product->createProduct($title, $description, $price, $image, $categoryID);
-        $product->uploadImage();
+        $product->createProduct($title, $description, $price, $image, $categoryID, $imagefile);
 
         echo 'Product toegevoegd!';
     }

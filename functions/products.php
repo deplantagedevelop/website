@@ -8,7 +8,7 @@ class Product {
         $this->db = $conn;
     }
 
-    public function createProduct($title, $description, $price, $image, $category) {
+    public function createProduct($title, $description, $price, $image, $category, $imagefile) {
         try {
             $stmt = $this->db->prepare("INSERT INTO products(title, description, price, image, categoryID) 
                                                        VALUES(:title, :description, :price, :image, :categoryID)");
@@ -19,6 +19,7 @@ class Product {
             $stmt->bindparam(":image", $image);
             $stmt->bindparam(":categoryID", $category);
             $stmt->execute();
+            $this->uploadImage($image, $imagefile);
 
             return $stmt;
         } catch(PDOException $e) {
@@ -48,17 +49,17 @@ class Product {
         }
     }
 
-    public function uploadImage() {
+    public function uploadImage($image, $imagefile) {
         $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/products/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        $target_file = $target_dir . basename($image);
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-        $check = getimagesize($_FILES["image"]["tmp_name"]);
+        $check = getimagesize($imagefile["tmp_name"]);
         if($check !== false) {
             $uploadOk = 1;
         } else {
-            echo "File is not an image.";
+            echo "Bestand is geen afbeelding.";
             $uploadOk = 0;
         }
 
@@ -70,7 +71,7 @@ class Product {
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
         } else {
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if (move_uploaded_file($imagefile["tmp_name"], $target_file)) {
 
             } else {
                 echo "Sorry, het bestand kon niet worden geupload.";
