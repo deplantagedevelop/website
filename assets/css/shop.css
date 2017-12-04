@@ -105,6 +105,18 @@
     font-size: 20px;
 }
 
+.price-form {
+    margin-top: 10px;
+}
+
+.price-form .price {
+    background-color: #f6f6f6;
+    padding: 9px 15px;
+    border: none;
+    display: inline-block;
+    max-width: 50px;
+}
+
 @media only screen and (max-width: 1024px) {
     .shop-content .product {
         width: calc(50% - 40px);
@@ -115,7 +127,7 @@
     }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 700px) {
     .shop-content .product {
         width: calc(50% - 40px);
     }
@@ -157,3 +169,84 @@
         width: calc(100% - 40px);
     }
 }
+
+
+.left-product {
+    width: 30%;
+}
+
+.left-product img {
+    width: 100%;
+}
+
+.middle-product {
+    width: 65%;
+    padding: 10px 30px 10px 10px;
+
+}
+
+.middle-product h1, h4 {
+    margin: 0;
+    display: inline-block;
+}
+
+.right-product {
+    width: 25%;
+    text-align: center;
+    padding-top: 7%;
+    font-size: 30px;
+}
+
+.itemsubmit button {
+    background-color: #99CA3C;
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
+.product-content {
+    display: flex;
+    margin-top: 10px;
+}
+
+.producttitle {
+    font-size: 40px;
+}
+
+.productundertitle {
+    font-size: 20px;
+}
+
+.middle-product .itemdescription {
+    padding-top: 10px;
+}
+
+.itembreadcrumb a, h5 {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.itembreadcrumb {
+    margin: 20px 0 0 0;
+}
+
+.mediacontent {
+    display: flex;
+    width: 100%;
+}
+
+.itemprice {
+    font-size: 30px;
+}
+

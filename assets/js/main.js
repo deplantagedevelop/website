@@ -35,12 +35,37 @@ $(document).ready(function(){
     }
 
     var orderby = getParameterByName('order');
+    var minprice = getParameterByName('minprice');
+    var maxprice = getParameterByName('maxprice');
 
     $('#product-filter').change(function () {
         var locAppend = $(this).find('option:selected').attr("name"),
             locSnip = window.location.href.split('?')[0];
 
         window.location.href = locSnip + '?order=' + locAppend;
+    });
+
+    $('#min-price').focusout(function () {
+        var locAppend = $(this).val(),
+            locSnip = window.location.href.split('?')[0];
+
+        if(maxprice) {
+            window.location.href = locSnip + '?minprice=' + locAppend + '&maxprice=' + maxprice;
+        } else {
+            window.location.href = locSnip + '?minprice=' + locAppend;
+        }
+    });
+
+    $('#max-price').focusout(function () {
+        var locAppend = $(this).val(),
+            locSnip = window.location.href.split('?')[0];
+
+        if(minprice) {
+            window.location.href = locSnip + '?minprice=' + locAppend + '&maxprice=' + maxprice;
+        } else {
+            window.location.href = locSnip + '?maxprice=' + locAppend;
+        }
+
     });
 
     $('#password1').keyup(function () {
