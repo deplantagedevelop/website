@@ -18,13 +18,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width"/>
     <title>De Plantage</title>
-    <link rel="stylesheet" type="text/css" href="../assets/css/review.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/dashboard.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/review.css">
 </head>
 <body>
 <div class="dashcontent">
@@ -55,10 +55,10 @@
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
-                <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/over-ons">Contact</a></li>
-                <li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="/reviews">Over ons</a></li>
-                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/contact">Product van de maand</a></li>
-                <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/contact">Overige instellingen</a></li>
+                <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard">Contact</a></li>
+                <li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="/dashboard">Over ons</a></li>
+                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/dashboard">Product van de maand</a></li>
+                <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard">Overige instellingen</a></li>
             </ul>
         </div>
         <div class="header-mobile"></div>
