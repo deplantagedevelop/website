@@ -5,12 +5,6 @@
     $product = new Product($conn);
 
     $categories = $product->getCategories();
-
-    if(!$user->is_loggedin()) {
-        $user->redirect('/404');
-    }
-
-    include('../header.php');
     ?>
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Productnaam"><br>

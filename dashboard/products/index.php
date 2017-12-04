@@ -4,14 +4,10 @@
     $user = new User($conn);
     $product = new Product($conn);
 
-    if(!$user->is_loggedin()) {
-        $user->redirect('/404');
-    }
-
     $products = $product->getProducts();
     if ($products->rowCount() > 0) {
     ?>
-        <table>
+        <table class="dash-table">
            <thead>
                 <tr>
                     <th>Productnaam</th>
@@ -29,8 +25,8 @@
                     <td><?php echo $item['title']; ?></td>
                     <td><?php echo $item['category']; ?></td>
                     <td><?php echo $item['price']; ?></td>
-                    <td><a href="#">Bewerk</a></td>
-                    <td><a href="#">Verwijder</a></td>
+                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="#">Bewerk</a></td>
+                    <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
                 </tr>
                 <?php
             }

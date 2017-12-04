@@ -8,6 +8,33 @@ class Product {
         $this->db = $conn;
     }
 
+    public function deleteProduct($id) {
+        try {
+            $product = $this->db->prepare("SELECT image FROM products WHERE ID = " . $id);
+            $product->execute();
+            $productimage = $product->fetch(PDO::FETCH_ASSOC);
+
+            $stmt = $this->db->prepare("DELETE FROM products WHERE ID = " . $id);
+            $stmt->execute();
+            unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/images/products/' . $productimage['image']);
+
+            return $stmt;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getProduct($id) {
+        try {
+            $data = $this->db->prepare("SELECT * FROM products WHERE ID = " . $id);
+            $data->execute();
+
+            return $data;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function createProduct($title, $description, $price, $image, $category, $imagefile) {
         try {
             $stmt = $this->db->prepare("INSERT INTO products(title, description, price, image, categoryID) 

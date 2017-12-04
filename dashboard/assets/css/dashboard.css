@@ -183,6 +183,39 @@ ul, menu, dir {
     margin-left: 15px;
 }
 
+.dash-table {
+    width: 100%;
+    text-align: left;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    border-spacing: 0;
+}
+
+.dash-table thead tr {
+    background-color: #7ed3ec;
+}
+
+.dash-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.dash-table tbody tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+.dash-table td {
+    padding: 5px 10px;
+}
+
+.dash-table th {
+    padding: 10px;
+}
+
+.dash-table a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 1400px) {
     .dashleft .logo img {
         width: 85%;
