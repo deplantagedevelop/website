@@ -24,17 +24,6 @@ class Product {
         }
     }
 
-    public function getProduct($id) {
-        try {
-            $data = $this->db->prepare("SELECT * FROM products WHERE ID = " . $id);
-            $data->execute();
-
-            return $data;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
     public function createProduct($title, $description, $price, $image, $category, $imagefile) {
         try {
             $stmt = $this->db->prepare("INSERT INTO products(title, description, price, image, categoryID) 

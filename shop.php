@@ -56,7 +56,7 @@
         }
     } else {
         $order = '';
-        $orderquery = '';
+        $orderquery = ' ORDER BY date DESC';
     }
 
     /* Queries */

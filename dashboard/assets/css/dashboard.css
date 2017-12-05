@@ -191,7 +191,8 @@ ul, menu, dir {
 }
 
 .dash-table thead tr {
-    background-color: #7ed3ec;
+    background-color: #3c8dbc;
+    color: #fff;
 }
 
 .dash-table tbody tr:nth-child(even) {
@@ -214,6 +215,59 @@ ul, menu, dir {
     color: inherit;
     text-decoration: none;
     font-weight: bold;
+}
+
+.dashbody .content {
+    display: flex;
+}
+
+.dashbody input {
+    width: 80%;
+    height: 2EM;
+    border: none;
+    background-color: #ffffff;
+    padding: 9px 15px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.dashbody .dashboard-left {
+    width: 50%;
+}
+
+.dashbody .dashboard-right {
+    width: 50%;
+}
+
+.dashbody input[type="submit"] {
+    width: auto;
+    padding: 10px 30px;
+    display: block;
+    height: auto;
+    background-color: #7ed3ec;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.dashbody textarea {
+    width: 80%;
+    resize: none;
+    border: none;
+    background-color: #ffffff;
+    padding: 10px 15px 40px 15px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.dashbody select {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300px;
+    display: block;
+}
+
+.dashbody .dashboard-right img {
+    max-width: 100%;
 }
 
 @media only screen and (max-width: 1400px) {
