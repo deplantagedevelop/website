@@ -25,7 +25,7 @@
                     <td><?php echo $item['title']; ?></td>
                     <td><?php echo $item['category']; ?></td>
                     <td><?php echo $item['price']; ?></td>
-                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="#">Bewerk</a></td>
+                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                     <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
                 </tr>
                 <?php

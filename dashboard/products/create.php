@@ -11,7 +11,7 @@
             <form method="post" enctype="multipart/form-data">
                 <input type="text" name="title" placeholder="Productnaam" required>
                 <textarea name="description" placeholder="Beschrijving" required></textarea>
-                <input type="text" name="price" placeholder="Prijs" required>
+                <input type="number" name="price" placeholder="Prijs" required>
                 <input type="file" name="image" id="image" onchange="readURL(this);" required>
                 <select name="category">
                     <?php
@@ -39,8 +39,6 @@
         $categoryID = $_POST['category'];
 
         $product->createProduct($title, $description, $price, $image, $categoryID, $imagefile);
-
-        echo 'Product toegevoegd!';
     }
 
 
