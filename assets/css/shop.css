@@ -222,10 +222,7 @@
 
 .productundertitle {
     font-size: 20px;
-}
-
-.middle-product .itemdescription {
-    padding-top: 10px;
+    margin-bottom: 10px;
 }
 
 .itembreadcrumb a, h5 {
