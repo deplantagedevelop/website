@@ -33,6 +33,7 @@
             ?>
             </tbody>
         </table>
+        <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
     <?php
     } else {
         echo 'Geen producten gevonden';

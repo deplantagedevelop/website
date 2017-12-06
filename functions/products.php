@@ -49,7 +49,7 @@ class Product {
         }
     }
 
-    public function editProduct($title, $description, $price, $category, $id) {
+    public function editProduct($title, $description, $price, $category, $image, $imagefile, $id) {
         try {
             $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, categoryID = :categoryID WHERE ID = " . $id);
             $stmt->bindparam(":title", $title);

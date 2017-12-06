@@ -47,8 +47,14 @@ if(isset($_GET['id'])) {
                 $description = $_POST['description'];
                 $price = $_POST['price'];
                 $categoryID = $_POST['category'];
+                $image = uniqid() . "-" . $_FILES['image']['name'];
+                $imagefile = $_FILES['image'];
+                var_dump($imagefile);
+                exit;
 
-                $products->editProduct($title, $description, $price, $categoryID, $id);
+                $products->editProduct($title, $description, $price, $categoryID, $image, $imagefile, $id);
+
+
             }
         }
     } else {
