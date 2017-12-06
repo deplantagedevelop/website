@@ -221,6 +221,12 @@ ul, menu, dir {
     display: flex;
 }
 
+.dashbody .radio-btn {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
 .dashbody input {
     width: 80%;
     height: 2EM;

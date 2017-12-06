@@ -14,10 +14,11 @@ if(isset($_GET['id'])) {
         $description = $_POST['description'];
         $price = $_POST['price'];
         $categoryID = $_POST['category'];
+        $available = $_POST['available'];
         $image = uniqid() . "-" . $_FILES['image']['name'];
         $imagefile = $_FILES['image'];
 
-        if($products->editProduct($title, $description, $price, $categoryID, $image, $imagefile, $id) === true) {
+        if($products->editProduct($title, $description, $price, $categoryID, $available, $image, $imagefile, $id) === true) {
             $message = 'Product is succesvol gewijzigd!';
         } else {
             $message = 'Product kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
@@ -45,12 +46,14 @@ if(isset($_GET['id'])) {
                             } else {
                                 ?>
                                 <option value="<?php echo $category['ID'] ?>"><?php echo $category['name']; ?></option>
-                                }
                                 <?php
                             }
                         }
                         ?>
                     </select>
+                    <span>Product beschikbaar:</span><br>
+                    <input type="radio" class="radio-btn" name="available" value="1" <?php echo ($item['available'] == 1) ? 'checked="checked"' : ''; ?>> Ja
+                    <input type="radio" class="radio-btn" name="available" value="0" <?php echo ($item['available'] == 0) ? 'checked="checked"' : ''; ?>> Nee
                     <input type="submit" value="Wijzigen">
                 </form>
             </div>

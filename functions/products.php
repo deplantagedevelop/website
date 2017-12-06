@@ -49,12 +49,12 @@ class Product {
         }
     }
 
-    public function editProduct($title, $description, $price, $category, $image, $imagefile, $id) {
+    public function editProduct($title, $description, $price, $category, $available, $image, $imagefile, $id) {
         try {
             if($imagefile['name'] == '') {
-                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, categoryID = :categoryID WHERE ID = " . $id);
+                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, available = :available, categoryID = :categoryID WHERE ID = " . $id);
             } else {
-                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, image = :image, categoryID = :categoryID WHERE ID = " . $id);
+                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, available = :available, image = :image, categoryID = :categoryID WHERE ID = " . $id);
                 $stmt->bindparam(":image", $image);
 
                 $product = $this->db->prepare("SELECT image FROM products WHERE ID = " . $id);
@@ -73,6 +73,7 @@ class Product {
             $stmt->bindparam(":title", $title);
             $stmt->bindparam(":description", $description);
             $stmt->bindparam(":price", $price);
+            $stmt->bindparam(":available", $available);
             $stmt->bindparam(":categoryID", $category);
             $stmt->execute();
 
