@@ -51,15 +51,32 @@ class Product {
 
     public function editProduct($title, $description, $price, $category, $image, $imagefile, $id) {
         try {
-            $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, categoryID = :categoryID WHERE ID = " . $id);
+            if($imagefile['name'] == '') {
+                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, categoryID = :categoryID WHERE ID = " . $id);
+            } else {
+                $stmt = $this->db->prepare("UPDATE products SET title = :title, description = :description, price = :price, image = :image, categoryID = :categoryID WHERE ID = " . $id);
+                $stmt->bindparam(":image", $image);
+
+                $product = $this->db->prepare("SELECT image FROM products WHERE ID = " . $id);
+                $product->execute();
+                $productimage = $product->fetch(PDO::FETCH_ASSOC);
+
+                $imageFileType = pathinfo(basename($image),PATHINFO_EXTENSION);
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    return false;
+                } else {
+                    $this->uploadImage($image, $imagefile);
+                    unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/images/products/' . $productimage['image']);
+                }
+            }
+
             $stmt->bindparam(":title", $title);
             $stmt->bindparam(":description", $description);
             $stmt->bindparam(":price", $price);
             $stmt->bindparam(":categoryID", $category);
             $stmt->execute();
-            echo 'Product is succesvol gewijzigd!';
 
-            return $stmt;
+            return true;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

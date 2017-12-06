@@ -3,11 +3,28 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/functions/products.php');
 $user = new User($conn);
 $products = new Product($conn);
-
 $categories = $products->getCategories();
+
+$message = '';
 if(isset($_GET['id'])) {
     $id = $_GET['id'];
     $product = $products->getProduct($id);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+        $categoryID = $_POST['category'];
+        $image = uniqid() . "-" . $_FILES['image']['name'];
+        $imagefile = $_FILES['image'];
+
+        if($products->editProduct($title, $description, $price, $categoryID, $image, $imagefile, $id) === true) {
+            $message = 'Product is succesvol gewijzigd!';
+        } else {
+            $message = 'Product kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
+        }
+        //Get product again to update values
+        $product = $products->getProduct($id);
+    }
     if ($product->rowCount() > 0) {
         foreach($product as $item) {
         ?>
@@ -41,21 +58,8 @@ if(isset($_GET['id'])) {
                 <img id="product-image" src="/assets/images/products/<?php echo $item['image']; ?>">
             </div>
         </div>
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $title = $_POST['title'];
-                $description = $_POST['description'];
-                $price = $_POST['price'];
-                $categoryID = $_POST['category'];
-                $image = uniqid() . "-" . $_FILES['image']['name'];
-                $imagefile = $_FILES['image'];
-                var_dump($imagefile);
-                exit;
-
-                $products->editProduct($title, $description, $price, $categoryID, $image, $imagefile, $id);
-
-
-            }
+        <?php
+            echo $message;
         }
     } else {
         $user->redirect('/dashboard/products');
