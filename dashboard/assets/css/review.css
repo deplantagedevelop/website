@@ -53,15 +53,13 @@ button {
 
 .top-buttons-review {
     visibility: hidden;
-    min-height: 30px;
+    min-height: 35px;
     background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(rgba(0,0,0,0.05)));
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
 }
 
 .review-left:hover .top-buttons-review {
     visibility: visible;
-    min-height: 30px;
+    min-height: 35px;
 }
 
 .review-left:hover .buttom-buttons-review {
@@ -74,14 +72,15 @@ button {
 }
 
 .buttom-buttons-review {
-    visibility: hidden;
     min-height: 30px;
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0,0,0,0.05)));
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
 }
 
 .react {
     float: right;
     cursor: pointer;
+}
+
+.review_cross {
+    text-decoration: none;
+    color: black;
 }
