@@ -15,7 +15,7 @@
         ?>
         <div class="home-products">
             <div class="single-product">
-                <div class="product-image" style="background-image: url('/assets/images/<?php echo $image ?>')">
+                <div class="product-image" style="background-image: url('/assets/images/monthlyproducts/<?php echo $image ?>')">
                     <div class="overlay">
                         <h2><?php echo $type; ?></h2>
                     </div>
