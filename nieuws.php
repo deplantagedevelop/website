@@ -47,7 +47,7 @@ function news()
         ?>
         <div class="newsarticle">
             <div class="newspicture">
-                <img src="/assets/images/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
+                <img src="/assets/images/news/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
             </div>
             <div class="newstext">
                 <div class="newstitle"><?php echo $news["title"]; ?></div>
