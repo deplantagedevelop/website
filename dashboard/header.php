@@ -25,8 +25,12 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/review.css">
+<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
+=======
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
+>>>>>>> anton
 </head>
 <body>
 <div class="dashcontent">
@@ -42,7 +46,7 @@
                     <a href="/dashboard">Bestellingen</a>
                     <a href="/dashboard">Accounts</a>
                     <a href="/dashboard/products">Producten</a>
-                    <a href="/dashboard">Nieuws</a>
+                    <a href="/dashboard/news">Nieuws</a>
                     <a href="/dashboard/reviews">Reviews</a>
                     <a href="/dashboard">Contact</a>
                     <a href="/dashboard">Over ons</a>
@@ -55,7 +59,7 @@
                 <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard">Bestellingen</a></li>
                 <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard">Accounts</a></li>
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
-                <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/">Nieuws</a></li>
+                <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
                 <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard/contact">Contact</a></li>
                 <li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="/dashboard">Over ons</a></li>
