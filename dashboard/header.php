@@ -29,6 +29,9 @@
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
 </head>
 <body>
 <div class="dashcontent">

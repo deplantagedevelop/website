@@ -59,6 +59,11 @@
     margin-bottom: 0px;
 }
 
+.helper-text {
+    background-color: #f6f6f6;
+    padding: 2px 0;
+}
+
 .contact-form .loginsubmit button:hover {
     background-color: #a6d73d;
     transition: 0.5s;

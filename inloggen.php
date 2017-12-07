@@ -35,9 +35,7 @@ $city = '';
 $postalcode = '';
 $repassword = '';
 
-$uppercase = preg_match('@[A-Z]@', $password);
-$lowercase = preg_match('@[a-z]@', $password);
-$number    = preg_match('@[0-9]@', $password);
+$validationpassword = false;
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
 
@@ -52,7 +50,17 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-    if ($password == $repassword && strlen($password) >= 8 && $number && $lowercase && $uppercase) {
+    if (7 < strlen($password)){
+        if( preg_match("#[0-9]+#", $password) || preg_match("#\W+#", $password) ) {
+            if( preg_match("#[a-z]+#", $password) ) {
+                if( preg_match("#[A-Z]+#", $password) ) {
+                    $validationpassword = true;
+                }
+            }
+        }
+    }
+
+    if ($password == $repassword && $validationpassword == true) {
         try {
             $useremail = $conn->prepare("SELECT email FROM customer WHERE email = :email");
             $useremail->execute(array(':email'=>$email));
@@ -139,8 +147,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                 <input type="text" name="city" placeholder="Woonplaats*" value="<?php echo $city ?>" required><br><br>
                 <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required><br><br>
                 <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required><br><br>
-                <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br>
-
+                <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required><br><br>
                 <div class="helper-text">
                     <ul>
                         <li class="length">Minimaal 8 karakters</li>
@@ -149,7 +156,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                         <li class="special">Minimaal 1 getal of speciaal karakter</li>
                         <li class="same-pass">Wachtwoorden komen overeen</li>
                     </ul>
-                </div>
+                </div><br>
 
                 <div class="loginsubmit">
                     <button name="register" type="submit" value="verzend">Registreren</button>
