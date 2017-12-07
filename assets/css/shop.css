@@ -114,7 +114,7 @@
     padding: 9px 15px;
     border: none;
     display: inline-block;
-    max-width: 50px;
+    max-width: 35px;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -247,3 +247,9 @@
     font-size: 30px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

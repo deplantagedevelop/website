@@ -29,13 +29,19 @@ if(isset($_GET['id'])) {
     if ($product->rowCount() > 0) {
         foreach($product as $item) {
         ?>
+        <a href="/dashboard/products" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
         <div class="content">
             <div class="dashboard-left">
                 <form method="post" enctype="multipart/form-data">
+                    <label>Product titel</label>
                     <input type="text" name="title" value="<?php echo $item["title"]; ?>" placeholder="Productnaam" required>
+                    <label>Product beschrijving</label>
                     <textarea name="description" placeholder="Beschrijving" required><?php echo $item["description"]; ?></textarea>
+                    <label>Product prijs</label>
                     <input type="number" name="price" value="<?php echo $item["price"]; ?>" placeholder="Prijs" required>
+                    <label>Product afbeelding</label>
                     <input type="file" name="image" id="image" value="<?php echo $item["image"]; ?>" onchange="readURL(this);">
+                    <label>Productcategorie</label>
                     <select name="category">
                         <?php
                         foreach ($categories as $category) {

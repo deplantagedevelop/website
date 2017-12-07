@@ -23,20 +23,23 @@
 
 ?>
 
-<a href="/dashboard/news_category"> ga terug </a> <br> <br>
-
-<form class="newscategory-form" method="post">
-    <span> Categorienaam: </span> <br>
-    <input type="text" name="newscategoryname" value="<?php echo "$newscategory_name" ?>"> <br> <br>
-    <span> Actief: </span> <br>
-    <input type="radio" name="active" value="true" <?php if($active == "true"){echo"checked='true'";}?>> Ja
-    <input type="radio" name="active" value="false" <?php if($active == "false"){echo"checked='true'";}?>> Nee <br> <br>
-    <input type="submit" name="submit" value="wijzigen">
-</form>
+<a href="/dashboard/news" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+<div class="content">
+    <div class="dashboard-left">
+        <form method="post">
+            <label>Categorienaam</label>
+            <input type="text" name="newscategoryname" value="<?php echo "$newscategory_name" ?>">
+            <span> Actief: </span><br>
+            <input type="radio" name="active" value="true" class="radio-btn" <?php if($active == "true"){echo"checked='true'";}?>> Ja
+            <input type="radio" name="active" value="false" class="radio-btn" <?php if($active == "false"){echo"checked='true'";}?>> Nee <br> <br>
+            <input type="submit" name="submit" value="wijzigen">
+        </form>
+    </div>
+</div>
 
 <?php
     if ($changed) {
-        echo "Uw wijzigen zijn opgeslagen! <a href='index.php'>  Terug naar nieuwscategorieën </a>";
+        echo "Uw wijzigen zijn opgeslagen!";
     }
 ?>
 

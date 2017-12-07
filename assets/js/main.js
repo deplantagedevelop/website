@@ -45,29 +45,6 @@ $(document).ready(function(){
         window.location.href = locSnip + '?order=' + locAppend;
     });
 
-    $('#min-price').focusout(function () {
-        var locAppend = $(this).val(),
-            locSnip = window.location.href.split('?')[0];
-
-        if(maxprice) {
-            window.location.href = locSnip + '?minprice=' + locAppend + '&maxprice=' + maxprice;
-        } else {
-            window.location.href = locSnip + '?minprice=' + locAppend;
-        }
-    });
-
-    $('#max-price').focusout(function () {
-        var locAppend = $(this).val(),
-            locSnip = window.location.href.split('?')[0];
-
-        if(minprice) {
-            window.location.href = locSnip + '?minprice=' + locAppend + '&maxprice=' + maxprice;
-        } else {
-            window.location.href = locSnip + '?maxprice=' + locAppend;
-        }
-
-    });
-
     $('#password1').keyup(function () {
         if((this.value == $('#password2').val()) && (this.value.length != 0)) {
             $('.same-pass').addClass('green-validation');

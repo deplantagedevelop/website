@@ -1,115 +1,142 @@
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
-$url = "/";
-$id = $_GET["id"];
-$changed = false;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $image = uniqid() . "-" . $_FILES['image']['name'];
-    $imagefile = $_FILES['image'];
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
+    $user = new User($conn);
 
-    if ($imagefile['name'] == '') {
-        $stmt = $conn->prepare("UPDATE news SET title= :title, description = :description WHERE id=:id");
-
-    } else {
-        $stmt = $conn->prepare("UPDATE news SET title = :title, description = :description, image = :image WHERE id= :id ");
-        $stmt->bindparam(":image", $image);
-
-        $product = $conn->prepare("SELECT image FROM news WHERE ID = " . $id);
-        $product->execute();
-
-        $productimage = $product->fetch(PDO::FETCH_ASSOC);
+    function uploadImage($image, $imagefile) {
         $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/news/";
         $target_file = $target_dir . basename($image);
-        $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-            return false;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
         } else {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/images/news/' . $productimage['image']);
             move_uploaded_file($imagefile["tmp_name"], $target_file);
         }
     }
-}
-$categories = $conn->prepare("SELECT * FROM newscategory");
-$categories->execute();
-$category = $categories->fetchAll();
-$categories = NULL;
-$newsitems = $conn->prepare("SELECT nc.name, n.checked, image, title, description FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID WHERE n.ID = '" . $id . "'");
-$newsitems->execute();
-$newsitem = $newsitems->fetchAll();
-$newsitems = NULL;
 
+    function getNews($id) {
+        global $conn;
+        try {
+            $data = $conn->prepare('SELECT p.*, pc.name as category FROM news AS p INNER JOIN newscategory AS pc ON p.categoryID = pc.ID WHERE p.ID = ' . $id);
+            $data->execute();
 
-foreach ($newsitem as $item) {
-
-    $newscategory_name = $item["name"];
-    $active = $item["checked"];
-
-    ?>
-
-    <a href="/dashboard/news_category"> ga terug </a> <br> <br>
-
-    <form class="newscategory-form" method="post">
-        <input type="text" name="title" value="<?php echo $item["title"]; ?>" placeholder="Productnaam" required><br>
-        <textarea name="description" placeholder="Beschrijving"
-                  required><?php echo $item["description"]; ?></textarea><br>
-        <input type="file" name="image" id="image" value="<?php echo $item["image"]; ?>" onchange="readURL(this);"><br>
-        <span> Categorienaam: </span> <br>
-        <select name="category">
-            <?php
-            foreach ($category as $ncn) {
-                if ($newscategory_name == $ncn["name"]) {
-                    ?>
-                    <option value="<?php echo $ncn["ID"]; ?>" selected><?php echo $ncn["name"]; ?></option>
-                    <?php
-                } else {
-                    ?>
-                    <option value="<?php echo $ncn["ID"]; ?>"><?php echo $ncn["name"]; ?></option>
-                    <?php
-                }
-            }
-            ?>
-        </select> <br>
-        <span> Actief: </span> <br>
-        <input type="radio" name="active" value="true" <?php if ($active == "true") {
-            echo "checked='true'";
-        } ?>> Ja
-        <input type="radio" name="active" value="false" <?php if ($active == "false") {
-            echo "checked='true'";
-        } ?>> Nee <br> <br>
-        <input type="submit" name="submit" value="wijzigen">
-    </form>
-
-    <?php
-}
-if ($changed) {
-    echo "Uw wijzigen zijn opgeslagen! <a href='index.php'>  Terug naar nieuwscategorieën </a>";
-}
-
-include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
-function uploadImage($image, $imagefile)
-{
-    $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/products/";
-    $target_file = $target_dir . basename($image);
-    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-    } else {
-        move_uploaded_file($imagefile["tmp_name"], $target_file);
-    }
-}
-
-?>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#product-image')
-                    .attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(input.files[0]);
+            return $data;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
         }
     }
-</script>
+
+    function editNews($title, $description, $category, $active, $image, $imagefile, $id) {
+        global $conn;
+        try {
+            if($imagefile['name'] == '') {
+                $stmt = $conn->prepare("UPDATE news SET title = :title, description = :description, active = :active, categoryID = :categoryID WHERE ID = " . $id);
+            } else {
+                $stmt = $conn->prepare("UPDATE news SET title = :title, description = :description, active = :active, image = :image, categoryID = :categoryID WHERE ID = " . $id);
+                $stmt->bindparam(":image", $image);
+
+                $newsitem = $conn->prepare("SELECT image FROM news WHERE ID = " . $id);
+                $newsitem->execute();
+                $newsitemimage = $newsitem->fetch(PDO::FETCH_ASSOC);
+
+                $imageFileType = pathinfo(basename($image),PATHINFO_EXTENSION);
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    return false;
+                } else {
+                    uploadImage($image, $imagefile);
+                    unlink($_SERVER['DOCUMENT_ROOT'] . '/assets/images/news/' . $newsitemimage['image']);
+                }
+            }
+
+            $stmt->bindparam(":title", $title);
+            $stmt->bindparam(":description", $description);
+            $stmt->bindparam(":active", $active);
+            $stmt->bindparam(":categoryID", $category);
+            $stmt->execute();
+
+            return true;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    $id = $_GET["id"];
+    $message = '';
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $news = getNews($id);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+            $categoryID = $_POST['category'];
+            $active = $_POST['active'];
+            $image = uniqid() . "-" . $_FILES['image']['name'];
+            $imagefile = $_FILES['image'];
+
+            if (editNews($title, $description, $categoryID, $active, $image, $imagefile, $id) === true) {
+                $message = 'Nieuws is succesvol gewijzigd!';
+            } else {
+                $message = 'Nieuws kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
+            }
+            //Get newsitem again to update values
+            $news = getNews($id);
+        }
+        $categories = $conn->prepare("SELECT * FROM newscategory");
+        $categories->execute();
+
+        $newsitems = $conn->prepare("SELECT nc.name AS category, n.* FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID WHERE n.ID = '" .
+            $id . "'");
+        $newsitems->execute();
+
+        foreach ($newsitems as $item) {
+            $newscategory_name = $item["category"];
+            $active = $item["active"];
+            ?>
+
+            <a href="/dashboard/news" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+            <div class="content">
+                <div class="dashboard-left">
+                    <form method="post" enctype="multipart/form-data">
+                        <label>Nieuws titel</label>
+                        <input type="text" name="title" value="<?php echo $item["title"]; ?>" placeholder="Titel" required>
+                        <label>Nieuws beschrijving</label>
+                        <textarea name="description" placeholder="Beschrijving" required><?php echo $item["description"]; ?></textarea>
+                        <label>Nieuws afbeelding</label>
+                        <input type="file" name="image" id="image" value="<?php echo $item["image"]; ?>"
+                               onchange="readURL(this);">
+                        <label>Nieuwscategorie</label>
+                        <select name="category">
+                            <?php
+                                foreach ($categories as $ncn) {
+                                    if ($newscategory_name == $ncn["name"]) {
+                                        ?>
+                                        <option value="<?php echo $ncn["ID"]; ?>"
+                                                selected><?php echo $ncn["name"]; ?></option>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <option value="<?php echo $ncn["ID"]; ?>"><?php echo $ncn["name"]; ?></option>
+                                        <?php
+                                    }
+                                }
+                            ?>
+                        </select>
+                        <span> Actief of non-actief: </span><br>
+                        <input type="radio" class="radio-btn" name="active" value="1" <?php if ($active == 1) {
+                            echo "checked='checked'";
+                        } ?>> Ja
+                        <input type="radio" class="radio-btn" name="active" value="0" <?php if ($active == 0) {
+                            echo "checked='checked'";
+                        } ?>> Nee
+                        <input type="submit" name="submit" value="wijzigen">
+                    </form>
+                </div>
+                <div class="dashboard-right">
+                    <img id="product-image" src="/assets/images/news/<?php echo $item['image']; ?>">
+                </div>
+            </div>
+            <?php
+            echo $message;
+        }
+    }
+
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
+?>

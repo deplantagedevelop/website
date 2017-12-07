@@ -10,9 +10,14 @@
 
     if((isset($_GET['minprice'])) && !empty($_GET['maxprice'])) {
         $minprice = $_GET['minprice'];
-        $minpricequery = ' WHERE p.price >= ' . $minprice;
         $maxprice = $_GET['maxprice'];
+
+        $minpricequery = ' WHERE p.price >= ' . $minprice;
         $maxpricequery = ' AND p.price <= ' . $maxprice;
+
+        if($minprice == '') {
+            $user->redirect('/shop');
+        }
     } else {
         if(isset($_GET['minprice'])) {
             $minprice = $_GET['minprice'];
@@ -103,6 +108,7 @@
                 <input type="number" class="price" name="minprice" id="min-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['minprice']; ?>" value="<?php echo $minprice; ?>">
                 <span>tot</span>
                 <input type="number" class="price" name="maxprice" id="max-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['maxprice']; ?>" value="<?php echo $maxprice; ?>">
+                <button>></button>
             </form>
 
             <?php echo $products->rowCount(); ?> resultaten

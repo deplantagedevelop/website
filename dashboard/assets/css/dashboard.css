@@ -230,6 +230,7 @@ ul, menu, dir {
 
 .dashbody .content {
     display: flex;
+    margin-top: 15px;
 }
 
 .dashbody .radio-btn {
@@ -307,6 +308,25 @@ ul, menu, dir {
 
 .create-btn:hover {
     background-color: #56ade0;
+}
+
+.back-btn {
+    background-color: #222d32;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-bottom: 0px;
+    width: 130px;
+}
+
+.back-btn:hover {
+    background-color: #2c3b41;
 }
 
 @media only screen and (max-width: 1400px) {
