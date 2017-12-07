@@ -1,8 +1,7 @@
 <?php
-    include ("../header.php");
-    $url = "/";
-    $id = $_GET["id"];
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
 
+    $id = $_GET["id"];
     $monthlyproduct = $conn->prepare("SELECT * FROM monthly_product WHERE ID= :id");
     $monthlyproduct->execute(array(
     ':id' => $id));
@@ -51,14 +50,24 @@
         $currentimage = $row["image"];
     }
 ?>
+<a href="/dashboard/montlyproduct" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+<div class="content">
+    <div class="dashboard-left">
+        <form class="update-monthlyproduct" method="post" enctype="multipart/form-data">
+            <label>Titel</label>
+            <input type="text" name="title" value="<?php echo "$title";?>">
+            <label>Beschrijving</label>
+            <textarea name="description"><?php echo "$description";?></textarea>
+            <label>Product afbeelding</label>
+            <input type="file" name="image" id="image" value="<?php echo $currentimage; ?>" onchange="readURL(this);">
+            <input type="submit" name="submit" value="submit">
+        </form>
+    </div>
+    <div class="dashboard-right">
+        <img id="product-image" src="/assets/images/monthlyproducts/<?php echo $currentimage; ?>">
+    </div>
+</div>
 
-<form class="update-monthlyproduct" method="post" enctype="multipart/form-data">
-    <img src="/assets/images/monthlyproducts/<?php echo $currentimage ?>"> <br>
-    <input type="file" name="image" id="image"><br> <br>
-    Titel: <br>
-    <input type="text" name="title" value="<?php echo "$title";?>"> <br> <br>
-    Beschrijving: <br>
-    <textarea name="description"><?php echo "$description";?></textarea> <br>
-    <input type="submit" name="submit" value="submit">
-</form>
-
+<?php
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
+?>

@@ -10,9 +10,14 @@
 
     if((isset($_GET['minprice'])) && !empty($_GET['maxprice'])) {
         $minprice = $_GET['minprice'];
-        $minpricequery = ' WHERE p.price >= ' . $minprice;
         $maxprice = $_GET['maxprice'];
+
+        $minpricequery = ' WHERE p.price >= ' . $minprice;
         $maxpricequery = ' AND p.price <= ' . $maxprice;
+
+        if(($minprice == '') || ($maxprice == '')) {
+            $user->redirect('/shop');
+        }
     } else {
         if(isset($_GET['minprice'])) {
             $minprice = $_GET['minprice'];
@@ -90,7 +95,7 @@
                         <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
                         <?php
                     }
-                    if(isset($_GET['categorie'])) {
+                    if(isset($_GET['categorie']) || isset($_GET['search'])) {
                         ?>
                         <li><a href="/shop">Toon alles</a></li>
                         <?php
@@ -103,6 +108,7 @@
                 <input type="number" class="price" name="minprice" id="min-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['minprice']; ?>" value="<?php echo $minprice; ?>">
                 <span>tot</span>
                 <input type="number" class="price" name="maxprice" id="max-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['maxprice']; ?>" value="<?php echo $maxprice; ?>">
+                <button class="price-filter-btn">></button>
             </form>
 
             <?php echo $products->rowCount(); ?> resultaten

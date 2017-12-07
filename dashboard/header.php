@@ -25,13 +25,13 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/review.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
-=======
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
->>>>>>> f8ea1e025ccd49e92df5dff24b0eca9a97eabbd0
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
 </head>
 <body>
 <div class="dashcontent">

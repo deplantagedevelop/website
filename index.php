@@ -58,7 +58,7 @@
                     $description = (strlen($newsitem["description"]) > 125) ? substr($newsitem["description"], 0, 125) . '...' : $newsitem["description"];
                     ?>
                     <div class="single-news">
-                        <div class="news-image" style="background-image: url('/assets/images/<?php echo $newsitem["image"]; ?>')"></div>
+                        <div class="news-image" style="background-image: url('/assets/images/news/<?php echo $newsitem["image"]; ?>')"></div>
                         <div class="news-info">
                             <h2><?php echo $newsitem["title"]; ?></h2>
                             <p><?php echo $description; ?></p>

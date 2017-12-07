@@ -14,21 +14,23 @@
     }
 ?>
 
-<a href="index.php"> Ga terug </a> <br> <br>
-
-<div class="newscategory-form">
-    <form method="post">
-        <span> Categorie naam: </span> <br>
-        <input type="text" name="category_name" placeholder="categorie naam" required> <br>
-        <span> Actief of non-actief: </span> <br>
-        <input type="radio" name="active" value="true" required> Actief <input type="radio" name="active" value="false"> Non-actief <br>
-        <input type="submit" name="submit" value="toevoegen">
-    </form>
+<a href="/dashboard/news_category" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+<div class="content">
+    <div class="dashboard-left">
+        <form method="post">
+            <label>Categorie</label>
+            <input type="text" name="category_name" placeholder="Categorienaam" required>
+            <span> Actief of non-actief: </span> <br>
+            <input type="radio" name="active" class="radio-btn" value="true" checked="checked" required> Actief
+            <input type="radio" name="active" class="radio-btn" value="false"> Non-actief <br>
+            <input type="submit" name="submit" value="toevoegen">
+        </form>
+    </div>
 </div>
 
 <?php
     if ($insert) {
-        echo "De nieuwscategorie is toegevoegd! <a href='index.php'>    Terug naar nieuwscategorie </a>";
+        echo "Nieuwscategorie is toegevoegd!";
     }
 ?>
 

@@ -1,14 +1,9 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
+$user = new User($conn);
 
-//
 $categories = $conn->prepare("SELECT * FROM newscategory");
 $categories->execute();
-$category = $categories->fetchAll();
-$categories = NULL;
-
-//Functions
-
 
 function uploadImage($image, $imagefile) {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/news/";
@@ -20,7 +15,7 @@ function uploadImage($image, $imagefile) {
     }
 }
 
-function createProduct($title, $description, $image, $category, $imagefile, $checked)
+function createArticle($title, $description, $image, $category, $imagefile, $active)
 {
     global $conn;
     try {
@@ -29,15 +24,15 @@ function createProduct($title, $description, $image, $category, $imagefile, $che
             echo 'Het nieuwsartikel kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
             return false;
         } else {
-            $stmt = $conn->prepare("INSERT INTO news(title, description, image, categoryID, checked) 
-                                                       VALUES(:title, :description, :image, :categoryID, :checked)");
+            $stmt = $conn->prepare("INSERT INTO news(title, description, image, categoryID, active) 
+                                                       VALUES(:title, :description, :image, :categoryID, :active)");
             $stmt->bindparam(":title", $title);
             $stmt->bindparam(":description", $description);
             $stmt->bindparam(":image", $image);
             $stmt->bindparam(":categoryID", $category);
-            $stmt->bindparam(":checked", $checked);
+            $stmt->bindparam(":active", $active);
             $stmt->execute();
-            $this->uploadImage($image, $imagefile);
+            uploadImage($image, $imagefile);
             echo 'Nieuwsartikel is toegevoegd';
             return $stmt;
         }
@@ -47,27 +42,35 @@ function createProduct($title, $description, $image, $category, $imagefile, $che
 }
 
 ?>
-    <div class="newscategory-form">
-        <form method="post">
-            <span> Titel artikel: </span> <br>
-            <input type="text" name="title" placeholder="Titel" value="<?php echo $_POST['title']; ?>" required><br>
-            <span> Beschrijving artikel: </span> <br>
-            <input type="text" name="description" placeholder="Beschrijving" value="<?php echo $_POST['description']; ?>"required> <br>
-            <span> Actief of non-actief: </span> <br>
-            <input type="radio" name="active" value="true" required> Actief <input type="radio" name="active"
-                                                                                   value="false"> Non-actief <br>
-            <input type="file" name="image" id="image" onchange="readURL(this);" required><br>
-            <select name="category">
-                <?php
-                foreach ($category as $item) {
-                    ?>
-                    <option value="<?php echo $item['ID'] ?>"><?php echo $item['name']; ?></option>
+    <a href="/dashboard/news" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+    <div class="content">
+        <div class="dashboard-left">
+            <form method="post" enctype="multipart/form-data">
+                <label>Nieuws titel</label>
+                <input type="text" name="title" placeholder="Titel" required>
+                <label>Nieuws beschrijving</label>
+                <textarea name="description" placeholder="Beschrijving" required></textarea>
+                <label>Nieuws afbeelding</label>
+                <input type="file" name="image" id="image" onchange="readURL(this);" required>
+                <label>Nieuwscategorie</label>
+                <select name="category">
                     <?php
-                }
-                ?>
-            </select><br>
-            <input type="submit" name="submit" value="toevoegen">
-        </form>
+                    foreach ($categories as $item) {
+                        ?>
+                        <option value="<?php echo $item['ID'] ?>"><?php echo $item['name']; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+                <span> Actief of non-actief: </span><br>
+                <input type="radio" class="radio-btn" name="active" value="1" checked="checked"> Ja
+                <input type="radio" class="radio-btn" name="active" value="0"> Nee<br>
+                <input type="submit" name="submit" value="Toevoegen">
+            </form>
+        </div>
+        <div class="dashboard-right">
+            <img id="product-image">
+        </div>
     </div>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -76,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $image = uniqid() . "-" . $_FILES['image']['name'];
     $imagefile = $_FILES['image'];
     $categoryID = $_POST['category'];
-    $checked = $_POST['active'];
-    createProduct($title, $description, $image, $categoryID, $imagefile, $checked);
+    $active = $_POST['active'];
+    createArticle($title, $description, $image, $categoryID, $imagefile, $active);
 }
 include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

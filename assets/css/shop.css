@@ -114,7 +114,20 @@
     padding: 9px 15px;
     border: none;
     display: inline-block;
-    max-width: 50px;
+    max-width: 35px;
+}
+
+.price-filter-btn {
+    border: none;
+    height: 33px;
+    width: 33px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.price-filter-btn:hover {
+    cursor: pointer;
+    background-color: #99CA3C;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -247,3 +260,9 @@
     font-size: 30px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

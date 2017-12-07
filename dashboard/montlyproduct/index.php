@@ -7,8 +7,15 @@
     $montlyproduct = $conn->prepare("SELECT * FROM monthly_product");
 ?>
 
-<table class="monthlyproduct-table">
-    <thead><tr> <th> Product van de maand </th> <th> Naam </th> <th> Bekijken </th><th> Wijzigen </th></tr> </thead>
+<table class="dash-table">
+    <thead>
+        <tr>
+            <th> Product van de maand </th>
+            <th> Naam </th>
+            <th> Bekijken </th>
+            <th> Wijzigen </th>
+        </tr>
+    </thead>
 
 
 <?php

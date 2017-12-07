@@ -6,13 +6,19 @@
 
     $categories = $product->getCategories();
     ?>
+    <a href="/dashboard/products" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
     <div class="content">
         <div class="dashboard-left">
             <form method="post" enctype="multipart/form-data">
+                <label>Product titel</label>
                 <input type="text" name="title" placeholder="Productnaam" required>
+                <label>Product beschrijving</label>
                 <textarea name="description" placeholder="Beschrijving" required></textarea>
+                <label>Product prijs</label>
                 <input type="number" name="price" placeholder="Prijs" required>
+                <label>Product afbeelding</label>
                 <input type="file" name="image" id="image" onchange="readURL(this);" required>
+                <label>Productcategorie</label>
                 <select name="category">
                     <?php
                         foreach($categories as $category) {
