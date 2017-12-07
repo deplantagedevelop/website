@@ -117,6 +117,19 @@
     max-width: 35px;
 }
 
+.price-filter-btn {
+    border: none;
+    height: 33px;
+    width: 33px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.price-filter-btn:hover {
+    cursor: pointer;
+    background-color: #99CA3C;
+}
+
 @media only screen and (max-width: 1024px) {
     .shop-content .product {
         width: calc(50% - 40px);
