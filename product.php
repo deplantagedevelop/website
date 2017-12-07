@@ -21,6 +21,7 @@
                     <div class="middle-product">
                         <h1 class="producttitle"> <?php echo $item["title"]; ?> </h1>
                         <div class="productundertitle"> <h4>Categorie:</h4><?php echo " " . $item["category"]; ?> </div>
+                        <div class="itemdescription"><h4>Beschikbaarheid: <?php echo ($item["available"] == 1) ? 'beschikbaar' : 'niet beschikbaar'; ?></h4></div>
                         <div class="itemdescription"> <h4>Beschrijving:</h4><?php echo " " . "<br>" . $item["description"]; ?> </div>
                     </div>
                   </div>

@@ -191,9 +191,14 @@ ul, menu, dir {
 }
 
 .dash-table thead tr {
+<<<<<<< HEAD
     background-color: #367fa9;
     color: white;
     font-size: 17.5px;
+=======
+    background-color: #3c8dbc;
+    color: #fff;
+>>>>>>> f8ea1e025ccd49e92df5dff24b0eca9a97eabbd0
 }
 
 .dash-table tbody tr:nth-child(even) {
@@ -226,6 +231,87 @@ ul, menu, dir {
     color: inherit;
     text-decoration: none;
     font-weight: bold;
+}
+
+.dashbody .content {
+    display: flex;
+}
+
+.dashbody .radio-btn {
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+.dashbody input {
+    width: 80%;
+    height: 2EM;
+    border: none;
+    background-color: #ffffff;
+    padding: 9px 15px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.dashbody .dashboard-left {
+    width: 50%;
+}
+
+.dashbody .dashboard-right {
+    width: 50%;
+}
+
+.dashbody input[type="submit"] {
+    width: auto;
+    padding: 10px 30px;
+    display: block;
+    height: auto;
+    background-color: #3c8dbc;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.dashbody input[type="submit"]:hover {
+    background-color: #56ade0;
+    cursor: pointer;
+}
+
+.dashbody textarea {
+    width: 80%;
+    resize: none;
+    border: none;
+    background-color: #ffffff;
+    padding: 10px 15px 40px 15px;
+    margin-bottom: 20px;
+    display: block;
+    min-height: 200px;
+}
+
+.dashbody select {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300px;
+    display: block;
+}
+
+.dashbody .dashboard-right img {
+    max-width: 100%;
+}
+
+.create-btn {
+    width: auto;
+    padding: 10px 30px;
+    height: auto;
+    background-color: #3c8dbc;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 25px;
+    display: inline-block;
+}
+
+.create-btn:hover {
+    background-color: #56ade0;
 }
 
 @media only screen and (max-width: 1400px) {

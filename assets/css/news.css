@@ -7,7 +7,7 @@
     margin-top: 40px;
 }
 .main-news .newsarticle{
-
+    padding-top: 5px;
 }
 .main-news .news-category {
     width: calc(25% - 100px);

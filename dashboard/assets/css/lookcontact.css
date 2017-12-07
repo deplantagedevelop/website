@@ -1,5 +1,3 @@
-
-
 .formulierinfo h1 {
     text-align: center;
     margin: 0;
@@ -48,8 +46,6 @@
     color: white;
 }
 
-
-
 .formulierheader {
     text-align: center;
 }
@@ -65,5 +61,22 @@
 .formuliertitle {
     margin:0 auto;
     display:inline-block;
+}
 
+.fullform {
+    display: flex;
+}
+
+.leftform {
+    width: 35%;
+        padding-right: 20px;
+}
+
+.rightform {
+    width: 65%;
+
+}
+
+.messageblock a {
+    width: calc(100% - 20px);
 }

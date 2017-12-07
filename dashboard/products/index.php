@@ -13,6 +13,7 @@
                     <th>Productnaam</th>
                     <th>Categorie</th>
                     <th>Prijs</th>
+                    <th>Beschikbaar</th>
                     <th>Bewerken</th>
                     <th>Verwijderen</th>
                 </tr>
@@ -25,7 +26,8 @@
                     <td><?php echo $item['title']; ?></td>
                     <td><?php echo $item['category']; ?></td>
                     <td><?php echo $item['price']; ?></td>
-                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="#">Bewerk</a></td>
+                    <td><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
+                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                     <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
                 </tr>
                 <?php
@@ -33,6 +35,7 @@
             ?>
             </tbody>
         </table>
+        <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
     <?php
     } else {
         echo 'Geen producten gevonden';

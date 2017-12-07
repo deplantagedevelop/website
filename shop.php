@@ -56,11 +56,11 @@
         }
     } else {
         $order = '';
-        $orderquery = '';
+        $orderquery = ' ORDER BY date DESC';
     }
 
     /* Queries */
-    $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc LEFT JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
+    $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
     $categories->execute();
 
     $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery);
