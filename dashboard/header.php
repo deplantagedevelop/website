@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/review.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
 </head>
 <body>
 <div class="dashcontent">
