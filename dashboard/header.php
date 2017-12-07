@@ -25,12 +25,9 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/review.css">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
-=======
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
->>>>>>> anton
 </head>
 <body>
 <div class="dashcontent">
