@@ -1,3 +1,7 @@
+<?php include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
+$monthlyitems = $conn->query('SELECT * FROM monthly_product');
+?>
+
 <div class="home-products">
     <?php
     if ($monthlyitems->rowCount() > 0) {
@@ -12,11 +16,11 @@
                 <div class="product-info">
                     <h2><?php echo $monthlyitem["title"]; ?></h2>
                     <p><?php echo $monthlyitem["description"]; ?></p>
+                    <p id="wijzigen"><a href="<?php echo '/dashboard/monthlyproducts/edit?id=' . $monthlyitem["ID"] ?>">Wijzigen</a></p>
                 </div>
             </div>
             <?php
         }
     }
     ?>
-    <p><a href="/dashboard/monthly_product/wijzigen_koffie.php">Wijzigen</a></p>
 </div>
