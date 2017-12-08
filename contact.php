@@ -8,6 +8,7 @@ $subject = '';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_POST = array_map('strip_tags', $_POST);
     $firstname = $_POST["firstname"];
     $middlename = $_POST["middlename"];
     $lastname = $_POST["lastname"];

@@ -38,7 +38,7 @@ $repassword = '';
 $validationpassword = false;
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
-
+    $_POST = array_map('strip_tags', $_POST);
     $firstname = $_POST["firstname"];
     $middlename = $_POST["middlename"];
     $lastname = $_POST["lastname"];

@@ -22,6 +22,7 @@ include('header.php');
     $starsTrue = true;
     $send = "";
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = array_map('strip_tags', $_POST);
         $firstnameTrue = false;
         $lastnameTrue = false;
         $starsTrue = false;
