@@ -130,6 +130,12 @@
     background-color: #99CA3C;
 }
 
+.cart-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1024px) {
     .shop-content .product {
         width: calc(50% - 40px);

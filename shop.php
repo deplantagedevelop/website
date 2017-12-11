@@ -36,8 +36,6 @@
         }
     }
 
-
-
     if(isset($_GET['search'])) {
         $search = $_GET['search'];
         $searchquery = ' WHERE p.title LIKE "%' . $search . '%"';
@@ -62,6 +60,35 @@
     } else {
         $order = '';
         $orderquery = ' ORDER BY date DESC';
+    }
+
+    var_dump( $_SESSION["shopping_cart"]);
+
+    if(isset($_POST["add_to_cart"])) {
+        if(isset($_SESSION["shopping_cart"])) {
+            $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+            if(!in_array($_GET["id"], $item_array_id)) {
+                $count = count($_SESSION["shopping_cart"]);
+                $item_array = array(
+                    'item_id'             =>     $_GET["id"],
+                    'item_name'           =>     $_POST["hidden_name"],
+                    'item_price'          =>     $_POST["hidden_price"],
+                    'item_amount'         =>     $_POST["hidden_amount"]
+                );
+                $_SESSION["shopping_cart"][$count] = $item_array;
+            } else {
+                echo '<script>alert("Item Already Added")</script>';
+            }
+        } else {
+            $item_array = array(
+                'item_id'               =>     $_GET["id"],
+                'item_name'             =>     $_POST["hidden_name"],
+                'item_price'            =>     $_POST["hidden_price"],
+                'item_amount'           =>     $_POST["hidden_amount"]
+            );
+
+            $_SESSION["shopping_cart"][0] = $item_array;
+        }
     }
 
     /* Queries */
@@ -147,7 +174,12 @@
                             </div>
                         </a>
                         <div class="product-cart">
-                            <a href="/shop"><img src="/assets/images/cart.png"></a>
+                            <form method="post" action="/shop?action=add&id=<?php echo $product["ID"]; ?>">
+                                <input type="hidden" name="hidden_amount" value="1" />
+                                <input type="hidden" name="hidden_name" value="<?php echo $product["title"]; ?>" />
+                                <input type="hidden" name="hidden_price" value="<?php echo $product["price"]; ?>" />
+                                <button type="submit" name="add_to_cart" class="cart-btn"><img src="/assets/images/cart.png"></button>
+                            </form>
                         </div>
                     </div>
                     <?php
