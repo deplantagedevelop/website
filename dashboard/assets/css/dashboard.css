@@ -33,7 +33,7 @@
     position: absolute;
     background-color: #222d32;
     width: 100%;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -116,7 +116,7 @@ ul, menu, dir {
 }
 
 .dashblock {
-    width: calc(100%/3 - 40px);
+    width: calc(100% / 3 - 40px);
     color: white;
     background-color: #3c8dbc;
     position: relative;
@@ -248,10 +248,15 @@ ul, menu, dir {
     margin-bottom: 20px;
     display: block;
 }
+.dashbody .role {
+    width: 100%;
+}
 
 .dashbody .dashboard-left {
     width: 50%;
 }
+
+
 
 .dashbody .dashboard-right {
     width: 50%;

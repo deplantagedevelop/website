@@ -5,7 +5,7 @@
     if(isset($_GET['id'])) {
         $id = $_GET['id'];
 
-        $newsitem = $conn   ->prepare("SELECT image FROM news WHERE ID = " . $id);
+        $newsitem = $conn ->prepare("SELECT image FROM news WHERE ID = " . $id);
         $newsitem->execute();
         $newsitemimage = $newsitem->fetch(PDO::FETCH_ASSOC);
 
