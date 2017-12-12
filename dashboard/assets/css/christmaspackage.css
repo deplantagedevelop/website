@@ -1,0 +1,7 @@
+.packageform {
+    padding-top: 30px;
+}
+
+.packageform form input {
+    width: calc(100% - 30px);
+}

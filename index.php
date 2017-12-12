@@ -15,6 +15,9 @@
                         <div class="slide-overlay"></div>
                         <div class="slide-text">
                             <h1><?php echo $slideritem["title"]; ?></h1>
+                            <div class="slidearrow">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                     <?php

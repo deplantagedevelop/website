@@ -294,6 +294,40 @@ ul, menu, dir {
     max-width: 100%;
 }
 
+@media only screen and (max-width: 1300px) {
+    .dashheader {
+        margin: 20px;
+    }
+
+    .dashbody {
+        margin: 20px;
+    }
+
+    .dash-table thead tr {
+        font-size: 15px;
+    }
+
+}
+
+@media only screen and (max-width: 1100px) {
+    .dash-table thead tr {
+        font-size: 15px;
+    }
+    .dash-table td {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .dashheader {
+        margin: 0;
+    }
+    .dash-table thead tr {
+        font-size: 15px;
+    }
+
+}
+
 .create-btn {
     width: auto;
     padding: 10px 30px;
@@ -342,13 +376,13 @@ ul, menu, dir {
     }
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1000px) {
     .dashblock {
         width: calc(100% - 40px);
     }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 850px) {
     .dashleft .logo img {
         width: 200px;
         padding-top: 5px;

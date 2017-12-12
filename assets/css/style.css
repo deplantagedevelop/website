@@ -177,6 +177,10 @@ html, body {
     position: relative;
 }
 
+.slidearrow {
+    padding-top: 17vh;
+}
+
 .slide-overlay {
     position: absolute;
     width: 100%;
