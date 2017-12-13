@@ -5,12 +5,12 @@ $user = new User($conn);
 if ($user->has_role("Administrator")) {
     if (isset($_GET['search'])) {
         $search = $_GET['search'];
-        $query = ' WHERE firstname LIKE "%' . $search . '%" OR lastname LIKE "%' . $search . '%" OR email LIKE "%' . $search . '%" OR postalcode LIKE "%' . $search . '%"';
+        $query = ' WHERE firstname LIKE "%' . $search . '%" OR lastname LIKE "%' . $search . '%" OR email LIKE "%' . $search . '%" OR postalcode LIKE "%' . $search . '%" OR r.name LIKE "%' . $search . '%"';
     } else {
         $search = '';
         $query = '';
     }
-    $customers = $conn->prepare("SELECT c.ID, firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password, name FROM customer AS c INNER JOIN roles AS r ON c.RoleID=r.ID" . $query);
+    $customers = $conn->prepare("SELECT c.ID, firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password, name, r.name FROM customer AS c INNER JOIN roles AS r ON c.RoleID=r.ID" . $query . " ORDER BY lastname");
     $customers->execute();
     $customer = $customers->fetchAll();
     $customers = NULL;
@@ -60,3 +60,5 @@ if ($user->has_role("Administrator")) {
     <a href="/dashboard/role/create" class="create-btn">Account toevoegen</a>
     <?php
 }
+
+include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');?>

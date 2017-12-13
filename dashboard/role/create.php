@@ -30,10 +30,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-    if (7 < strlen($password)){
-        if( preg_match("#[0-9]+#", $password) || preg_match("#\W+#", $password) ) {
-            if( preg_match("#[a-z]+#", $password) ) {
-                if( preg_match("#[A-Z]+#", $password) ) {
+    if (7 < strlen($password)) {
+        if (preg_match("#[0-9]+#", $password) || preg_match("#\W+#", $password)) {
+            if (preg_match("#[a-z]+#", $password)) {
+                if (preg_match("#[A-Z]+#", $password)) {
                     $validationpassword = true;
                 }
             }
@@ -43,10 +43,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
     if ($password == $repassword && $validationpassword == true) {
         try {
             $useremail = $conn->prepare("SELECT email FROM customer WHERE email = :email");
-            $useremail->execute(array(':email'=>$email));
+            $useremail->execute(array(':email' => $email));
             $emailexists = $useremail->fetch(PDO::FETCH_ASSOC);
 
-            if($emailexists['email'] == $email) {
+            if ($emailexists['email'] == $email) {
                 $emailerror = true;
             } else {
                 $user->register($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $password);
@@ -94,10 +94,18 @@ $roles->execute();
 $role = $roles->fetchAll();
 $roles = NULL;
 
-?>
-
+if (isset($_POST['submit'])) {
+    ?>
     <a href="/dashboard/role" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
-
+    <?php
+} else {
+    ?>
+    <a href="/dashboard/role" class="back-btn"
+       onclick="return confirm('Weet u zeker dat u het aanmaken van het account wil annuleren?');"><i
+                class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+    <?php
+}
+?>
     <div class="content">
         <div class="dashboard-left">
             <form method="post" enctype="multipart/form-data">
@@ -124,14 +132,16 @@ $roles = NULL;
                     }
                     ?>
                 </select>
-                <input type="submit" name="submit" value="wijzigen">
+                <input type="submit" name="register" value="wijzigen">
         </div>
         <div class="dashboard-right">
-            <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>" required>
+            <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>"
+                   required>
             <input type="text" name="city" placeholder="Woonplaats*" value="<?php echo $city ?>" required>
             <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required>
             <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required>
-            <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*" required>
+            <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*"
+                   required>
             </form>
             <div class="helper-text">
                 <ul>
@@ -150,12 +160,12 @@ $roles = NULL;
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     echo "<div class='sentregister'>";
     if ($succes === true) {
-        echo "U bent geregistreerd, u kunt vanaf nu inloggen!";
-    } elseif($emailerror === true) {
+        echo $_POST['firstname'] . " is nu registrereerd. Hij/zij kan nu inloggen!";
+    } elseif ($emailerror === true) {
         echo "Er is al een account met het door uw ingevoerde emailadres!";
     } else {
         echo "Het wachtwoord voldoet niet aan de eisen!";
     }
     echo "</div>";
 }
-include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');?>
+include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php'); ?>

@@ -3,6 +3,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $user = new User($conn);
+    $message = '';
 
     function editAccount($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $roleid)
     {
@@ -57,13 +58,18 @@ if (isset($_GET['id'])) {
             $message = 'Gebruiker kon niet worden aangepast, controleer of alles goed is ingevuld!';
         }
     }
-
-    ?>
-
-    <a href="/dashboard/role" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
-
-    <?php
-    $customer = customer($conn,$id);
+    if (isset($_POST['submit'])) {
+        ?>
+        <a href="/dashboard/role" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+        <?php
+    } else {
+        ?>
+        <a href="/dashboard/role" class="back-btn"
+           onclick="return confirm('Weet u zeker dat u het bewerken van het account wil annuleren?');"><i
+                    class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+        <?php
+    }
+    $customer = customer($conn, $id);
     foreach ($customer
 
              as $item) {
@@ -124,6 +130,9 @@ if (isset($_GET['id'])) {
         </div>
 
         <?php
+        echo $message;
     }
 }
+
+include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');?>
 ?>
