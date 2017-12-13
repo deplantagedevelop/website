@@ -35,13 +35,25 @@
     <div class="top-header">
         <div class="inner-header">
             <div class="account">
+                <ul>
                 <?php
                 if($user->is_loggedin()) {
-                    echo '<a href="/logout">Uitloggen</a>';
+                    echo '<li><a href="/logout">Uitloggen</a></li>';
+                    if(!$user->has_role('Klant')) {
+                        echo '<li><a href="/dashboard">Dashboard</a></li>';
+                    }
                 } else {
-                    echo '<a href="/inloggen">Inloggen</a>';
+                    echo '<li><a href="/inloggen">Inloggen</a></li>';
+                }
+
+                if(isset($_SESSION["shopping_cart"])) {
+                    $cartamount = count($_SESSION["shopping_cart"]);
+                } else {
+                    $cartamount = 0;
                 }
                 ?>
+                <li><a href="/cart">Winkelwagen (<?php echo $cartamount; ?>)</a></li>
+                </ul>
             </div>
         </div>
 

@@ -37,7 +37,7 @@
 <div class="dashcontent">
     <div class="dashleft">
         <div class="logo">
-            <a href="/dashboard"><img src="/assets/images/dashlogo.png"></a>
+            <a href="/"><img src="/assets/images/dashlogo.png"></a>
         </div>
         <div class="dashnav">
             <div class="dropdown">

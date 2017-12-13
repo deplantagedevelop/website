@@ -16,7 +16,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
     $password = $_POST['loginpassword'];
 
     if($user->login($email, $password)) {
-        if($user->has_role('Administrator')) {
+        if(isset($_GET['redirectUrl'])) {
+            $redirecturl = $_GET['redirectUrl'];
+            $user->redirect('/' . $redirecturl);
+        } elseif($user->has_role('Administrator')) {
             $user->redirect('/dashboard');
         }
         $succeslogin = true;

@@ -136,6 +136,10 @@
     cursor: pointer;
 }
 
+.cart-table {
+    width: 100%;
+}
+
 @media only screen and (max-width: 1024px) {
     .shop-content .product {
         width: calc(50% - 40px);
