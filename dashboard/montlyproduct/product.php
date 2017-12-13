@@ -13,6 +13,7 @@
         $description = $row["description"];
         $image = $row["image"];
         ?>
+        <a href="index.php"> Ga terug </a> <br> <br>
         <div class="home-products">
             <div class="single-product">
                 <div class="product-image" style="background-image: url('/assets/images/monthlyproducts/<?php echo $image ?>')">

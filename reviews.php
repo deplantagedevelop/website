@@ -145,6 +145,7 @@ include('header.php');
                 $anonymous = $row["anonymous"];
                 $rating = $row["rating"];
                 $message = $row["message"];
+                $reaction = $row["reaction"];
                 if ($anonymous == 0) {
                     echo "<div class='review-left'> 
                             <span class='review-name'> $firstname $middlename $lastname</span> <br>
@@ -160,6 +161,9 @@ include('header.php');
                 }
                 echo "</div>";
                 echo "<p> $message </p>";
+                if (!empty($reaction)) {
+                    echo "<p class='review-reaction'> $reaction </p>";
+                }
                 echo "</div>";
             }
         ?>

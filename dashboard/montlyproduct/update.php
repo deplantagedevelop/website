@@ -51,7 +51,7 @@
         $currentimage = $row["image"];
     }
 ?>
-
+<a href="index.php"> Ga terug </a> <br> <br>
 <form class="update-monthlyproduct" method="post" enctype="multipart/form-data">
     <img src="/assets/images/monthlyproducts/<?php echo $currentimage ?>"> <br>
     <input type="file" name="image" id="image"><br> <br>
@@ -59,6 +59,6 @@
     <input type="text" name="title" value="<?php echo "$title";?>"> <br> <br>
     Beschrijving: <br>
     <textarea name="description"><?php echo "$description";?></textarea> <br>
-    <input type="submit" name="submit" value="submit">
+    <input type="submit" name="submit" value="submit" onclick="return confirm('Weet je zeker dat je het wilt wijzigen?');">
 </form>
 
