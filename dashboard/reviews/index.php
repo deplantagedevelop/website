@@ -15,7 +15,7 @@
         while ($row = $aantalReviews->fetch()) {
             $aantal = $row["COUNT(*)"];
         }
-
+        echo "<div class='gem'>";
         if ($aantal != 0) {
             while ($row = $gemiddelde->fetch()) {
                 $gem = $row["AVG(rating)"];
@@ -29,8 +29,13 @@
         } else {
             echo "geen reviews aanwezig";
         }
+        echo "</div>";
+        ?>
+        <table class="review-table">
+            <thead> <tr> <th> Naam </th> <th> Datum </th> <th> Aantal sterren </th> <th> Bekijken </th> <th> Wijzigen </th> <th> verwijderen </th> </tr> </thead>
+            <tbody>
+        <?php
         $reviews->execute();
-        echo '<div class="show-review">';
         while ($row = $reviews->fetch()) {
             $id = $row["ID"];
             $firstname = $row["firstname"];
@@ -40,28 +45,28 @@
             $anonymous = $row["anonymous"];
             $rating = $row["rating"];
             $message = $row["message"];
-            echo " <div class='review-left'> 
-                              <div class='top-buttons-review'> <div class='cross'> <a class='review_cross' href='delete.php/?id=$id' onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\"><i class=\"fa fa-times fa-2x\" aria-hidden=\"true\"></i></a></div></div>
-                              <div class='review-middle'> ";
-            if ($anonymous == 0) {
-                echo " <span class='review-name'> $firstname $middlename $lastname</span> <br>
-                                <span class='review-date'> $date </span> <br>";
+            echo "<tr>";
+            if ($anonymous == 1) {
+                echo "<td> Anoniem</td>";
             } else {
-                echo "<span class='review-name'> Anoniem </span> <br>
-                                <span class='review-date'> $date </span> <br>";
+                echo "<td> $firstname $middlename $lastname";
             }
-            echo "<div class='review-star'>";
+            echo "<td> $date </td><td>";
             for ($i = 0; $i < $rating; $i ++) {
-                echo "<i class=\"starsrating fa fa-star fa-2x\" aria-hidden=\"true\"></i>";
+                echo "<i class=\"starsrating fa fa-star\" aria-hidden=\"true\"></i>";
             }
-            echo "</div>";
-            echo "<div class='review-message'><p> $message </p> </div>";
-            echo "</div>";
-            echo "<div class='buttom-buttons-review'></div>";
-            echo "</div>";
+            echo"</td>";
+            echo "<td> <i class=\"fa fa-eye\" aria-hidden=\"true\"></i> <a href=\"/dashboard/reviews/review?id=$id\">Bekijken</a></td>";
+            echo "<td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"/dashboard/reviews/react?id=$id\">Reageren</a></td>";
+            echo "<td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"/dashboard/reviews/delete?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>";
+            echo "</tr>";
         }
-        echo '</div>';
+        ?>
+            </tbody>
+        </table>
+        <?php
     }
+
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
 ?>
 

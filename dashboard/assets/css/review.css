@@ -1,86 +1,51 @@
-.review-left {
-    width: 30%;
-    background-color: #cccccc;
+.review-table {
+    width: 100%;
+    text-align: left;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+    border-spacing: 0;
+    padding: 0px;
 }
 
-button {
+.review-table thead tr {
+    background-color: #7ed3ec;
+}
+
+.review-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.review-table tbody tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+.review-table td {
+    padding: 5px 10px;
+}
+
+.review-table th {
+    padding: 10px;
+}
+
+.review-table a {
+    color: inherit;
     text-decoration: none;
-    cursor: pointer;
+    font-weight: bold;
 }
 
-.review-date {
-    font-size: 10px;
+.review-table a:hover {
+    color: grey;
 }
 
-.show-review{
-    display: flex;
+.gem {
+    margin-bottom: 50px;
+}
+
+.reviewInfo {
+    font-size: 20px;
     margin-top: 25px;
-    flex-wrap: wrap;
+    text-decoration: underline;
 }
 
-.show-review .review-left {
-    background-color: #f6f6f6;
-    width: calc(100% / 3 - 45px);
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-    margin-right: 25px;
-    margin-top: 25px;
-}
-
-.review-middle {
-    text-align: center;
-}
-
-
-.review-star {
-    padding-top: 5px;
-}
-
-.review-gem {
-    margin-top: 60px;
-}
-
-.show-review p {
-    white-space: pre-wrap;      /* CSS3 */
-    white-space: -moz-pre-wrap; /* Firefox */
-    white-space: -pre-wrap;     /* Opera <7 */
-    white-space: -o-pre-wrap;   /* Opera 7 */
-    word-wrap: break-word;      /* IE */
-}
-
-.review-message {
-    margin-top: 5px;
-}
-
-.top-buttons-review {
-    visibility: hidden;
-    min-height: 35px;
-    background: -webkit-gradient(linear, left bottom, left top, from(transparent), to(rgba(0,0,0,0.05)));
-}
-
-.review-left:hover .top-buttons-review {
-    visibility: visible;
-    min-height: 35px;
-}
-
-.review-left:hover .buttom-buttons-review {
-    visibility: visible;
-}
-
-.cross {
-    float: right;
-    text-decoration: none;
-}
-
-.buttom-buttons-review {
-    min-height: 30px;
-}
-
-.react {
-    float: right;
-    cursor: pointer;
-}
-
-.review_cross {
-    text-decoration: none;
-    color: black;
+.reviewText {
+    font-size: 17px;
 }

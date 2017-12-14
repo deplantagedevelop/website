@@ -33,9 +33,7 @@
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/orders.css">
 </head>
 <body>
 <div class="dashcontent">
@@ -61,7 +59,7 @@
             </div>
             <ul id="dashmenu">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="/dashboard">Home</a></li>
-                <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard">Bestellingen</a></li>
+                <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard/orders/">Bestellingen</a></li>
                 <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard">Accounts</a></li>
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
