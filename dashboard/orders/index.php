@@ -1,12 +1,24 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
     include_once($_SERVER['DOCUMENT_ROOT'] . '/functions/products.php');
-    $orders = $conn->prepare("SELECT O.ID id, firstname, middlename, lastname, sum(amount) aantal, O.date datum, status FROM orders O JOIN customer C ON O.customerID = C.ID JOIN orderlines OL ON O.ID=OL.orderID GROUP BY id")
+
+    if(isset($_GET['date-DESC'])) {
+
+    }
+
+    $orders = $conn->prepare("SELECT O.ID id, firstname, middlename, lastname, sum(amount) aantal, O.date datum, status FROM orders O JOIN customer C ON O.customerID = C.ID JOIN orderlines OL ON O.ID=OL.orderID GROUP BY id");
+
 ?>
 
 <div class="ordersOverview-top">
     <div class="ordersSort">
-
+        <form method="get">
+            <select name="select">
+                <option name="date-DESC" value="date-DESC"> Datum oud-nieuw </option>
+                <option name="name-ASC" value="name-ASC"> A - Z </option>
+            </select>
+            <button type="submit"> verzenden </button>
+        </form>
     </div>
     <div class="ordersSearch">
 
