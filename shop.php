@@ -75,7 +75,7 @@
                     'item_image'  => $_POST["hidden_image"],
                     'item_amount' => $_POST["hidden_amount"]
                 );
-                $_SESSION["shopping_cart"][$count] = $item_array;
+                $_SESSION["shopping_cart"][$count + 1] = $item_array;
                 $user->redirect('/shop');
             } else {
                 //Do this to check if Item is already in cart and update amount by 1
@@ -92,7 +92,7 @@
                         );
                         unset($_SESSION["shopping_cart"][$item]);
                         $count = count($_SESSION["shopping_cart"]);
-                        $_SESSION["shopping_cart"][$count] = $item_array;
+                        $_SESSION["shopping_cart"][$item] = $item_array;
                         $user->redirect('/shop');
                     }
                 }
