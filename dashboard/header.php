@@ -60,7 +60,7 @@
             <ul id="dashmenu">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="/dashboard">Home</a></li>
                 <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard/orders/">Bestellingen</a></li>
-                <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard">Accounts</a></li>
+                <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard/role">Accounts</a></li>
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
