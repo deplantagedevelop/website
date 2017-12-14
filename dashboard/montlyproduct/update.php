@@ -50,6 +50,7 @@
         $currentimage = $row["image"];
     }
 ?>
+
 <a href="/dashboard/montlyproduct" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
 <div class="content">
     <div class="dashboard-left">
@@ -71,3 +72,4 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
 ?>
+

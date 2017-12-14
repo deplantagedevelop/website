@@ -6,8 +6,10 @@ $loginerror = false;
 
 if($user->is_loggedin() != "")
 {
-    if($user->has_role('Administrator')) {
+    if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
+    } else {
+        $user->redirect('/');
     }
 }
 
@@ -19,8 +21,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
         if(isset($_GET['redirectUrl'])) {
             $redirecturl = $_GET['redirectUrl'];
             $user->redirect('/' . $redirecturl);
-        } elseif($user->has_role('Administrator')) {
+        } elseif(!$user->has_role('Klant')) {
             $user->redirect('/dashboard');
+        } else {
+            $user->redirect('/');
         }
         $succeslogin = true;
     } else {
@@ -143,7 +147,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
             <form method="post">
                 <input type="text" name="firstname" placeholder="Naam*" value="<?php echo $firstname ?>" required><br><br>
                 <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php echo $middlename ?>"><br><br>
-                <input type="text" name="lastname" placeholder="Achternaam*" value="<?php echo $lastname ?>"><br><br>
+                <input type="text" name="lastname" placeholder="Achternaam*" value="<?php echo $lastname ?>" required><br><br>
                 <input type="email" name="email" placeholder="E-mail*" value="<?php echo $email ?>" required><br><br>
                 <input type="text" name="phonenumber" placeholder="Telefoonnummer" value="<?php echo $phonenumber ?>"><br><br>
                 <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>" required><br><br>

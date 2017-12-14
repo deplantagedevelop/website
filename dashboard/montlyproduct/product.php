@@ -13,6 +13,7 @@
         $description = $row["description"];
         $image = $row["image"];
         ?>
+
         <a href="/dashboard/montlyproduct" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
         <div class="home-products">
             <div class="single-product">

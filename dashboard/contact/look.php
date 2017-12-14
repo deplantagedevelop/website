@@ -15,7 +15,7 @@ if(isset($_GET['id'])) {
         <div class="formulierinfo">
             <div class="formulierheader">
                 <div class="formulierback">
-                    <a href="/dashboard/contact" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>                    </div>
+                    <a href="/dashboard/contact" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a></div>
                 <div class="formuliertitle">
                     <h1>Contactformulier</h1>
                 </div>

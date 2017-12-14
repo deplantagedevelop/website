@@ -8,7 +8,11 @@
 
     $user = new User($conn);
     if(!$user->is_loggedin()) {
-        $user->redirect('404');
+        $user->redirect('/404');
+    } else {
+        if($user->has_role('Klant')) {
+            $user->redirect('/');
+        }
     }
 
 ?>
@@ -19,6 +23,7 @@
     <meta name="viewport" content="width=device-width"/>
     <title>De Plantage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/dashboard.css">
@@ -29,9 +34,8 @@
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/newscategory.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/monthlyproduct.css">
-    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/orders.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/edit.css">
 </head>
 <body>
 <div class="dashcontent">
@@ -57,8 +61,8 @@
             </div>
             <ul id="dashmenu">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="/dashboard">Home</a></li>
-                <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard">Bestellingen</a></li>
-                <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard">Accounts</a></li>
+                <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard/orders/">Bestellingen</a></li>
+                <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard/role">Accounts</a></li>
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>

@@ -7,6 +7,7 @@
 .formblock h4 {
     margin: 0;
     font-size: 17px;
+    width: 100%;
 }
 
 .formblock a {
@@ -15,16 +16,10 @@
     padding: 10px;
     display: inline-block;
     border-top: 2px solid #cccccc;
-
 }
 
 .formbl {
     padding-bottom: 20px;
-}
-
-.formulierinfo button a {
-    text-decoration: none;
-    color: white;
 }
 
 .formulierheader {
@@ -34,6 +29,15 @@
 .formulierback {
     float: left;
 }
+
+.formulierdelete .back-btn {
+    background-color: #f44336;
+}
+
+.formulierdelete .back-btn:hover {
+    background-color: rgb(256,0,0);
+}
+
 
 .formulierdelete {
     float: right;
@@ -50,14 +54,82 @@
 
 .leftform {
     width: 35%;
-        padding-right: 20px;
+    border-right: 2px solid #222d32;
+}
+
+.leftform .formblock a {
+    word-break: break-all;
 }
 
 .rightform {
     width: 65%;
-
+    margin-left: 30px;
+    padding-bottom: 12.5px;
 }
 
-.messageblock a {
+.leftform a {
+    width: calc(100% - 50px);
+}
+
+.rightform a {
     width: calc(100% - 20px);
+}
+
+@media only screen and (max-width: 1350px) {
+    .formblock a {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .fullform {
+        display: block;
+    }
+
+    .leftform {
+        width: 100%;
+        border-right: none;
+    }
+
+    .fullform .rightform{
+        width: 100%;
+        padding: 0 0 25px 0;
+    }
+
+    .formbl a {
+        width: calc(100% - 20px);
+    }
+
+    .rightform {
+        margin-left: 0;
+    }
+
+    .messageblock {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .formuliertitle {
+        display: none;
+    }
+
+    .fullform {
+        margin-top: 30px;
+    }
+
+    .back-btn {
+        width: 100px;
+        padding: 10px;
+    }
+
+    .dashbody, .dashheader {
+        margin: 15px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .dashbody, .dashheader {
+        margin: 15px;
+    }
 }
