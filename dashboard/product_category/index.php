@@ -12,7 +12,6 @@
             <thead>
             <tr>
                 <th> Categorienaam </th>
-                <th>Subcategorieën</th>
                 <th> Actief </th>
                 <th> Bewerken </th>
                 <th> Verwijderen </th>
@@ -29,7 +28,6 @@
                     if ($active == "true") {
                         echo "<tr> 
                     <td> $name </td> 
-                    <td>$subname</td>
                     <td> Actief </td> 
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
                     <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>                

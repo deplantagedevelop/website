@@ -1,6 +1,5 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
-    $url = "/";
     $id = $_GET["id"];
 
     $order = $conn->prepare("SELECT firstname, middlename, lastname, email, phonenumber, address, city, postalcode, status FROM orders O JOIN customer C ON O.customerID = C.ID WHERE O.ID = :id");

@@ -5,10 +5,15 @@
     $product = new Product($conn);
 
     $products = $product->getProducts();
-    if ($products->rowCount() > 0) {
-    ?>
-        <table class="dash-table">
-           <thead>
+?>
+    <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
+        Categorieën</a>
+    <div class="content">
+    <?php
+        if ($products->rowCount() > 0) {
+            ?>
+            <table class="dash-table">
+                <thead>
                 <tr>
                     <th>Productnaam</th>
                     <th>Categorie</th>
@@ -17,31 +22,32 @@
                     <th>Bewerken</th>
                     <th>Verwijderen</th>
                 </tr>
-           </thead>
-            <tbody>
-            <?php
-            foreach ($products as $item) {
-                ?>
-                <tr>
-                    <td><?php echo $item['title']; ?></td>
-                    <td><?php echo $item['category']; ?></td>
-                    <td><?php echo $item['price']; ?></td>
-                    <td><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
-                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
-                    <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
-                </tr>
+                </thead>
+                <tbody>
                 <?php
-            }
-            ?>
-            </tbody>
-        </table>
-        <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a><br>
-        <a href="/dashboard/product_category/" class="create-btn">Categorieën</a>
-    <?php
-    } else {
-        echo 'Geen producten gevonden<br>';
-    }
-?>
+                    foreach ($products as $item) {
+                        ?>
+                        <tr>
+                            <td><?php echo $item['title']; ?></td>
+                            <td><?php echo $item['category']; ?></td>
+                            <td><?php echo $item['price']; ?></td>
+                            <td><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
+                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
+                                        href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
+                            <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a
+                                        href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
+                        </tr>
+                        <?php
+                    }
+                ?>
+                </tbody>
+            </table>
+            <?php
+        } else {
+            echo 'Geen producten gevonden<br>';
+        }
+    ?>
+    </div>
     <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
 
 <?php
