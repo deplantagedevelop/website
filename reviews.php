@@ -17,7 +17,7 @@ include('header.php');
     $middlename = "";
     $lastname="";
     $message="";
-    $anonymous="1";
+    $anonymous="3";
     $star="";
     $starsTrue = true;
     $send = "";
@@ -113,19 +113,25 @@ include('header.php');
     <div class="review-gem">
         <?php
             $gemiddelde->execute();
-            while ($row = $gemiddelde->fetch()) {
-                $gem = $row["AVG(rating)"];
-                $gem = round($gem);
-                for ($i=0; $i<$gem; $i++) {
-                    echo "<i class=\"fa fa-star fa-2x\" aria-hidden=\"true\"></i>";
-                }
-            }
-            echo "<br>";
             $aantalReviews->execute();
+            $aantal = 0;
             while ($row = $aantalReviews->fetch()) {
                 $aantal = $row["COUNT(*)"];
             }
-            echo "$gem sterren uit $aantal reviews";
+
+            if ($aantal != 0) {
+                while ($row = $gemiddelde->fetch()) {
+                    $gem = $row["AVG(rating)"];
+                    $gem = round($gem);
+                    for ($i = 0; $i < $gem; $i++) {
+                        echo "<i class=\"fa fa-star fa-2x\" aria-hidden=\"true\"></i>";
+                    }
+                }
+                echo "<br>";
+                echo "$gem sterren uit $aantal reviews";
+            } else {
+                echo "Geen reviews aanwezig";
+            }
         ?>
     </div>
     <div class="show-review">

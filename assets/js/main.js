@@ -35,6 +35,8 @@ $(document).ready(function(){
     }
 
     var orderby = getParameterByName('order');
+    var minprice = getParameterByName('minprice');
+    var maxprice = getParameterByName('maxprice');
 
     $('#product-filter').change(function () {
         var locAppend = $(this).find('option:selected').attr("name"),

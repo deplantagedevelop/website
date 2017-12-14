@@ -12,7 +12,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/assets/images/favicon.png">
+
     <title>De Plantage</title>
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -26,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/inloggen.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css">
-    <link rel="icon" href="/assets/images/favicon.png">
 </head>
 <body>
 <section class="header">

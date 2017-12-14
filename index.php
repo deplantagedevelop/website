@@ -36,7 +36,7 @@
             foreach ($monthlyitems as $monthlyitem) {
                 ?>
                 <div class="single-product">
-                    <div class="product-image" style="background-image: url('/assets/images/<?php echo $monthlyitem["image"] ?>')">
+                    <div class="product-image" style="background-image: url('/assets/images/monthlyproducts/<?php echo $monthlyitem["image"] ?>')">
                         <div class="overlay">
                             <h2><?php echo $monthlyitem["type"]; ?></h2>
                         </div>
@@ -58,7 +58,7 @@
                     $description = (strlen($newsitem["description"]) > 125) ? substr($newsitem["description"], 0, 125) . '...' : $newsitem["description"];
                     ?>
                     <div class="single-news">
-                        <div class="news-image" style="background-image: url('/assets/images/<?php echo $newsitem["image"]; ?>')"></div>
+                        <div class="news-image" style="background-image: url('/assets/images/news/<?php echo $newsitem["image"]; ?>')"></div>
                         <div class="news-info">
                             <h2><?php echo $newsitem["title"]; ?></h2>
                             <p><?php echo $description; ?></p>
