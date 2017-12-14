@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/lookcontact.css">
     <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/orders.css">
+    <link rel="stylesheet" type="text/css" href="/dashboard/assets/css/edit.css">
 </head>
 <body>
 <div class="dashcontent">
