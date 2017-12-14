@@ -35,6 +35,8 @@
             ?>
             </tbody>
         </table>
+        <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a><br>
+        <a href="/dashboard/product_category/" class="create-btn">Categorieën</a>
     <?php
     } else {
         echo 'Geen producten gevonden<br>';
