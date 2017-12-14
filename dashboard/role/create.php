@@ -109,10 +109,15 @@ if (isset($_POST['submit'])) {
     <div class="content">
         <div class="dashboard-left">
             <form method="post" enctype="multipart/form-data">
+                <label>Voornaam</label>
                 <input type="text" name="firstname" placeholder="Naam*" value="<?php echo $firstname ?>" required>
+                <label>Tussenvoegsel</label>
                 <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php echo $middlename ?>">
+                <label>Achternaam</label>
                 <input type="text" name="lastname" placeholder="Achternaam*" value="<?php echo $lastname ?>" required>
+                <label>Email</label>
                 <input type="email" name="email" placeholder="E-mail*" value="<?php echo $email ?>" required>
+                <label>Telefoonnummer</label>
                 <input type="text" name="phonenumber" placeholder="Telefoonnummer" value="<?php echo $phonenumber ?>">
                 <label>Rol</label>
                 <select name="role">
@@ -135,15 +140,20 @@ if (isset($_POST['submit'])) {
                 <input type="submit" name="register" value="wijzigen">
         </div>
         <div class="dashboard-right">
+            <label>Adres</label>
             <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>"
                    required>
+            <label>Plaats</label>
             <input type="text" name="city" placeholder="Woonplaats*" value="<?php echo $city ?>" required>
+            <label>Postcode</label>
             <input type="text" name="postalcode" placeholder="Postcode*" value="<?php echo $postalcode ?>" required>
+            <label>Wachtwoord</label>
             <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*" required>
+            <label>Bevestig wachtwoord</label>
             <input class="password" type="password" id="password2" name="repassword" placeholder="Bevestig wachtwoord*"
                    required>
             </form>
-            <div class="helper-text">
+            <div class="helper-text-createacc">
                 <ul>
                     <li class="length">Minimaal 8 karakters</li>
                     <li class="lowercase">Minimaal 1 kleine letter</li>

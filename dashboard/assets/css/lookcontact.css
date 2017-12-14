@@ -40,8 +40,8 @@
 }
 
 .formuliertitle {
-    margin:0 auto;
-    display:inline-block;
+    margin: 0 auto;
+    display: inline-block;
 }
 
 .fullform {
@@ -50,7 +50,7 @@
 
 .leftform {
     width: 35%;
-        padding-right: 20px;
+    padding-right: 20px;
 }
 
 .rightform {
@@ -60,4 +60,8 @@
 
 .messageblock a {
     width: calc(100% - 20px);
+}
+
+.dashboard-right .helper-text-createacc {
+    padding-left: 20px;
 }

@@ -10,7 +10,7 @@ if ($user->has_role("Administrator")) {
         $search = '';
         $query = '';
     }
-    $customers = $conn->prepare("SELECT c.ID, firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password, name, r.name FROM customer AS c INNER JOIN roles AS r ON c.RoleID=r.ID" . $query . " ORDER BY lastname");
+    $customers = $conn->prepare("SELECT c.ID, firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password, name FROM customer AS c INNER JOIN roles AS r ON c.RoleID=r.ID" . $query . " ORDER BY lastname");
     $customers->execute();
     $customer = $customers->fetchAll();
     $customers = NULL;
@@ -30,6 +30,7 @@ if ($user->has_role("Administrator")) {
             <th>Achternaam</th>
             <th>Email</th>
             <th>Postcode</th>
+            <th>Rol</th>
             <th>Bewerk</th>
             <th>Verwijder</th>
         </tr>
@@ -44,6 +45,7 @@ if ($user->has_role("Administrator")) {
                 <td><?php echo $item['lastname']; ?></td>
                 <td><?php echo $item['email']; ?></td>
                 <td><?php echo $item['postalcode']; ?></td>
+                <td><?php echo $item['name']; ?></td>
                 <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
                             href="/dashboard/role/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                 <td><i class="fa fa-trash-o" aria-hidden="true"></i><a
