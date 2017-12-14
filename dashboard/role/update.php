@@ -5,26 +5,55 @@ if (isset($_GET['id'])) {
     $user = new User($conn);
     $message = '';
 
-    function editAccount($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $roleid)
+    function editAccount($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $roleid, $password, $repassword, $validationpassword)
     {
         global $conn, $id;
-        try {
-            $stmt = $conn->prepare("UPDATE customer SET firstname = :firstname, middlename = :middlename, lastname = :lastname, email = :email, phonenumber = :phonenumber, address = :address, city = :city, postalcode = :postalcode, RoleID = :roleid WHERE ID = " . $id);
+        if ($password == $repassword && $validationpassword == true) {
+            try {
+                //Use options that denotes the algorithmic cost, salt is Deprecated in PHP 7.0 so don't use that!
+                $options = [
+                    'cost' => 16
+                ];
+                $hashed_pass = password_hash($password, PASSWORD_BCRYPT, $options);
 
-            $stmt->bindparam(":firstname", $firstname);
-            $stmt->bindparam(":middlename", $middlename);
-            $stmt->bindparam(":lastname", $lastname);
-            $stmt->bindparam(":email", $email);
-            $stmt->bindparam(":phonenumber", $phonenumber);
-            $stmt->bindparam(":address", $address);
-            $stmt->bindparam(":city", $city);
-            $stmt->bindparam(":postalcode", $postalcode);
-            $stmt->bindparam(":roleid", $roleid);
-            $stmt->execute();
 
-            return true;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+                $stmt = $conn->prepare("UPDATE customer SET firstname = :firstname, middlename = :middlename, lastname = :lastname, email = :email, phonenumber = :phonenumber, address = :address, city = :city, postalcode = :postalcode, RoleID = :roleid, password = :password WHERE ID = " . $id);
+
+                $stmt->bindparam(":firstname", $firstname);
+                $stmt->bindparam(":middlename", $middlename);
+                $stmt->bindparam(":lastname", $lastname);
+                $stmt->bindparam(":email", $email);
+                $stmt->bindparam(":phonenumber", $phonenumber);
+                $stmt->bindparam(":address", $address);
+                $stmt->bindparam(":city", $city);
+                $stmt->bindparam(":postalcode", $postalcode);
+                $stmt->bindparam(":roleid", $roleid);
+                $stmt->bindparam(":password", $hashed_pass);
+                $stmt->execute();
+
+                return true;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        } else {
+            try {
+                $stmt = $conn->prepare("UPDATE customer SET firstname = :firstname, middlename = :middlename, lastname = :lastname, email = :email, phonenumber = :phonenumber, address = :address, city = :city, postalcode = :postalcode, RoleID = :roleid WHERE ID = " . $id);
+
+                $stmt->bindparam(":firstname", $firstname);
+                $stmt->bindparam(":middlename", $middlename);
+                $stmt->bindparam(":lastname", $lastname);
+                $stmt->bindparam(":email", $email);
+                $stmt->bindparam(":phonenumber", $phonenumber);
+                $stmt->bindparam(":address", $address);
+                $stmt->bindparam(":city", $city);
+                $stmt->bindparam(":postalcode", $postalcode);
+                $stmt->bindparam(":roleid", $roleid);
+                $stmt->execute();
+
+                return true;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
         }
     }
 
@@ -52,7 +81,21 @@ if (isset($_GET['id'])) {
         $postalcode = $_POST["postalcode"];
         $roleid = $_POST["role"];
         $customerrole = $_POST["role"];
-        if (editAccount($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $roleid) === true) {
+
+        $password = $_POST["password"];
+        $repassword = $_POST["repassword"];
+
+        if (7 < strlen($password)) {
+            if (preg_match("#[0-9]+#", $password) || preg_match("#\W+#", $password)) {
+                if (preg_match("#[a-z]+#", $password)) {
+                    if (preg_match("#[A-Z]+#", $password)) {
+                        $validationpassword = true;
+                    }
+                }
+            }
+        }
+
+        if (editAccount($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $roleid, $password, $repassword, $validationpassword) === true) {
             $message = 'Gebruiker is succesvol gewijzigd!';
         } else {
             $message = 'Gebruiker kon niet worden aangepast, controleer of alles goed is ingevuld!';
@@ -90,6 +133,9 @@ if (isset($_GET['id'])) {
                     <label>E-mail</label>
                     <input type="text" name="email" value="<?php echo $item["email"]; ?>" placeholder="E-mail"
                            required>
+                    <label>Telefoonnummer</label>
+                    <input type="text" name="phonenumber" value="<?php echo $item["phonenumber"]; ?>"
+                           placeholder="Telefoonnummer">
                     <label>Rol</label>
                     <select name="role">
                         <?php
@@ -111,9 +157,6 @@ if (isset($_GET['id'])) {
                     <input type="submit" name="submit" value="wijzigen">
             </div>
             <div class="dashboard-right">
-                <label>Telefoonnummer</label>
-                <input type="text" name="phonenumber" value="<?php echo $item["phonenumber"]; ?>"
-                       placeholder="Telefoonnummer">
                 <label>Plaatsnaam</label>
                 <input type="text" name="city" value="<?php echo $item["city"]; ?>"
                        placeholder="Plaatsnaam">
@@ -125,6 +168,11 @@ if (isset($_GET['id'])) {
                 <input type="text" name="address" value="<?php echo $item["address"]; ?>"
                        placeholder="Straatnaam + nummer"
                        required>
+                <label>Nieuw wachtwoord</label>
+                <input class="password" type="password" id="password1" name="password" placeholder="Wachtwoord*">
+                <label>Bevestig nieuw wachtwoord</label>
+                <input class="password" type="password" id="password2" name="repassword"
+                       placeholder="Bevestig wachtwoord*">
                 </form>
             </div>
         </div>
@@ -134,5 +182,4 @@ if (isset($_GET['id'])) {
     }
 }
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');?>
-?>
+include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php'); ?>
