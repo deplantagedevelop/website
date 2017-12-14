@@ -6,8 +6,10 @@ $loginerror = false;
 
 if($user->is_loggedin() != "")
 {
-    if($user->has_role('Administrator')) {
+    if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
+    } else {
+        $user->redirect('/');
     }
 }
 
@@ -19,8 +21,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
         if(isset($_GET['redirectUrl'])) {
             $redirecturl = $_GET['redirectUrl'];
             $user->redirect('/' . $redirecturl);
-        } elseif($user->has_role('Administrator')) {
+        } elseif(!$user->has_role('Klant')) {
             $user->redirect('/dashboard');
+        } else {
+            $user->redirect('/');
         }
         $succeslogin = true;
     } else {

@@ -8,7 +8,11 @@
 
     $user = new User($conn);
     if(!$user->is_loggedin()) {
-        $user->redirect('404');
+        $user->redirect('/404');
+    } else {
+        if($user->has_role('Klant')) {
+            $user->redirect('/');
+        }
     }
 
 ?>

@@ -35,12 +35,12 @@
             ?>
             </tbody>
         </table>
-        <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
     <?php
     } else {
-        echo 'Geen producten gevonden';
+        echo 'Geen producten gevonden<br>';
     }
 ?>
+    <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
 
 <?php
     include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
