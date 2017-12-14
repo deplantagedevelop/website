@@ -48,15 +48,22 @@
         </table>
         <?php
         if(!empty($_SESSION["shopping_cart"])) {
+            if($user->is_loggedin()) {
+                ?>
+                <form method="post" action="">
+                   <button type="submit" class="btn">Bestelling plaatsen</button>
+                </form>
+                <?php
+            } else {
+                ?>
+                <a href="/inloggen?redirectUrl=cart" class="btn">Verder naar bestellen</a>
+                <?php
+            }
             ?>
-            <form method="post" action="">
-                <input type="submit" value="Bestelling plaatsen">
-            </form>
+
             <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if(!$user->is_loggedin()) {
-                    echo 'U moet ingelogd zijn om een bestelling te kunnen plaatsten, klik <a href="/inloggen?redirectUrl=cart">hier</a> om in te loggen.';
-                } else {
+                if($user->is_loggedin()) {
                     $UserID = $_SESSION['user_session'];
                     $shop->createOrder($UserID, 'verwerken');
                     $OrderID = $conn->lastInsertId();

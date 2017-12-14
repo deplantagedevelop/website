@@ -25,6 +25,11 @@ html, body {
     background-color: #a6d73d;
 }
 
+button.btn {
+    border: none;
+    cursor: pointer;
+}
+
 /* Header */
 .header {
     position: fixed;

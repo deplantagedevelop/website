@@ -2,7 +2,7 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-
+    die();
     include($_SERVER['DOCUMENT_ROOT'] . '/lib/connection.php');
     include($_SERVER['DOCUMENT_ROOT'] . '/functions/user.php');
 
