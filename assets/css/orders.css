@@ -1,6 +1,4 @@
-.main-info {
-    padding-top: 50px;
-}
+
 
 .orderleft {
     background-color: white;
@@ -43,7 +41,6 @@
 
 .orderright {
     width: calc(100% - 350px);
-    border: 2px solid #cccccc;
 }
 
 .orderright h1 {
@@ -53,4 +50,16 @@
     -webkit-margin-start: 0;
     -webkit-margin-end: 0;
     font-size: 30px;
+}
+
+.fullorder p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
+.fullorder {
+    background-color: #f6f6f6;
+    margin: 20px 0;
+    padding: 10px;
+
 }
