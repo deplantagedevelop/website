@@ -32,7 +32,7 @@
         ?>
     </div>
 </section>
-<section class="content">
+<section class="content" id="content">
     <div class="home-products">
         <?php
         if ($monthlyitems->rowCount() > 0) {

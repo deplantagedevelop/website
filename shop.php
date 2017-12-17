@@ -68,7 +68,6 @@
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
             if(!in_array($_GET["id"], $item_array_id)) {
                 $count = count($_SESSION["shopping_cart"]);
-                var_dump($count);
                 $item_array = array(
                     'item_id'     => $_GET["id"],
                     'item_name'   => $_POST["hidden_name"],
