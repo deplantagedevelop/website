@@ -61,5 +61,35 @@
     background-color: #f6f6f6;
     margin: 20px 0;
     padding: 10px;
+}
+
+.ordercontent {
+    display: flex;
+}
+
+.contentleft {
+    width: calc(100% - 140px);
+}
+
+.contentright {
+    font-size: 15px;
+    text-align: right;
+    padding-top: 12px;
+    display: flex;
+}
+
+.ordertotal {
+    text-align: left;
+    width: 140px;
+
+}
+
+.seeorder a {
+    text-decoration: none;
+    color: black;
+}
+
+.fullorder:hover {
+    background-color: #ededed;
 
 }

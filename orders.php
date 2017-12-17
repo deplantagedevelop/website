@@ -5,15 +5,14 @@ include('header.php');
         $userid = $_SESSION['user_session'];
     }
 
-    $order = $conn->prepare("SELECT o.ID, o.date, o.Status, amount*price as totaal, amount FROM orders as o JOIN orders as b      WHERE CustomerID = :id");
-
+    $order = $conn->prepare("SELECT o.ID, o.date, o.Status, SUM(amount*price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :id GROUP BY o.ID");
     $order->bindparam(":id", $userid);
     $order->execute();
+    $order=$order->fetchAll();
 
-$producten = $conn->prepare("SELECT title, amount*price as totaal, amount FROM products P JOIN orderlines OL ON P.ID=OL.ProductID WHERE OL.OrderID=:id");
-
-$producten->bindparam(":id", $userid);
-$producten->execute();
+    function datetime() {
+        return date( 'd-m-Y', time());
+    }
 
 ?>
 <section class="content main-info">
@@ -37,8 +36,18 @@ $producten->execute();
                 ?>
             <div class="fullorder">
                 <div class="ordercontent">
-                    <p><?php echo "Bestelnummer: <b>" . $bestelling['ID'] . "</b>" ?></p>
-                    <a><?php echo $bestelling['date']; ?></a>
+                    <div class="contentleft">
+                        <p><?php echo "Bestelnummer: <b>" . $bestelling['ID'] . "</b>" ?></p>
+                        <a><?php echo datetime(); ?></a>
+                    </div>
+                    <div class="contentright">
+                        <div class="ordertotal">
+                            <a>Totaal €<?php echo $bestelling['totaal']; ?></a>
+                        </div>
+                        <div class="seeorder">
+                            <a href="orders/view/?id=<?php echo $bestelling["ID"]; ?>"><b>Bekijk</b></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php
