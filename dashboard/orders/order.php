@@ -11,7 +11,9 @@
         ":id" => $id
     ));
 
-    echo "<a href='/dashboard/orders/'>Ga terug</a>";
+    ?>
+    <a href="/dashboard/orders" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+    <?php
     while ($row = $order->fetch()){
         $firstname = $row["firstname"];
         $middlename = $row["middlename"];

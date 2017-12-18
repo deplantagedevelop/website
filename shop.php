@@ -2,7 +2,7 @@
 
     if(isset($_GET['categorie'])) {
         $category = $_GET['categorie'];
-        $categoryquery = ' WHERE pc.name = "' . $category . '"';
+        $categoryquery = ' AND pc.name = "' . $category . '"';
     } else {
         $categoryquery = '';
         $class = '';
@@ -12,7 +12,7 @@
         $minprice = $_GET['minprice'];
         $maxprice = $_GET['maxprice'];
 
-        $minpricequery = ' WHERE p.price >= ' . $minprice;
+        $minpricequery = ' AND p.price >= ' . $minprice;
         $maxpricequery = ' AND p.price <= ' . $maxprice;
 
         if(($minprice == '') || ($maxprice == '')) {
@@ -21,7 +21,7 @@
     } else {
         if(isset($_GET['minprice'])) {
             $minprice = $_GET['minprice'];
-            $minpricequery = ' WHERE p.price >= ' . $minprice;
+            $minpricequery = ' AND p.price >= ' . $minprice;
         } else {
             $minprice = '';
             $minpricequery = '';
@@ -29,7 +29,7 @@
 
         if(isset($_GET['maxprice'])) {
             $maxprice = $_GET['maxprice'];
-            $maxpricequery = ' WHERE p.price <= ' . $maxprice;
+            $maxpricequery = ' AND p.price <= ' . $maxprice;
         } else {
             $maxprice = '';
             $maxpricequery = '';
@@ -38,7 +38,7 @@
 
     if(isset($_GET['search'])) {
         $search = $_GET['search'];
-        $searchquery = ' WHERE p.title LIKE "%' . $search . '%"';
+        $searchquery = ' AND p.title LIKE "%' . $search . '%"';
     } else {
         $search = '';
         $searchquery = '';
@@ -113,7 +113,7 @@
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
     $categories->execute();
 
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery);
+    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery);
     $products->execute();
 
     $productvars = $conn->prepare('SELECT MIN(price) AS minprice, MAX(price) AS maxprice FROM products');

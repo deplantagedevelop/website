@@ -34,7 +34,7 @@
                             <td><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
                             <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
                                         href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
-                            <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a
+                            <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a onclick="return confirm('Weet u zeker dat u het product wil verwijderen?');"
                                         href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
                         </tr>
                         <?php

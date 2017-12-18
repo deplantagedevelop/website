@@ -47,10 +47,10 @@ if ($user->has_role("Administrator")) {
                 <td><?php echo $item['postalcode']; ?></td>
                 <td><?php echo $item['name']; ?></td>
                 <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
-                            href="/dashboard/role/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
+                            href="/dashboard/role/update?id=<?php echo $item['ID']; ?>"> Bewerk</a></td>
                 <td><i class="fa fa-trash-o" aria-hidden="true"></i><a
                             href="/dashboard/role/delete?id=<?php echo $item['ID']; ?>"
-                            onclick="return confirm('Weet u zeker dat u het account wil verwijderen?');">Verwijder</a>
+                            onclick="return confirm('Weet u zeker dat u het account wil verwijderen?');"> Verwijder</a>
                 </td>
             </tr>
 

@@ -30,7 +30,12 @@ include('header.php');
         $middlename = $_POST["middlename"];
         $lastname = ucfirst($_POST["lastname"]);
         $anonymous = $_POST["anonymous"];
-        $star = $_POST["star"];
+        if(isset($_POST["star"])) {
+            $star = $_POST["star"];
+        } else {
+            $star = '';
+        }
+
         $message = ucfirst($_POST["message"]);
         if ($_POST["anonymous"] == 0) {
             if (empty($_POST["firstname"])) {

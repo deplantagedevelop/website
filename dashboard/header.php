@@ -48,13 +48,13 @@
                 <button class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>
                 <div class="dropdown-content">
                     <a href="/dashboard">Home</a>
-                    <a href="/dashboard">Bestellingen</a>
-                    <a href="/dashboard">Accounts</a>
+                    <a href="/dashboard/orders">Bestellingen</a>
+                    <a href="/dashboard/role/">Accounts</a>
                     <a href="/dashboard/products">Producten</a>
                     <a href="/dashboard/news">Nieuws</a>
                     <a href="/dashboard/reviews">Reviews</a>
-                    <a href="/dashboard">Contact</a>
-                    <a href="/dashboard">Slider</a>
+                    <a href="/dashboard/contact">Contact</a>
+                    <a href="/dashboard/slider">Slider</a>
                 </div>
             </div>
             <ul id="dashmenu">
@@ -65,6 +65,7 @@
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
                 <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard/contact">Contact</a></li>
+                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/dashboard/montlyproduct">Product v/d maand</a></li>
                 <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard/slider">Slider</a></li>
             </ul>
         </div>
