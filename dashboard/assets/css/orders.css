@@ -45,3 +45,11 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+.sort-orders {
+    display: flex;
+}
+
+input .search-order {
+    width: 20%;
+}

@@ -11,6 +11,7 @@
         ":id" => $id
     ));
 
+    echo "<a href='/dashboard/orders/'>Ga terug</a>";
     while ($row = $order->fetch()){
         $firstname = $row["firstname"];
         $middlename = $row["middlename"];
@@ -33,7 +34,7 @@
               </table>";
         echo "<p class='order-index'> Status </p>";
         echo "<p class='reviewText'> $status </p>";
-        echo "<p class='order-index'> producten </p>";
+        echo "<p class='order-index'> Producten </p>";
     }
     $totalprice = 0;
     echo "<table class='ProductOrder-table'>
