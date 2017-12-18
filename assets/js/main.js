@@ -86,12 +86,25 @@ $(document).ready(function(){
         }
     });
 
-    $('.cart-row').each(function () {
-        $('.cart-amount').change(function () {
-            console.log($(this).find($('.cart-amount').val()));
+    $('.cart-row').each(function (index) {
+        var i = index + 1;
+        var sum = 0;
+        $('.cart-amount-' + i).change(function () {
+            $('.item-number-' + i).text(($('.cart-amount-' + i).val() * $('.item-number-' + i).attr("data-price")).toFixed(2));
+            calculateSum();
         });
     });
 });
+
+function calculateSum() {
+    var sum = 0;
+    $('.cart-row').each(function (index) {
+        var i = index + 1;
+        sum += +$('.item-number-' + i).text();
+    });
+    console.log(sum);
+    $('.item-total').text(sum);
+}
 
 $( window ).resize(function() {
     $('.slide').height(

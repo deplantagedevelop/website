@@ -55,6 +55,7 @@
                     <tbody>
                     <?php
                     $total = 0;
+                    $i = 1;
                     foreach($_SESSION["shopping_cart"] as $keys => $values)
                     {
                         if(isset($_GET['action'])) {
@@ -68,17 +69,18 @@
                         <tr class="cart-row">
                             <td><img src="/assets/images/products/<?php echo $values["item_image"]; ?>"></td>
                             <td><?php echo $values["item_name"]; ?></td>
-                            <td><input type="number" class="cart-amount" name="amount-<?php echo $values["item_id"]; ?>" value="<?php echo $values["item_amount"]; ?>"></td>
-                            <td>&euro; <span class="item-number"><?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?></span></td>
+                            <td><input type="number" class="cart-amount-<?php echo $i; ?>" min="1" name="amount-<?php echo $values["item_id"]; ?>" value="<?php echo $values["item_amount"]; ?>"></td>
+                            <td>&euro; <span class="item-number-<?php echo $i; ?>" data-name="total-price" data-price="<?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?>"><?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?></span></td>
                             <td><a href="/cart?action=delete&id=<?php echo $values["item_id"]; ?>">Verwijder <span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a></td>
                         </tr>
                         <?php
                         $total = $total + ($values["item_amount"] * $values["item_price"]);
+                        $i++;
                     }
                     ?>
                     <tr>
                         <td>Totaal bedrag</td>
-                        <td>&euro; <?php echo number_format($total, 2); ?></td>
+                        <td>&euro; <span class="item-total"><?php echo number_format($total, 2); ?></span></td>
                         <td></td>
                     </tr>
                     </tbody>
