@@ -33,7 +33,7 @@
         }
     }
 
-    if (isset($_GET["search-orders"])) {
+    if (!empty($_GET["search-orders"])) {
         $search = $_GET["search-orders"];
         $searchquery = ' WHERE firstname LIKE "%' . $search . '%" OR lastname LIKE "%' . $search . '%"';
     }
