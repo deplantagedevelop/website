@@ -4,7 +4,7 @@
     if (!$user->is_loggedin()) {
         $user->redirect('/inloggen');
     }
-    $productsubcategory = $conn->prepare("SELECT * FROM productsubcategory");
+    $productsubcategory = $conn->prepare("SELECT P.ID id, P.name name, P.checked checked, C.name category FROM productsubcategory P JOIN productcategory C ON P.categoryID = C.ID");
 ?>
     <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
     <div class="content">
@@ -22,15 +22,15 @@
                 $productsubcategory->execute();
                 echo "<tbody>";
                 while ($row = $productsubcategory->fetch()) {
-                    $id = $row["ID"];
+                    $id = $row["id"];
                     $name = $row["name"];
                     $active = $row["checked"];
-                    $category = $row["categoryID"];
-                    if ($active == "true") {
+                    $category = $row["category"];
+                    if ($active == 1) {
                         echo "<tr> 
                     <td> $name </td> 
                     <td> $category </td>
-                    <td> Actief </td> 
+                    <td> actief </td> 
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
                     <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>                
                   </tr>";
@@ -38,7 +38,7 @@
                         echo "<tr>
                     <td> $name </td>
                     <td> $category </td>
-                    <td> Non-actief </td>
+                    <td> non-actief </td>
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
                     <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>
                   </tr>";
