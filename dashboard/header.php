@@ -54,9 +54,7 @@
                     <a href="/dashboard/news">Nieuws</a>
                     <a href="/dashboard/reviews">Reviews</a>
                     <a href="/dashboard">Contact</a>
-                    <a href="/dashboard">Over ons</a>
-                    <a href="/dashboard/monthly_product">Product van de maand</a>
-                    <a href="/dashboard">Overige instelling</a>
+                    <a href="/dashboard">Slider</a>
                 </div>
             </div>
             <ul id="dashmenu">
@@ -67,9 +65,7 @@
                 <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
                 <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard/contact">Contact</a></li>
-                <li><i class="fa fa-info-circle" aria-hidden="true"></i><a href="/dashboard">Over ons</a></li>
-                <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/dashboard/montlyproduct/">Product van de maand</a></li>
-                <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard">Overige instellingen</a></li>
+                <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard/slider">Slider</a></li>
             </ul>
         </div>
         <div class="header-mobile"></div>

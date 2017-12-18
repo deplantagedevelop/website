@@ -4,8 +4,7 @@ $succes = false;
 $emailerror = false;
 $loginerror = false;
 
-if($user->is_loggedin() != "")
-{
+if($user->is_loggedin() != "") {
     if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
     } else {

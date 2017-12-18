@@ -1,4 +1,51 @@
-<?php include('header.php'); ?>
+<?php include('header.php');
+    if(isset($_POST["add_to_cart"])) {
+        if (isset($_SESSION["shopping_cart"])) {
+            //Check if Item is not in the cart and create new item after that
+            $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+            if (!in_array($_GET["id"], $item_array_id)) {
+                $count = count($_SESSION["shopping_cart"]);
+                $item_array = array(
+                    'item_id' => $_GET["id"],
+                    'item_name' => $_POST["hidden_name"],
+                    'item_price' => $_POST["hidden_price"],
+                    'item_image' => $_POST["hidden_image"],
+                    'item_amount' => $_POST["hidden_amount"]
+                );
+                $_SESSION["shopping_cart"][$count + 1] = $item_array;
+                $user->redirect($_SERVER['HTTP_REFERER']);
+            } else {
+                //Do this to check if Item is already in cart and update amount by 1
+                $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
+                foreach ($_SESSION["shopping_cart"] as $item => $key) {
+                    if ($key['item_id'] == $_GET["id"]) {
+                        $amount = $key['item_amount'];
+                        $item_array = array(
+                            'item_id' => $_GET["id"],
+                            'item_name' => $_POST["hidden_name"],
+                            'item_price' => $_POST["hidden_price"],
+                            'item_image' => $_POST["hidden_image"],
+                            'item_amount' => $_POST["hidden_amount"] + $amount
+                        );
+                        unset($_SESSION["shopping_cart"][$item]);
+                        $_SESSION["shopping_cart"][$item] = $item_array;
+                        $user->redirect($_SERVER['HTTP_REFERER']);
+                    }
+                }
+            }
+        } else {
+            $item_array = array(
+                'item_id' => $_GET["id"],
+                'item_name' => $_POST["hidden_name"],
+                'item_price' => $_POST["hidden_price"],
+                'item_image' => $_POST["hidden_image"],
+                'item_amount' => $_POST["hidden_amount"]
+            );
+
+            $_SESSION["shopping_cart"][0] = $item_array;
+        }
+    }
+?>
 <section class="content main-content">
     <?php
         if(isset($_GET['id'])) {
@@ -30,7 +77,13 @@
                             <?php echo "€ " . $item["price"]; ?>
                         </div>
                         <div class="itemsubmit">
-                            <button name="itemorder" type="submit" value="verzend">in winkelwagen</button>
+                            <form method="post" action="/product?action=add&id=<?php echo $item["ID"]; ?>">
+                                <input type="hidden" name="hidden_amount" value="1" />
+                                <input type="hidden" name="hidden_name" value="<?php echo $item["title"]; ?>" />
+                                <input type="hidden" name="hidden_price" value="<?php echo $item["price"]; ?>" />
+                                <input type="hidden" name="hidden_image" value="<?php echo $item["image"]; ?>" />
+                                <button name="add_to_cart" type="submit" value="verzend">in winkelwagen</button>
+                            </form>
                         </div>
                     </div>
                 <?php
