@@ -12,7 +12,6 @@
             <thead>
             <tr>
                 <th> Categorienaam </th>
-                <th>Subcategorieën</th>
                 <th> Actief </th>
                 <th> Bewerken </th>
                 <th> Verwijderen </th>
@@ -47,7 +46,7 @@
         </table>
     </div>
     <a href="/dashboard/product_category/create" class="create-btn">Categorie toevoegen</a>
-    <a href="/dashboard/product_subcategory/create" class="create-btn">Subcategorie toevoegen</a>
+    <a href="/dashboard/product_subcategory/index" class="create-btn">Subcategorieën</a>
 
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

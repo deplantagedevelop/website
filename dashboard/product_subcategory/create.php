@@ -21,7 +21,7 @@
     }
 ?>
 
-<a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+<a href="/dashboard/product_subcategory" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
 <div class="content">
     <div class="dashboard-left">
         <form method="post">
