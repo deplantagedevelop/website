@@ -45,7 +45,7 @@ include('header.php');
                             <a>Totaal €<?php echo $bestelling['totaal']; ?></a>
                         </div>
                         <div class="seeorder">
-                            <a href="orders/view/?id=<?php echo $bestelling["ID"]; ?>"><b>Bekijk</b></a>
+                            <a href="/vieworder?id=<?php echo $bestelling["ID"]; ?>"><b>Bekijk</b></a>
                         </div>
                     </div>
                 </div>
@@ -54,10 +54,6 @@ include('header.php');
             }
         ?>
     </div>
-
-
-
-
 </div>
 
 </section>
