@@ -200,6 +200,7 @@ button.btn {
     height: 100%;
     max-height: calc(100vh - 136px);
     position: relative;
+    background-size: cover !important;
 }
 
 .slidearrow {

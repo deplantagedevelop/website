@@ -2,9 +2,28 @@
     include('header.php');
     include('functions/products.php');
     include('functions/shop.php');
+
     $product = new Product($conn);
     $user = new User($conn);
     $shop = new Shop($conn);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($user->is_loggedin()) {
+            $UserID = $_SESSION['user_session'];
+            $shop->createOrder($UserID, 'verwerken');
+            $OrderID = $conn->lastInsertId();
+            foreach($_SESSION["shopping_cart"] as $keys => $values) {
+                $ProductID = $values['item_id'];
+                $amount = $values['item_amount'];
+
+                $shop->createOrderLine($OrderID, $ProductID, $amount);
+            }
+            unset($_SESSION["shopping_cart"]);
+            $_SESSION['order_succes'] = uniqid();
+            $_SESSION['order_number'] = $OrderID;
+            $user->redirect('/succes?id=' . $_SESSION['order_succes']);
+        }
+    }
 ?>
 
     <section class="content main-content">
@@ -78,24 +97,6 @@
             ?>
 
             <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if($user->is_loggedin()) {
-                    $UserID = $_SESSION['user_session'];
-                    $shop->createOrder($UserID, 'verwerken');
-                    $OrderID = $conn->lastInsertId();
-                    foreach($_SESSION["shopping_cart"] as $keys => $values) {
-                        $ProductID = $values['item_id'];
-                        $amount = $values['item_amount'];
-
-                        $shop->createOrderLine($OrderID, $ProductID, $amount);
-                    }
-                    unset($_SESSION["shopping_cart"]);
-
-                    $_SESSION['order_succes'] = uniqid();
-                    $_SESSION['order_number'] = $OrderID;
-                    $user->redirect('/succes?id=' . $_SESSION['order_succes']);
-                }
-            }
         }
         ?>
     </section>
