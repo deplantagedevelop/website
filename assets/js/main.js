@@ -85,6 +85,12 @@ $(document).ready(function(){
             $('.same-pass').removeClass('green-validation');
         }
     });
+
+    $('.cart-row').each(function () {
+        $('.cart-amount').change(function () {
+            console.log($(this).find($('.cart-amount').val()));
+        });
+    });
 });
 
 $( window ).resize(function() {

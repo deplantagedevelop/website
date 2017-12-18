@@ -106,6 +106,7 @@
             );
 
             $_SESSION["shopping_cart"][0] = $item_array;
+            $user->redirect('/shop');
         }
     }
 

@@ -14,7 +14,15 @@
             $OrderID = $conn->lastInsertId();
             foreach($_SESSION["shopping_cart"] as $keys => $values) {
                 $ProductID = $values['item_id'];
-                $amount = $values['item_amount'];
+                if(isset($_POST['amount-' . $ProductID])) {
+                    if($_POST['amount-' . $ProductID] === 0) {
+                        $amount = 1;
+                    } else {
+                        $amount = $_POST['amount-' . $ProductID];
+                    }
+                } else {
+                    $amount = 1;
+                }
 
                 $shop->createOrderLine($OrderID, $ProductID, $amount);
             }
@@ -30,6 +38,7 @@
         <div class="cart-header">
              <h1>Winkelwagen</h1>
         </div>
+        <form method="post" action="" id="cart">
         <table class="cart-table">
             <?php
                 if(!empty($_SESSION["shopping_cart"]))
@@ -56,11 +65,11 @@
                             }
                         }
                         ?>
-                        <tr>
+                        <tr class="cart-row">
                             <td><img src="/assets/images/products/<?php echo $values["item_image"]; ?>"></td>
                             <td><?php echo $values["item_name"]; ?></td>
-                            <td><?php echo $values["item_amount"]; ?></td>
-                            <td>&euro; <?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?></td>
+                            <td><input type="number" class="cart-amount" name="amount-<?php echo $values["item_id"]; ?>" value="<?php echo $values["item_amount"]; ?>"></td>
+                            <td>&euro; <span class="item-number"><?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?></span></td>
                             <td><a href="/cart?action=delete&id=<?php echo $values["item_id"]; ?>">Verwijder <span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a></td>
                         </tr>
                         <?php
@@ -81,13 +90,12 @@
                 }
             ?>
         </table>
+        </form>
         <?php
         if(!empty($_SESSION["shopping_cart"])) {
             if($user->is_loggedin()) {
                 ?>
-                <form method="post" action="">
-                   <button type="submit" class="btn">Bestelling plaatsen</button>
-                </form>
+                   <button type="submit" class="btn" form="cart">Bestelling plaatsen</button>
                 <?php
             } else {
                 ?>
