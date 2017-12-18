@@ -32,7 +32,7 @@
                 <tr> <td class='order-gegevens'> Telefoon: </td> <td> $phonenumber </td></tr>
                 <tr> <td class='order-gegevens'> Adres: </td> <td> $address </td></tr>
                 <tr> <td class='order-gegevens'> Woonplaats: </td> <td> $city </td></tr>
-                <tr> <td class='order-gegevens'> Postcode: </td> <td> $city </td></tr>
+                <tr> <td class='order-gegevens'> Postcode: </td> <td> $postalcode </td></tr>
               </table>";
         echo "<p class='order-index'> Status </p>";
         echo "<p class='reviewText'> $status </p>";
