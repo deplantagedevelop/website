@@ -1,0 +1,77 @@
+.leftcontent {
+    background-color: white;
+    width: 300px;
+    margin-right: 50px;
+    border: 2px solid #cccccc;
+}
+
+.leftcontent ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+}
+
+.leftcontent ul li {
+    text-decoration: none;
+    list-style-type: none;
+    padding: 10px;
+}
+
+.leftcontent h2 {
+    margin: 0;
+    font-size: 20px;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    background-color: #cccccc;
+    padding: 10px;
+}
+
+.fullcontent {
+    margin-top: 30px;
+    display: flex;
+}
+
+.rightorder {
+    width: calc(100% - 350px);
+}
+
+.rightorder h1 {
+    margin: 0;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-size: 30px;
+}
+
+.rightorder table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.rightorder table tr td {
+    width: 20%;
+    margin: 100px 0;
+}
+
+
+.rightorder table tr img {
+    width: 100%;
+}
+
+.rightorder table tr th {
+    background-color: #f6f6f6;
+    text-align: left;
+    padding: 10px 5px;
+
+}
+
+.tableheader tr {
+    margin-bottom: 20px;
+}
