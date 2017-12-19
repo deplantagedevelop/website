@@ -248,7 +248,7 @@ function initMap() {
         // draggable:true,
         // animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(52.447351, 5.8343931),
-        icon: 'http://jeffrey.plantagedevelopment.nl/assets/images/marker.png' // null = default icon
+        icon: '/assets/images/marker.png' // null = default icon
     });
 }
 

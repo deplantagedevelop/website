@@ -289,3 +289,7 @@ input::-webkit-inner-spin-button {
 .order-succes h1 {
     text-align: center;
 }
+
+.cart-row td img {
+    max-width: 255px;
+}

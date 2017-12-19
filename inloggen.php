@@ -13,6 +13,7 @@ if($user->is_loggedin() != "") {
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
+    $_POST = array_map('strip_tags', $_POST);
     $email = $_POST['loginemail'];
     $password = $_POST['loginpassword'];
 
