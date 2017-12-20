@@ -31,16 +31,13 @@ if (isset($_SESSION['user_session'])) {
                 <div class="leftcontent">
                     <h2>Mijn account</h2>
                     <ul>
-                        <li>Bestellingen</li>
-                        <li>Accountgegevens</li>
-                        <li>Uitloggen</li>
+                        <a href="/orders"><li>Bestellingen</li></a>
+                        <a href="/logout"><li>Uitloggen</li></a>
                     </ul>
                 </div>
 
                 <?php
-                foreach ($order
-
-                as $item) {
+                foreach ($order as $item) {
                 ?>
                 <div class="rightorder">
                     <div class="breadcrumb">
@@ -48,17 +45,21 @@ if (isset($_SESSION['user_session'])) {
                         <h5><?php echo $id ?> </h5>
                     </div>
                     <table>
-                        <tr>
-                                <th><b>Bestelnummer <?php echo $id ?></b></th>
+                        <thead>
+                            <tr>
+                                <th class="tableimg"><b>Bestelnr. <?php echo $id ?></b></th></>
                                 <th><b>Productnaam</b></th>
                                 <th><b>Aantal</b></th>
-                                <th><b>Prijs</b></th>
+                                <th class="priceeach"><b>Prijs</b></th>
                                 <th><b>Totaal</b></th>
-                        </tr>
+                            </tr>
+                        </thead>
+                        <tbody>
                     <?php
                     }
 
                     $totalprice = 0;
+
                     foreach ($products as $product) {
                     $title = $product["title"];
                     $price = $product["totaal"];
@@ -67,19 +68,38 @@ if (isset($_SESSION['user_session'])) {
                     $totalprice = $totalprice + $price;
                     ?>
                         <div class="tableheader">
-                            <tr>
-                                <td><img src="/assets/images/products/<?php echo $product["image"]; ?>"></td>
+                            <div>
+                                <td class="tableimg"><img src="/assets/images/products/<?php echo $product["image"]; ?>"></td>
                                 <td><?php echo $title ?></td>
                                 <td><?php echo $amount ?></td>
-                                <td>€<?php echo $priceeach ?></td>
+                                <td class="priceeach">€<?php echo $priceeach ?></td>
                                 <td>€<?php echo $price ?></td>
                             </tr>
                         </div>
                     <?php
                     }
                     ?>
+                    </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="tableimg">
+                                    <?php foreach ($order as $status) {
+                                        echo "Status: <b>" . $status["Status"] . "</b>";
+                                    } ?>
+                                </td>
+                                <td>
+                                    <div class="mediastatus">
+                                        <?php foreach ($order as $status) {
+                                            echo "Status: <b>" . $status["Status"] . "</b>";
+                                        } ?>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td class="priceeach"></td>
+                                <td><b>Totaal €<?php echo $totalprice ?></b></td>
+                            </tr>
+                        </tfoot>
                     </table>
-                    <h3>Totaal &nbsp€<?php echo $totalprice ?></h3>
                 </div>
             </div>
 
