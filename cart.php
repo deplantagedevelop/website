@@ -69,7 +69,7 @@
                         <tr class="cart-row">
                             <td><img src="/assets/images/products/<?php echo $values["item_image"]; ?>"></td>
                             <td><?php echo $values["item_name"]; ?></td>
-                            <td><input type="number" class="cart-amount-<?php echo $i; ?>" min="1" name="amount-<?php echo $values["item_id"]; ?>" value="<?php echo $values["item_amount"]; ?>"></td>
+                            <td><input type="number" class="cart-amount-<?php echo $i; ?>" id="cart-amount" min="1" name="amount-<?php echo $values["item_id"]; ?>" value="<?php echo $values["item_amount"]; ?>"></td>
                             <td>&euro; <span class="item-number-<?php echo $i; ?>" data-name="total-price" data-price="<?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?>"><?php echo number_format($values["item_amount"] * $values["item_price"], 2); ?></span></td>
                             <td><a href="/cart?action=delete&id=<?php echo $values["item_id"]; ?>">Verwijder <span class="text-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a></td>
                         </tr>

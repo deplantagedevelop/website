@@ -128,6 +128,7 @@ label.star:before {
     display: flex;
     margin-top: 50px;
     flex-wrap: wrap;
+    margin-bottom: 25px;
 }
 
 .show-review .review-left {

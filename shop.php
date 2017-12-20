@@ -1,25 +1,44 @@
-<?php include('header.php');
+    <?php include('header.php');
+    $productvars = $conn->prepare('SELECT MIN(price) AS minprice, MAX(price) AS maxprice FROM products');
+    $productvars->execute();
+    $productvar = $productvars->fetch(PDO::FETCH_ASSOC);
+
+    //Check for page request
+    $limit = 12;
+    if(empty($_GET['pagina'])) {
+        $currentRow = 0;
+        $_GET['pagina'] = 0;
+    } else {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    }
 
     if(isset($_GET['categorie'])) {
         $category = $_GET['categorie'];
         $categoryquery = ' AND pc.name = "' . $category . '"';
     } else {
         $categoryquery = '';
+        $category = '';
         $class = '';
     }
 
-    if((isset($_GET['minprice'])) && !empty($_GET['maxprice'])) {
+    if((isset($_GET['minprice'])) && (isset($_GET['maxprice']))) {
         $minprice = $_GET['minprice'];
         $maxprice = $_GET['maxprice'];
+        if(empty($maxprice)) {
+            $maxprice = $productvar['maxprice'];
+        } elseif(empty($minprice)) {
+            $minprice = $productvar['minprice'];
+        }
 
         $minpricequery = ' AND p.price >= ' . $minprice;
         $maxpricequery = ' AND p.price <= ' . $maxprice;
 
-        if(($minprice == '') || ($maxprice == '')) {
+        if($maxprice == '') {
             $user->redirect('/shop');
         }
     } else {
-        if(isset($_GET['minprice'])) {
+        if(isset($_GET['minprice']) && !empty($_GET['minprice'])) {
             $minprice = $_GET['minprice'];
             $minpricequery = ' AND p.price >= ' . $minprice;
         } else {
@@ -27,7 +46,7 @@
             $minpricequery = '';
         }
 
-        if(isset($_GET['maxprice'])) {
+        if(isset($_GET['maxprice']) && !empty($_GET['maxprice'])) {
             $maxprice = $_GET['maxprice'];
             $maxpricequery = ' AND p.price <= ' . $maxprice;
         } else {
@@ -111,16 +130,19 @@
     }
 
     /* Queries */
-    $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID GROUP BY pc.ID');
+    $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID WHERE p.available = 1 GROUP BY pc.ID');
     $categories->execute();
 
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery);
+    $subcategories = $conn->query('SELECT * FROM productsubcategory');
+    $subcategories->execute();
+
+    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery . ' LIMIT ' . $currentRow . ', ' . $limit);
     $products->execute();
 
-    $productvars = $conn->prepare('SELECT MIN(price) AS minprice, MAX(price) AS maxprice FROM products');
-    $productvars->execute();
-    $productvar = $productvars->fetch(PDO::FETCH_ASSOC);
-
+    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery);
+    $rowCounts->execute();
+    $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
+    $total_pages = ceil($rowCount['amount'] / $limit);
 ?>
 <section class="content main-content">
     <div class="shop-content">
@@ -151,13 +173,13 @@
             </ul>
             <span class="title">Prijs</span>
             <form method="get" class="price-form">
-                <input type="number" class="price" name="minprice" id="min-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['minprice']; ?>" value="<?php echo $minprice; ?>">
+                <input type="number" class="price" name="minprice" id="min-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['minprice']; ?>" value="<?php echo $productvar['minprice']; ?>">
                 <span>tot</span>
-                <input type="number" class="price" name="maxprice" id="max-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['maxprice']; ?>" value="<?php echo $maxprice; ?>">
+                <input type="number" class="price" name="maxprice" id="max-price" min="<?php echo $productvar['minprice']; ?>" max="<?php echo $productvar['maxprice']; ?>" placeholder="<?php echo $productvar['maxprice']; ?>" value="<?php echo $productvar['maxprice']; ?>">
                 <button class="price-filter-btn">></button>
             </form>
 
-            <?php echo $products->rowCount(); ?> resultaten
+            <?php echo $rowCount['amount']; ?> resultaten
         </div>
         <div class="shop-right">
             <div class="products-filters">
@@ -209,6 +231,58 @@
             }
             ?>
             </div>
+            <?php
+            if ($products->rowCount() > 0) {
+                ?>
+                <div class="flex-pagination">
+                    <?php
+                        //Reset category Get because of products, only check for get in URL now.
+                        if (isset($_GET['categorie'])) {
+                            $category = $_GET['categorie'];
+                        } else {
+                            $category = '';
+                        }
+                        if ($_GET['pagina']) {
+                            $current = $_GET['pagina'];
+                            if ($current != 1) {
+                                echo '<a href="/shop' . $category . '"> << </a>';
+                                echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                            }
+                        } else {
+                            $current = 1;
+                        }
+
+                        for ($i = $current; $i <= $current + 2; $i++) {
+                            if ($_GET['pagina'] == $i) {
+                                echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                            } elseif (empty($_GET['pagina']) && $i === 1) {
+                                echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                            } else {
+                                if ($current != $total_pages) {
+                                    if ($current != $total_pages - 1) {
+                                        echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                                    }
+                                }
+                            }
+                        }
+                        if ($_GET['pagina'] != $total_pages) {
+                            if ($current <= $total_pages - 3) {
+                                echo '<a href="#">...</a>';
+                                echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                            }
+                            if ($current == $total_pages - 1) {
+                                echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                            }
+                            if ($current != $total_pages) {
+                                echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
+                                echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                            }
+                        }
+                    ?>
+                </div>
+                <?php
+                }
+                ?>
         </div>
     </div>
 </section>

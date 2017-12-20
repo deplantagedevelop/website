@@ -4,7 +4,22 @@
     $user = new User($conn);
     $product = new Product($conn);
 
-    $products = $product->getProducts();
+    //Check for page request
+    $limit = 20;
+    if(empty($_GET['pagina'])) {
+        $currentRow = 0;
+        $_GET['pagina'] = 0;
+    } else {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    }
+
+    $products = $product->getProducts($currentRow, $limit);
+
+    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products');
+    $rowCounts->execute();
+    $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
+    $total_pages = ceil($rowCount['amount'] / $limit);
 ?>
     <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
         Categorieën</a>
@@ -48,6 +63,58 @@
         }
     ?>
     </div>
+    <?php
+    if($products->rowCount() > 0) {
+        ?>
+        <div class="flex-pagination">
+            <?php
+                //Reset category Get because of products, only check for get in URL now.
+                if (isset($_GET['categorie'])) {
+                    $category = $_GET['categorie'];
+                } else {
+                    $category = '';
+                }
+                if ($_GET['pagina']) {
+                    $current = $_GET['pagina'];
+                    if ($current != 1) {
+                        echo '<a href="/shop' . $category . '"> << </a>';
+                        echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                    }
+                } else {
+                    $current = 1;
+                }
+
+                for ($i = $current; $i <= $current + 2; $i++) {
+                    if ($_GET['pagina'] == $i) {
+                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    } elseif (empty($_GET['pagina']) && $i === 1) {
+                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    } else {
+                        if ($current != $total_pages) {
+                            if ($current != $total_pages - 1) {
+                                echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                            }
+                        }
+                    }
+                }
+                if ($_GET['pagina'] != $total_pages) {
+                    if ($current <= $total_pages - 3) {
+                        echo '<a href="#">...</a>';
+                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    }
+                    if ($current == $total_pages - 1) {
+                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    }
+                    if ($current != $total_pages) {
+                        echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
+                        echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                    }
+                }
+            ?>
+        </div>
+        <?php
+    }
+    ?>
     <a href="/dashboard/products/create" class="create-btn">Product toevoegen</a>
 
 <?php

@@ -12,6 +12,10 @@
     font-size: 14px;
 }
 
+.ordersOverview-bottom {
+    margin-bottom: 25px;
+}
+
 .ProductOrder-table {
     width: 50%;
     text-align: left;

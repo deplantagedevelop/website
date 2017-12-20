@@ -1,7 +1,23 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
-    $newsitems = $conn->prepare("SELECT n.*, nc.name AS category FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ORDER BY n.ID DESC");
+
+    $limit = 20;
+    if(empty($_GET['pagina'])) {
+        $currentRow = 0;
+        $_GET['pagina'] = 0;
+    } else {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    }
+
+    $newsitems = $conn->prepare("SELECT n.*, nc.name AS category FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ORDER BY n.ID DESC LIMIT " . $currentRow . ", " . $limit);
     $newsitems->execute();
+
+    $rowCounts = $conn->prepare('SELECT COUNT(*) AS amount FROM news');
+    $rowCounts->execute();
+    $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
+    $total_pages = ceil($rowCount['amount'] / $limit);
+
     if ($newsitems->rowCount() > 0) {
         ?>
         <a href="/dashboard/news_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
@@ -42,5 +58,8 @@
     } else {
         echo '<p>Geen nieuwsberichten gevonden</p>';
     }
+    ?>
+    <a href="/dashboard/news/create" class="create-btn">Nieuws toevoegen</a>
+    <?php
 
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

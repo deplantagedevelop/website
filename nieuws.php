@@ -7,14 +7,15 @@
 include('header.php');
 include('lib/connection.php');
 
-
-//vars:
-$descmax = 175;
-$newscategories = $conn->prepare("SELECT nc.name, nc.ID, COUNT(n.ID) AS amount FROM newscategory AS nc LEFT JOIN news AS n ON nc.ID=n.categoryID GROUP BY nc.ID");
-$newscategories->execute();
-$newscategory = $newscategories->fetchAll();
-$newscategories = NULL;
-
+//Check for page request
+$limit = 4;
+if(empty($_GET['pagina'])) {
+    $currentRow = 0;
+    $_GET['pagina'] = 0;
+} else {
+    $pagina = $_GET['pagina'];
+    $currentRow = ($pagina - 1) * $limit;
+}
 
 //check for submit
 if (isset($_GET['categorie'])) {
@@ -25,9 +26,20 @@ if (isset($_GET['categorie'])) {
     $class = '';
 }
 
+//vars:
+$descmax = 175;
+$newscategories = $conn->prepare("SELECT nc.name, nc.ID, COUNT(n.ID) AS amount FROM newscategory AS nc LEFT JOIN news AS n ON nc.ID=n.categoryID GROUP BY nc.ID LIMIT " . $currentRow . ', ' . $limit . '');
+$newscategories->execute();
+$newscategory = $newscategories->fetchAll();
+$newscategories = NULL;
+
+$rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ' . $newscategoryquery);
+$rowCounts->execute();
+$rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
+$total_pages = ceil($rowCount['amount'] / $limit);
+
 //functions:
-function shorten($text, $max)
-{
+function shorten($text, $max) {
     echo '<br>';
     if (strlen($text) <= $max) {
         echo $text;
@@ -36,10 +48,19 @@ function shorten($text, $max)
     }
 }
 
-function news()
-{
+function news() {
     global $conn, $descmax, $_GET, $newscategoryquery;
-    $newsitems = $conn->prepare("SELECT n.ID, image, title, description FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID" . $newscategoryquery . " ORDER BY n.ID DESC");
+    //Check for page request
+    $limit = 4;
+    if(empty($_GET['pagina'])) {
+        $currentRow = 0;
+        $_GET['pagina'] = 0;
+    } else {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    }
+
+    $newsitems = $conn->prepare("SELECT n.ID, image, title, description FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID" . $newscategoryquery . " ORDER BY n.ID DESC LIMIT " . $currentRow . ', ' . $limit . '');
     $newsitems->execute();
     $newsitem = $newsitems->fetchAll();
     $newsitems = NULL;
@@ -61,8 +82,6 @@ function news()
 
 ?>
 <section class="content content-news">
-    <div class="heading">
-    </div>
     <div class="main-news">
         <div class="news-category">
             <span class="title">Categorieën</span>
@@ -93,6 +112,52 @@ function news()
 
             ?>
         </div>
+    </div>
+    <div class="flex-pagination">
+        <?php
+            //Reset category Get because of products, only check for get in URL now.
+            if (isset($_GET['categorie'])) {
+                $category = $_GET['categorie'];
+            } else {
+                $category = '';
+            }
+            if ($_GET['pagina']) {
+                $current = $_GET['pagina'];
+                if ($current != 1) {
+                    echo '<a href="/nieuws' . $category . '"> << </a>';
+                    echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                }
+            } else {
+                $current = 1;
+            }
+
+            for ($i = $current; $i <= $current + 2; $i++) {
+                if ($_GET['pagina'] == $i) {
+                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                } elseif (empty($_GET['pagina']) && $i === 1) {
+                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                } else {
+                    if ($current != $total_pages) {
+                        if ($current != $total_pages - 1) {
+                            echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                        }
+                    }
+                }
+            }
+            if ($_GET['pagina'] != $total_pages) {
+                if ($current <= $total_pages - 3) {
+                    echo '<a href="#">...</a>';
+                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                }
+                if ($current == $total_pages - 1) {
+                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                }
+                if ($current != $total_pages) {
+                    echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
+                    echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                }
+            }
+        ?>
     </div>
 </section>
 <?php include('footer.php'); ?>
