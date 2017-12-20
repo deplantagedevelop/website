@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <input type="text" name="subject" placeholder="Onderwerp*" value="<?php echo $subject ?>"><br><br>
                 <div class="message">
-                    <textarea name="message" placeholder="Bericht*" required><?php echo $message ?></textarea><br><br>
+                    <textarea name="message" placeholder="Bericht*" required maxlength="2000"><?php echo $message ?></textarea><br><br>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LeESTkUAAAAAIpBfp_ocb0-21UbKJzthvPaIX3r"></div>
                 <div class="submit">
