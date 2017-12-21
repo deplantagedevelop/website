@@ -482,16 +482,35 @@ button.btn {
     .footer-items .footer-item {
         margin: 0 auto;
     }
-}
 
-@media only screen and (max-width: 500px) {
-    .logo img {
-        max-width: 200px;
+    .account {
+        padding: 4px 7px;
+    }
+
+    .mobile-none {
+        display: none;
+    }
+
+    .top-header .account ul li {
+        margin-right: 5px;
     }
 }
 
 @media only screen and (max-width: 500px) {
     .logo img {
         max-width: 150px;
+    }
+
+    .top-header {
+        padding-left: 0;
+    }
+
+    .top-header .account ul {
+        -webkit-margin-before: 0;
+        -webkit-padding-start: 0;
+    }
+
+    .account a {
+        font-size: 14px;
     }
 }

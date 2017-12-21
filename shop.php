@@ -133,7 +133,7 @@
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID WHERE p.available = 1 GROUP BY pc.ID');
     $categories->execute();
 
-    $subcategories = $conn->query('SELECT * FROM productsubcategory');
+    $subcategories = $conn->query('SELECT pcs.name, pcs.categoryID, pcs.ID, COUNT(p.id) AS amount FROM productsubcategory AS pcs INNER JOIN products AS p ON pcs.ID = p.subcategoryID WHERE p.available = 1 GROUP BY pcs.categoryID');
     $subcategories->execute();
 
     $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery . ' LIMIT ' . $currentRow . ', ' . $limit);
@@ -162,6 +162,13 @@
                         ?>
                         <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
                         <?php
+//                        foreach ($subcategories as $subcategory) {
+//                            if($subcategory['categoryID'] == $category['ID']) {
+//                                ?>
+<!--                                <li class="sub-cat"><a href="?categorie=--><?php //echo $subcategory["name"]; ?><!--" --><?php //echo $class; ?><!--> <?php //echo $subcategory["name"] . ' (' . $subcategory["amount"] . ')'; ?><!--</a></li>-->
+<!--                                --><?php
+//                            }
+//                        }
                     }
                     if(isset($_GET['categorie']) || isset($_GET['search'])) {
                         ?>

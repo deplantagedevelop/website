@@ -29,6 +29,7 @@
                     <th>Titel</th>
                     <th>Categorie</th>
                     <th>Actief</th>
+                    <th>Datum</th>
                     <th>Bewerken</th>
                     <th>Verwijderen</th>
                 </tr>
@@ -41,6 +42,7 @@
                             <td><?php echo $item['title']; ?></td>
                             <td><?php echo $item['category']; ?></td>
                             <td><?php echo ($item['active'] == 1) ? 'Ja' : 'Nee'; ?></td>
+                            <td><?php echo $item['date']; ?></td>
                             <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
                                         href="/dashboard/news/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                             <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a
@@ -53,6 +55,47 @@
                 ?>
                 </tbody>
             </table>
+        </div>
+        <div class="flex-pagination">
+            <?php
+            //Reset category Get because of products, only check for get in URL now.
+            if ($_GET['pagina']) {
+                $current = $_GET['pagina'];
+                if ($current != 1) {
+                    echo '<a href="/dashboard/news"> << </a>';
+                    echo '<a href="?pagina=' . ($current - 1) . '"> < </a>';
+                }
+            } else {
+                $current = 1;
+            }
+
+            for ($i = $current; $i <= $current + 2; $i++) {
+                if ($_GET['pagina'] == $i) {
+                    echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                } elseif (empty($_GET['pagina']) && $i === 1) {
+                    echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                } else {
+                    if ($current != $total_pages) {
+                        if ($current != $total_pages - 1) {
+                            echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                        }
+                    }
+                }
+            }
+            if ($_GET['pagina'] != $total_pages) {
+                if ($current <= $total_pages - 3) {
+                    echo '<a href="#">...</a>';
+                    echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                }
+                if ($current == $total_pages - 1) {
+                    echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                }
+                if ($current != $total_pages) {
+                    echo '<a href="?pagina=' . ($current + 1) . '"> > </a>';
+                    echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                }
+            }
+            ?>
         </div>
         <?php
     } else {

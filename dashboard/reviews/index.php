@@ -3,9 +3,24 @@
     $user = new User($conn);
 
     if ($user->has_role('Administrator')) {
-        $reviews = $conn->prepare("SELECT * FROM reviews ORDER BY date DESC ");
+        //Check for page request
+        $limit = 20;
+        if(empty($_GET['pagina'])) {
+            $currentRow = 0;
+            $_GET['pagina'] = 0;
+        } else {
+            $pagina = $_GET['pagina'];
+            $currentRow = ($pagina - 1) * $limit;
+        }
+
+        $reviews = $conn->prepare("SELECT * FROM reviews ORDER BY date DESC  LIMIT " . $currentRow . ", " . $limit);
         $gemiddelde = $conn->prepare("SELECT AVG(rating) FROM reviews");
-        $aantalReviews = $conn->prepare("SELECT COUNT(*) FROM reviews");
+        $gemiddelde->execute();
+        $aantalReviews = $conn->prepare("SELECT COUNT(*) AS amount FROM reviews");
+        $aantalReviews->execute();
+        $rowCount = $aantalReviews->fetch(PDO::FETCH_ASSOC);
+        $total_pages = ceil($rowCount['amount'] / $limit);
+
         $reviews->execute();
         if ($reviews->rowCount() > 0) {
             ?>
@@ -52,13 +67,51 @@
                 </tbody>
             </table>
             <?php
-            $gemiddelde->execute();
-            $aantalReviews->execute();
             $aantal = 0;
             while ($row = $aantalReviews->fetch()) {
-                $aantal = $row["COUNT(*)"];
+                $aantal = $row["amount"];
             }
             ?>
+            <div class="flex-pagination">
+                <?php
+                if ($_GET['pagina']) {
+                    $current = $_GET['pagina'];
+                    if ($current != 1) {
+                        echo '<a href="/dashboard/reviews"> << </a>';
+                        echo '<a href="?pagina=' . ($current - 1) .'"> < </a>';
+                    }
+                } else {
+                    $current = 1;
+                }
+
+                for ($i = $current; $i <= $current + 2; $i++) {
+                    if ($_GET['pagina'] == $i) {
+                        echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                    } elseif (empty($_GET['pagina']) && $i === 1) {
+                        echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                    } else {
+                        if ($current != $total_pages) {
+                            if ($current != $total_pages - 1) {
+                                echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                            }
+                        }
+                    }
+                }
+                if ($_GET['pagina'] != $total_pages) {
+                    if ($current <= $total_pages - 3) {
+                        echo '<a href="#">...</a>';
+                        echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                    }
+                    if ($current == $total_pages - 1) {
+                        echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                    }
+                    if ($current != $total_pages) {
+                        echo '<a href="?pagina=' . ($current + 1) . '"> > </a>';
+                        echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                    }
+                }
+                ?>
+            </div>
             <div class='gem'>
             <?php
             if ($aantal != 0) {

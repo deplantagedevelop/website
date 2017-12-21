@@ -20,18 +20,21 @@ if(empty($_GET['pagina'])) {
 //check for submit
 if (isset($_GET['categorie'])) {
     $category = $_GET['categorie'];
-    $newscategoryquery = ' WHERE nc.name = "' . $category . '"';
+    $newscategoryquery = ' WHERE nc.name = "' . $category . '" AND active = 1';
+    $categorysearch = '&categorie=' . $category;
 } else {
-    $newscategoryquery = '';
+    $newscategoryquery = ' WHERE active = 1';
     $class = '';
+    $categorysearch = '';
 }
 
 //vars:
 $descmax = 175;
-$newscategories = $conn->prepare("SELECT nc.name, nc.ID, COUNT(n.ID) AS amount FROM newscategory AS nc LEFT JOIN news AS n ON nc.ID=n.categoryID GROUP BY nc.ID LIMIT " . $currentRow . ', ' . $limit . '');
-$newscategories->execute();
-$newscategory = $newscategories->fetchAll();
-$newscategories = NULL;
+$newscategory = $conn->prepare("SELECT nc.name, nc.ID, COUNT(n.ID) AS amount FROM newscategory AS nc INNER JOIN news AS n ON nc.ID=n.categoryID GROUP BY nc.ID");
+$newscategory->execute();
+
+$newsitem = $conn->prepare("SELECT n.ID, image, title, description FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID" . $newscategoryquery . " ORDER BY n.ID DESC LIMIT " . $currentRow . ', ' . $limit . '');
+$newsitem->execute();
 
 $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ' . $newscategoryquery);
 $rowCounts->execute();
@@ -47,39 +50,6 @@ function shorten($text, $max) {
         echo substr($text, 0, $max - 3) . '...';
     }
 }
-
-function news() {
-    global $conn, $descmax, $_GET, $newscategoryquery;
-    //Check for page request
-    $limit = 4;
-    if(empty($_GET['pagina'])) {
-        $currentRow = 0;
-        $_GET['pagina'] = 0;
-    } else {
-        $pagina = $_GET['pagina'];
-        $currentRow = ($pagina - 1) * $limit;
-    }
-
-    $newsitems = $conn->prepare("SELECT n.ID, image, title, description FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID" . $newscategoryquery . " ORDER BY n.ID DESC LIMIT " . $currentRow . ', ' . $limit . '');
-    $newsitems->execute();
-    $newsitem = $newsitems->fetchAll();
-    $newsitems = NULL;
-    foreach ($newsitem as $news) {
-        ?>
-        <div class="newsarticle">
-            <div class="newspicture">
-                <img src="/assets/images/news/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
-            </div>
-            <div class="newstext">
-                <div class="newstitle"><?php echo $news["title"]; ?></div>
-                <?php shorten($news["description"], $descmax); ?>
-                <a href="artikel/<?php echo $news["ID"]; ?>" alt="'<?php echo $news["title"]; ?>'">Lees meer</a>
-            </div>
-        </div>
-        <?php
-    }
-}
-
 ?>
 <section class="content content-news">
     <div class="main-news">
@@ -108,24 +78,33 @@ function news() {
         <div class="news-item">
             <span class="title">Nieuws artikelen:</span>
             <?php
-            news();
-
+            foreach ($newsitem as $news) {
+                ?>
+                <div class="newsarticle">
+                    <div class="newspicture">
+                        <img src="/assets/images/news/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
+                    </div>
+                    <div class="newstext">
+                        <div class="newstitle"><?php echo $news["title"]; ?></div>
+                        <?php shorten($news["description"], $descmax); ?>
+                        <a href="artikel/<?php echo $news["ID"]; ?>" alt="'<?php echo $news["title"]; ?>'">Lees meer</a>
+                    </div>
+                </div>
+                <?php
+            }
             ?>
         </div>
     </div>
     <div class="flex-pagination">
         <?php
-            //Reset category Get because of products, only check for get in URL now.
-            if (isset($_GET['categorie'])) {
-                $category = $_GET['categorie'];
-            } else {
-                $category = '';
-            }
             if ($_GET['pagina']) {
                 $current = $_GET['pagina'];
                 if ($current != 1) {
-                    echo '<a href="/nieuws' . $category . '"> << </a>';
-                    echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                    if(isset($_GET['categorie'])) {
+                        $categorysearch = '?categorie=' . $category;
+                    }
+                    echo '<a href="/nieuws' . $categorysearch . '"> << </a>';
+                    echo '<a href="?pagina=' . ($current - 1) . $categorysearch . '"> < </a>';
                 }
             } else {
                 $current = 1;
@@ -133,13 +112,13 @@ function news() {
 
             for ($i = $current; $i <= $current + 2; $i++) {
                 if ($_GET['pagina'] == $i) {
-                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    echo '<a href="?pagina=' . $i . $categorysearch . '" class="current">' . $i . '</a>';
                 } elseif (empty($_GET['pagina']) && $i === 1) {
-                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    echo '<a href="?pagina=' . $i . $categorysearch . '" class="current">' . $i . '</a>';
                 } else {
                     if ($current != $total_pages) {
                         if ($current != $total_pages - 1) {
-                            echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                            echo '<a href="?pagina=' . $i . $categorysearch . '">' . $i . '</a>';
                         }
                     }
                 }
@@ -147,13 +126,13 @@ function news() {
             if ($_GET['pagina'] != $total_pages) {
                 if ($current <= $total_pages - 3) {
                     echo '<a href="#">...</a>';
-                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    echo '<a href="?pagina=' . $total_pages . $categorysearch . '">' . $total_pages . '</a>';
                 }
                 if ($current == $total_pages - 1) {
-                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    echo '<a href="?pagina=' . $total_pages . $categorysearch . '">' . $total_pages . '</a>';
                 }
                 if ($current != $total_pages) {
-                    echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
+                    echo '<a href="?pagina=' . ($current + 1) . $categorysearch . '"> > </a>';
                     echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
                 }
             }

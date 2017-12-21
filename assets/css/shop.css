@@ -298,3 +298,7 @@ input::-webkit-inner-spin-button {
 .cart-row td img {
     max-width: 255px;
 }
+
+.sub-cat {
+    margin-left: 10px;
+}

@@ -44,7 +44,7 @@
                     $cartamount = 0;
                 }
                 ?>
-                <li><a href="/cart">Winkelwagen (<?php echo $cartamount; ?>)</a></li>
+                <li><a href="/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="mobile-none">Winkelwagen</span>  (<?php echo $cartamount; ?>)</a></li>
                 <?php
                 if($user->is_loggedin()) {
                     if(!$user->has_role('Klant')) {
