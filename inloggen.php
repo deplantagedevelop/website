@@ -9,7 +9,7 @@ if($user->is_loggedin() != "") {
     if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
     } else {
-        $user->redirect('/');
+        $user->redirect('/orders');
     }
 }
 

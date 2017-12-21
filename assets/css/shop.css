@@ -1,3 +1,7 @@
+.order-succes a {
+    text-decoration: underline;
+}
+
 .shop-content {
     display: flex;
     margin-top: 40px;
