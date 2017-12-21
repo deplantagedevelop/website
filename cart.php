@@ -29,6 +29,7 @@
             unset($_SESSION["shopping_cart"]);
             $_SESSION['order_succes'] = uniqid();
             $_SESSION['order_number'] = $OrderID;
+            $shop->comfirmationMail($UserID, $OrderID);
             $user->redirect('/succes?id=' . $_SESSION['order_succes']);
         }
     }

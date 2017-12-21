@@ -2,6 +2,10 @@
     text-decoration: underline;
 }
 
+.order-succes p {
+    text-align: center;
+}
+
 .shop-content {
     display: flex;
     margin-top: 40px;

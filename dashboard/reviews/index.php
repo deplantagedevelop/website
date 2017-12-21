@@ -67,10 +67,7 @@
                 </tbody>
             </table>
             <?php
-            $aantal = 0;
-            while ($row = $aantalReviews->fetch()) {
-                $aantal = $row["amount"];
-            }
+            $aantal = $rowCount['amount'];
             ?>
             <div class="flex-pagination">
                 <?php
