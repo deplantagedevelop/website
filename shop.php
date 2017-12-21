@@ -162,13 +162,13 @@
                         ?>
                         <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
                         <?php
-//                        foreach ($subcategories as $subcategory) {
-//                            if($subcategory['categoryID'] == $category['ID']) {
-//                                ?>
-<!--                                <li class="sub-cat"><a href="?categorie=--><?php //echo $subcategory["name"]; ?><!--" --><?php //echo $class; ?><!--> <?php //echo $subcategory["name"] . ' (' . $subcategory["amount"] . ')'; ?><!--</a></li>-->
-<!--                                --><?php
-//                            }
-//                        }
+                        foreach ($subcategories as $subcategory) {
+                            if($subcategory['categoryID'] == $category['ID']) {
+                                ?>
+                                <li class="sub-cat"><a href="?categorie=<?php echo $subcategory["name"]; ?>" <?php echo $class; ?>> <?php echo $subcategory["name"] . ' (' . $subcategory["amount"] . ')'; ?></a></li>
+                                <?php
+                            }
+                        }
                     }
                     if(isset($_GET['categorie']) || isset($_GET['search'])) {
                         ?>

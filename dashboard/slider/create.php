@@ -4,30 +4,41 @@
     $user = new User($conn);
     $slide = new Slide($conn);
 
+    $slides = $slide->getSlides();
 ?>
     <a href="/dashboard/slider" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
     <div class="content">
         <div class="dashboard-left">
-            <form method="post" enctype="multipart/form-data">
-                <label>Slide tekst</label>
-                <input type="text" name="title" placeholder="Slider tekst" required>
-                <label>Slide afbeelding</label>
-                <input type="file" name="image" id="image" onchange="readURL(this);" required>
-                <input type="submit" value="Toevoegen">
-            </form>
+            <?php
+            if($slides->rowCount() < 5) {
+                ?>
+                <form method="post" enctype="multipart/form-data">
+                    <label>Slide tekst</label>
+                    <input type="text" name="title" placeholder="Slider tekst" required>
+                    <label>Slide afbeelding</label>
+                    <input type="file" name="image" id="image" onchange="readURL(this);" required>
+                    <input type="submit" value="Toevoegen">
+                </form>
+            <?php
+            } else {
+                $user->redirect('dashboard/slider/create');
+                echo '<p>Er kunnen niet meer dan 5 slides worden toegevoegd</p>';
+            }
+            ?>
         </div>
         <div class="dashboard-right">
             <img id="product-image">
         </div>
     </div>
 <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $title = $_POST['title'];
-        $image = uniqid() . "-" . $_FILES['image']['name'];
-        $imagefile = $_FILES['image'];
+    if($slides->rowCount() < 5) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $title = $_POST['title'];
+            $image = uniqid() . "-" . $_FILES['image']['name'];
+            $imagefile = $_FILES['image'];
 
-        $slide->createSlide($title, $image, $imagefile);
+            $slide->createSlide($title, $image, $imagefile);
+        }
     }
-
 
     include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

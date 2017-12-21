@@ -39,6 +39,7 @@
                     $stmt->execute();
                     $this->uploadImage($image, $imagefile);
                     echo 'Slide is toegevoegd';
+
                     return $stmt;
                 }
             } catch(PDOException $e) {

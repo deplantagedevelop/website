@@ -44,7 +44,14 @@
             }
         ?>
     </div>
-    <a href="/dashboard/slider/create" class="create-btn">Slide toevoegen</a>
+    <?php
+    if ($slides->rowCount() > 4) {
+        echo '<p>Er kunnen niet meer dan 5 slides worden toegevoegd, verwijder een slide voordat je een nieuwe kan toevoegen.';
+    } else {
+        echo '<a href="/dashboard/slider/create" class="create-btn">Slide toevoegen</a>';
+    }
+    ?>
+
 
 <?php
     include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
