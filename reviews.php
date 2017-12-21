@@ -201,52 +201,58 @@
             }
         ?>
     </div>
-    <div class="flex-pagination">
-        <?php
-            //Reset category Get because of products, only check for get in URL now.
-            if (isset($_GET['categorie'])) {
-                $category = $_GET['categorie'];
-            } else {
-                $category = '';
-            }
-            if ($_GET['pagina']) {
-                $current = $_GET['pagina'];
-                if ($current != 1) {
-                    echo '<a href="/reviews' . $category . '"> << </a>';
-                    echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
-                }
-            } else {
-                $current = 1;
-            }
-
-            for ($i = $current; $i <= $current + 2; $i++) {
-                if ($_GET['pagina'] == $i) {
-                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
-                } elseif (empty($_GET['pagina']) && $i === 1) {
-                    echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+    <?php
+    if($reviews->rowCount() > 0) {
+        ?>
+        <div class="flex-pagination">
+            <?php
+                //Reset category Get because of products, only check for get in URL now.
+                if (isset($_GET['categorie'])) {
+                    $category = $_GET['categorie'];
                 } else {
-                    if ($current != $total_pages) {
-                        if ($current != $total_pages - 1) {
-                            echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                    $category = '';
+                }
+                if ($_GET['pagina']) {
+                    $current = $_GET['pagina'];
+                    if ($current != 1) {
+                        echo '<a href="/reviews' . $category . '"> << </a>';
+                        echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                    }
+                } else {
+                    $current = 1;
+                }
+
+                for ($i = $current; $i <= $current + 2; $i ++) {
+                    if ($_GET['pagina'] == $i) {
+                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    } elseif (empty($_GET['pagina']) && $i === 1) {
+                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                    } else {
+                        if ($current != $total_pages) {
+                            if ($current != $total_pages - 1) {
+                                echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                            }
                         }
                     }
                 }
-            }
-            if ($_GET['pagina'] != $total_pages) {
-                if ($current <= $total_pages - 3) {
-                    echo '<a href="#">...</a>';
-                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                if ($_GET['pagina'] != $total_pages) {
+                    if ($current <= $total_pages - 3) {
+                        echo '<a href="#">...</a>';
+                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    }
+                    if ($current == $total_pages - 1) {
+                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                    }
+                    if ($current != $total_pages) {
+                        echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
+                        echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                    }
                 }
-                if ($current == $total_pages - 1) {
-                    echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
-                }
-                if ($current != $total_pages) {
-                    echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
-                    echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
-                }
-            }
-        ?>
-    </div>
+            ?>
+        </div>
+        <?php
+    }
+    ?>
 </section>
 
 <?php
