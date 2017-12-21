@@ -15,7 +15,7 @@
             foreach($_SESSION["shopping_cart"] as $keys => $values) {
                 $ProductID = $values['item_id'];
                 if(isset($_POST['amount-' . $ProductID])) {
-                    if($_POST['amount-' . $ProductID] === 0) {
+                    if(($_POST['amount-' . $ProductID] === 0) || ($_POST['amount-' . $ProductID] < 0)) {
                         $amount = 1;
                     } else {
                         $amount = $_POST['amount-' . $ProductID];
@@ -23,12 +23,13 @@
                 } else {
                     $amount = 1;
                 }
-
-                $shop->createOrderLine($OrderID, $ProductID, $amount);
+                $price = $amount * $values['item_price'];
+                $shop->createOrderLine($OrderID, $ProductID, $amount, $price);
             }
             unset($_SESSION["shopping_cart"]);
             $_SESSION['order_succes'] = uniqid();
             $_SESSION['order_number'] = $OrderID;
+
             $shop->comfirmationMail($UserID, $OrderID);
             $user->redirect('/succes?id=' . $_SESSION['order_succes']);
         }

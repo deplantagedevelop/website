@@ -19,13 +19,14 @@
             return $stmt;
         }
 
-        public function createOrderLine($OrderID, $ProductID, $amount) {
-            $stmt = $this->db->prepare("INSERT INTO orderlines(OrderID, ProductID, Amount) 
-                                                       VALUES(:OrderID, :ProductID, :Amount)");
+        public function createOrderLine($OrderID, $ProductID, $amount, $price) {
+            $stmt = $this->db->prepare("INSERT INTO orderlines(OrderID, ProductID, Amount, price) 
+                                                       VALUES(:OrderID, :ProductID, :Amount, :Price)");
 
             $stmt->bindparam(":OrderID", $OrderID);
             $stmt->bindparam(":ProductID", $ProductID);
             $stmt->bindparam(":Amount", $amount);
+            $stmt->bindparam(":Price", $price);
             $stmt->execute();
 
             return $stmt;

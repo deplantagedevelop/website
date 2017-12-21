@@ -8,8 +8,8 @@ $logincaptcha = false;
 if($user->is_loggedin() != "") {
     if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
-    } else {
-        $user->redirect('/orders');
+    } elseif($user->has_role('Klant')) {
+         $user->redirect('/orders');
     }
 }
 
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
                 } elseif (!$user->has_role('Klant')) {
                     $user->redirect('/dashboard');
                 } else {
-                    $user->redirect('/');
+                    $user->redirect('/orders');
                 }
                 $succeslogin = true;
             } else {

@@ -29,7 +29,7 @@ if (isset($_GET['categorie'])) {
 }
 
 //vars:
-$descmax = 175;
+$descmax = 170;
 $newscategory = $conn->prepare("SELECT nc.name, nc.ID, COUNT(n.ID) AS amount FROM newscategory AS nc INNER JOIN news AS n ON nc.ID=n.categoryID GROUP BY nc.ID");
 $newscategory->execute();
 
