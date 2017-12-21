@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/news.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/newsitems.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/orders.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/vieworder.css">
 </head>
 <body>
 <section class="header">

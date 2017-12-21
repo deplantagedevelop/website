@@ -22,9 +22,8 @@ include('header.php');
     <div class="orderleft">
         <h2>Mijn account</h2>
         <ul>
-            <li>Bestellingen</li>
-            <li>Accountgegevens</li>
-            <li>Uitloggen</li>
+            <a href="/orders"><li>Bestellingen</li></a>
+            <a href="/logout"><li>Uitloggen</li></a>
         </ul>
     </div>
 
@@ -41,6 +40,9 @@ include('header.php');
                         <a><?php echo datetime(); ?></a>
                     </div>
                     <div class="contentright">
+                        <div class="status">
+                            <a>Status: <b><?php echo $bestelling['Status']; ?></b></a>
+                        </div>
                         <div class="ordertotal">
                             <a>Totaal €<?php echo $bestelling['totaal']; ?></a>
                         </div>

@@ -1,10 +1,14 @@
-
+.orderleft ul a {
+    color: black;
+    text-decoration: none;
+}
 
 .orderleft {
     background-color: white;
     width: 300px;
     margin-right: 50px;
     border: 2px solid #cccccc;
+    height: 100%;
 }
 
 .orderleft ul, menu, dir {
@@ -21,6 +25,10 @@
     text-decoration: none;
     list-style-type: none;
     padding: 10px;
+}
+
+.orderleft ul li:hover {
+    background-color: #f6f6f6;
 }
 
 .orderleft h2 {
@@ -80,7 +88,7 @@
 
 .ordertotal {
     text-align: left;
-    width: 140px;
+    width: 120px;
 
 }
 
@@ -91,5 +99,45 @@
 
 .fullorder:hover {
     background-color: #ededed;
+
+}
+
+.status {
+    width: 156.5px;
+    text-align: left;
+}
+
+@media screen and (max-width: 950px) {
+    .orderleft {
+        display: none;
+    }
+
+    .orderright {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .status {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .ordertotal {
+        display: none;
+    }
+
+    .contentleft {
+        width: 200px;
+    }
+
+    .contentright {
+        width: 50%;
+    }
+
+    .contentright .seeorder {
+        width: 100%;
+    }
 
 }
