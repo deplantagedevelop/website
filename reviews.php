@@ -83,9 +83,9 @@ include('header.php');
             <form method="post">
                 <div class="making-review">
                     <div class="review-info">
-                        <input type="text" name="firstname" placeholder="Voornaam" value="<?php if($lastnameTrue == false || $starsTrue == false) { echo "$firstname"; }?>"> <?php if ($firstnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";} ?><br> <br>
+                        <input type="text" name="firstname" placeholder="Voornaam" value="<?php if($lastnameTrue == false || $starsTrue == false) { echo "$firstname"; }?>"> <?php if ($firstnameTrue == false) { echo "<span class='naamTrue'>verplicht!</span>";} ?><br> <br>
                         <input type="text" name="middlename" placeholder="Tussenvoegsel" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) {echo "$middlename";}?>"> <br> <br>
-                        <input type="text" name="lastname" placeholder="Achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>invullen!</span>";}?><br> <br>
+                        <input type="text" name="lastname" placeholder="Achternaam" value="<?php if($firstnameTrue == false || $lastnameTrue == false || $starsTrue == false) { echo "$lastname";}?>"> <?php if ($lastnameTrue == false) { echo "<span class='naamTrue'>verplicht!</span>";}?><br> <br>
                         <p> Anoniem </p>
                         <input type="radio" name="anonymous" value="1" required <?php if($anonymous == 1){echo"checked=\"true\"";}?>><span> Ja </span>
                         <input type="radio" name="anonymous" value="0" <?php if ($anonymous==0){echo"checked=\"true\"";}?>><span> Nee </span> <br>
