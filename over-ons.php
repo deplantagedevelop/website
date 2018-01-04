@@ -16,13 +16,13 @@
     </div>
     <div class="pictures">
         <div class="upper1">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/overons.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/overons.jpg">
         </div>
         <div class="upper2">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/potten.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/potten.jpg">
         </div>
         <div class="upper3">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/schappen.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/schappen.jpg">
         </div>
     </div>
 
@@ -42,13 +42,13 @@
     </div>
     <div class="pictures">
         <div class="upper1">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/taart.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/taart.jpg">
         </div>
         <div class="upper2">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/honing.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/honing.jpg">
         </div>
         <div class="upper3">
-            <img style='height: 100%; width: 100%; object-fit: contain' src="http://jeffrey.plantagedevelopment.nl/assets/images/delicatesse.jpg">
+            <img style='height: 100%; width: 100%; object-fit: contain' src="/assets/images/delicatesse.jpg">
         </div>
     </div>
 

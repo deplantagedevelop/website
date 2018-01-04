@@ -1,3 +1,11 @@
+.order-succes a {
+    text-decoration: underline;
+}
+
+.order-succes p {
+    text-align: center;
+}
+
 .shop-content {
     display: flex;
     margin-top: 40px;
@@ -55,6 +63,7 @@
 .shop-content .shop-right .shop-products {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 25px;
 }
 
 .shop-content .product {
@@ -63,11 +72,13 @@
     padding: 10px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
     position: relative;
+    display: flex;
 }
 
 .shop-content .product img {
     width: 100%;
     max-height: 250px;
+    flex-grow: 1;
 }
 
 .shop-content .product .product-description {
@@ -81,6 +92,9 @@
 .shop-content .product a {
     color: inherit;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .shop-content .product .product-description .price {
@@ -138,6 +152,7 @@
 
 .cart-table {
     width: 100%;
+    margin-bottom: 25px;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -275,4 +290,24 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.cart-table tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-table th {
+    text-align: left;
+}
+
+.order-succes h1 {
+    text-align: center;
+}
+
+.cart-row td img {
+    max-width: 255px;
+}
+
+.sub-cat {
+    margin-left: 10px;
 }

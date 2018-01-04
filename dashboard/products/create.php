@@ -15,7 +15,7 @@
                 <label>Product beschrijving</label>
                 <textarea name="description" placeholder="Beschrijving" required></textarea>
                 <label>Product prijs</label>
-                <input type="number" name="price" placeholder="Prijs" required>
+                <input type="number" name="price" placeholder="Prijs" step=".01" required>
                 <label>Product afbeelding</label>
                 <input type="file" name="image" id="image" onchange="readURL(this);" required>
                 <label>Productcategorie</label>

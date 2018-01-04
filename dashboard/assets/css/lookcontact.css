@@ -44,8 +44,8 @@
 }
 
 .formuliertitle {
-    margin:0 auto;
-    display:inline-block;
+    margin: 0 auto;
+    display: inline-block;
 }
 
 .fullform {
@@ -59,6 +59,7 @@
 
 .leftform .formblock a {
     word-break: break-all;
+    padding-right: 20px;
 }
 
 .rightform {
@@ -131,5 +132,9 @@
 @media only screen and (max-width: 650px) {
     .dashbody, .dashheader {
         margin: 15px;
+    }
+
+    .dashboard-right .helper-text-createacc {
+        padding-left: 20px;
     }
 }

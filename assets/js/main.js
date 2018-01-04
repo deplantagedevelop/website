@@ -85,7 +85,43 @@ $(document).ready(function(){
             $('.same-pass').removeClass('green-validation');
         }
     });
+
+    document.querySelector("#cart-amount").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+        {
+            evt.preventDefault();
+        }
+    });
+
+    const numInputs = document.querySelectorAll('#cart-amount');
+
+    numInputs.forEach(function (input) {
+        input.addEventListener('change', function (e) {
+            if (e.target.value == '') {
+                e.target.value = 1
+            }
+        });
+
+        $('.cart-row').each(function (index) {
+            var i = index + 1;
+            var sum = 0;
+            $('.cart-amount-' + i).change(function () {
+                $('.item-number-' + i).text(($('.cart-amount-' + i).val() * $('.item-number-' + i).attr("data-price")).toFixed(2));
+                calculateSum();
+            });
+        });
+    });
 });
+
+function calculateSum() {
+    var sum = 0;
+    $('.cart-row').each(function (index) {
+        var i = index + 1;
+        sum += +$('.item-number-' + i).text();
+    });
+    console.log(sum);
+    $('.item-total').text(sum.toFixed(2));
+}
 
 $( window ).resize(function() {
     $('.slide').height(
@@ -229,7 +265,7 @@ function initMap() {
         // draggable:true,
         // animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(52.447351, 5.8343931),
-        icon: 'http://jeffrey.plantagedevelopment.nl/assets/images/marker.png' // null = default icon
+        icon: '/assets/images/marker.png' // null = default icon
     });
 }
 

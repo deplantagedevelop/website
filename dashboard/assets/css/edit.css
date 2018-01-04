@@ -1,12 +1,6 @@
-.home-products {
-    display: flex;
-}
-
 .home-products .single-product  {
     background-color: #f6f6f6;
     text-align: center;
-    flex-grow: 0;
-    flex-basis: 50%;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 

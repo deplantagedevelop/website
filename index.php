@@ -32,14 +32,14 @@
         ?>
     </div>
 </section>
-<section class="content">
+<section class="content" id="content">
     <div class="home-products">
         <?php
         if ($monthlyitems->rowCount() > 0) {
             foreach ($monthlyitems as $monthlyitem) {
                 ?>
                 <div class="single-product">
-                    <div class="product-image" style="background-image: url('/assets/images/monthlyproducts/<?php echo $monthlyitem["image"] ?>')">
+                    <div class="product-image" style="background-image: url('/assets/images/monthlyproducts/<?php echo $monthlyitem["image"] ?>');">
                         <div class="overlay">
                             <h2><?php echo $monthlyitem["type"]; ?></h2>
                         </div>

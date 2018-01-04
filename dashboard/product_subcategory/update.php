@@ -5,9 +5,9 @@
     $changed = false;
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $changed = true;
-        $update_subproductcategory = $conn->prepare("UPDATE subproductcategory SET name=:name, checked=:active WHERE ID= :id");
-        $update_subproductcategory->execute(array(
-            ':name' => ucfirst($_POST["subproductcategoryname"]),
+        $update_productsubcategory = $conn->prepare("UPDATE productsubcategory SET name=:name, checked=:active WHERE ID= :id");
+        $update_productsubcategory->execute(array(
+            ':name' => ucfirst($_POST["name"]),
             ':active' => $_POST["active"],
             ':id' => $id
         ));
@@ -39,7 +39,7 @@
 
 <?php
     if ($changed) {
-        echo "Uw wijzigen zijn opgeslagen!";
+        echo "Uw wijzigingen zijn opgeslagen!";
     }
 ?>
 

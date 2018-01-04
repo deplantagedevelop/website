@@ -1,8 +1,6 @@
 <?php
 include('header.php');
 
-$id = $_GET["id"];
-
 if (isset($_SESSION['user_session'])) {
     if (isset($_GET['id'])) {
         $userid = $_SESSION['user_session'];
@@ -13,13 +11,13 @@ if (isset($_SESSION['user_session'])) {
             return date('d-m-Y', time());
         }
 
-        $order = $conn->prepare("SELECT o.ID, o.date, o.Status, p.title , SUM(amount*price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :userid AND o.ID = :id GROUP BY o.ID");
+        $order = $conn->prepare("SELECT o.ID, o.date, o.Status, p.title , SUM(be.amount * be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :userid AND o.ID = :id GROUP BY o.ID");
         $order->bindparam(":userid", $userid);
         $order->bindParam(":id", $id);
         $order->execute();
         $order = $order->fetchAll();
 
-        $products = $conn->prepare("SELECT title, image, price, amount*price as totaal, amount FROM products P JOIN orderlines OL ON P.ID=OL.ProductID WHERE OL.OrderID=:id");
+        $products = $conn->prepare("SELECT p.image, p.title, ol.amount, ol.price FROM orderlines AS ol INNER JOIN orders AS o ON ol.OrderID = o.ID INNER JOIN products AS p ON p.ID = ol.ProductID WHERE ol.OrderID = :id");
         $products->execute(array(
             ":id" => $id
         ));
@@ -47,7 +45,7 @@ if (isset($_SESSION['user_session'])) {
                     <table>
                         <thead>
                             <tr>
-                                <th class="tableimg"><b>Bestelnr. <?php echo $id ?></b></th></>
+                                <th class="tableimg"><b>Bestelnr. <?php echo $id ?></b></th>
                                 <th><b>Productnaam</b></th>
                                 <th><b>Aantal</b></th>
                                 <th class="priceeach"><b>Prijs</b></th>
@@ -57,26 +55,25 @@ if (isset($_SESSION['user_session'])) {
                         <tbody>
                     <?php
                     }
-
                     $totalprice = 0;
 
                     foreach ($products as $product) {
-                    $title = $product["title"];
-                    $price = $product["totaal"];
-                    $priceeach = $product['price'];
-                    $amount = $product["amount"];
-                    $totalprice = $totalprice + $price;
-                    ?>
-                        <div class="tableheader">
-                            <div>
-                                <td class="tableimg"><img src="/assets/images/products/<?php echo $product["image"]; ?>"></td>
-                                <td><?php echo $title ?></td>
-                                <td><?php echo $amount ?></td>
-                                <td class="priceeach">€<?php echo $priceeach ?></td>
-                                <td>€<?php echo $price ?></td>
-                            </tr>
-                        </div>
-                    <?php
+                        $title = $product["title"];
+                        $amount = $product["amount"];
+                        $price = $product["price"];
+                        $priceeach = $price / $amount;
+                        $totalprice = $totalprice + $price;
+                        ?>
+                            <div class="tableheader">
+                                <div>
+                                    <td class="tableimg"><img src="/assets/images/products/<?php echo $product["image"]; ?>"></td>
+                                    <td><?php echo $title ?></td>
+                                    <td><?php echo $amount ?></td>
+                                    <td class="priceeach">€<?php echo $priceeach ?></td>
+                                    <td>€<?php echo $price ?></td>
+                                </tr>
+                            </div>
+                        <?php
                     }
                     ?>
                     </tbody>
@@ -96,7 +93,7 @@ if (isset($_SESSION['user_session'])) {
                                 </td>
                                 <td></td>
                                 <td class="priceeach"></td>
-                                <td><b>Totaal €<?php echo $totalprice ?></b></td>
+                                <td><b>Totaal €<?php echo number_format($totalprice, 2); ?></b></td>
                             </tr>
                         </tfoot>
                     </table>
