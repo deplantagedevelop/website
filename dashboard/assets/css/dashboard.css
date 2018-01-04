@@ -363,6 +363,14 @@ ul, menu, dir {
 
 }
 
+.right-filter form {
+    width: 100%;
+}
+
+.right-filter form input {
+    width: calc(100% - 30px);
+}
+
 .create-btn {
     width: auto;
     padding: 10px 30px;
