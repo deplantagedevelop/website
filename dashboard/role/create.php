@@ -145,11 +145,11 @@ if (isset($_POST['submit'])) {
             </form>
             <div class="helper-text">
                 <ul>
-                    <li class="length">Minimaal 8 karakters</li>
-                    <li class="lowercase">Minimaal 1 kleine letter</li>
-                    <li class="uppercase">Minimaal 1 hoofdletter</li>
-                    <li class="special">Minimaal 1 getal of speciaal karakter</li>
-                    <li class="same-pass">Wachtwoorden komen overeen</li>
+                    <li class="length">&bull; Minimaal 8 karakters</li>
+                    <li class="lowercase">&bull; Minimaal 1 kleine letter</li>
+                    <li class="uppercase">&bull; Minimaal 1 hoofdletter</li>
+                    <li class="special">&bull; Minimaal 1 getal of speciaal karakter</li>
+                    <li class="same-pass">&bull; Wachtwoorden komen overeen</li>
                 </ul>
             </div>
             <br>

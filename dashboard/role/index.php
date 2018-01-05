@@ -22,16 +22,16 @@ if ($user->has_role("Administrator")) {
         </form>
         <br>
     </div>
-    <table class="dash-table">
+    <table class="dash-table role">
         <thead>
         <tr>
-            <th>Voornaam</th>
-            <th>Tussenvoegsel</th>
-            <th>Achternaam</th>
-            <th>Email</th>
-            <th>Postcode</th>
-            <th>Bewerk</th>
-            <th>Verwijder</th>
+            <th class="rolefirstname">Voornaam</th>
+            <th class="rolemiddlename">Tussenvoegsel</th>
+            <th class="rolelastname">Achternaam</th>
+            <th class="roleemail">Email</th>
+            <th class="rolepostalcode">Postcode</th>
+            <th class="roleedit">Bewerk</th>
+            <th class="roledelete">Verwijder</th>
         </tr>
         </thead>
         <tbody>
@@ -39,14 +39,14 @@ if ($user->has_role("Administrator")) {
         foreach ($customer as $item) {
             ?>
             <tr onclick="window.location='/dashboard/role/update?id=<?php echo $item["ID"]; ?>'">
-                <td><?php echo $item['firstname']; ?></td>
-                <td><?php echo $item['middlename']; ?></td>
-                <td><?php echo $item['lastname']; ?></td>
-                <td><?php echo $item['email']; ?></td>
-                <td><?php echo $item['postalcode']; ?></td>
-                <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
+                <td class="rolefirstname"><?php echo $item['firstname']; ?></td>
+                <td class="rolemiddlename"><?php echo $item['middlename']; ?></td>
+                <td class="rolelastname"><?php echo $item['lastname']; ?></td>
+                <td class="roleemail"><?php echo $item['email']; ?></td>
+                <td class="rolepostalcode"><?php echo $item['postalcode']; ?></td>
+                <td class="roleedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
                             href="/dashboard/role/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
-                <td><i class="fa fa-trash-o" aria-hidden="true"></i><a
+                <td class="roledelete"><i class="fa fa-trash-o" aria-hidden="true"></i><a
                             href="/dashboard/role/delete?id=<?php echo $item['ID']; ?>"
                             onclick="return confirm('Weet u zeker dat u het account wil verwijderen?');">Verwijder</a>
                 </td>

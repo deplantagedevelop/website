@@ -3,6 +3,7 @@
     width: 300px;
     margin-right: 50px;
     border: 2px solid #cccccc;
+    height: 100%;
 }
 
 .leftcontent ul, menu, dir {
@@ -19,6 +20,10 @@
     text-decoration: none;
     list-style-type: none;
     padding: 10px;
+}
+
+.leftcontent ul li:hover {
+    background-color: #eeeeee;
 }
 
 .leftcontent h2 {
@@ -57,21 +62,26 @@
 
 .rightorder table tr td {
     width: 20%;
-    margin: 100px 0;
+    height: 100px;
+    text-align: center;
 }
 
+.rightorder .breadcrumb a {
+    text-decoration: none;
+    color: inherit;
+}
 
 .rightorder table tr img {
     width: 100%;
 }
 
-.rightorder table tr th {
+table thead tr th {
     background-color: #f6f6f6;
-    text-align: left;
+    text-align: center;
     padding: 10px 5px;
-
 }
 
-.tableheader tr {
-    margin-bottom: 20px;
+tbody tr th {
+    height: 10px;
+    font-size: 17.5px;
 }

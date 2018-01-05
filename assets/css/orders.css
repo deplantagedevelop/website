@@ -1,10 +1,9 @@
-
-
 .orderleft {
     background-color: white;
     width: 300px;
     margin-right: 50px;
     border: 2px solid #cccccc;
+    height: 100%;
 }
 
 .orderleft ul, menu, dir {
@@ -21,6 +20,10 @@
     text-decoration: none;
     list-style-type: none;
     padding: 10px;
+}
+
+.orderleft ul li:hover {
+    background-color: #eeeeee;
 }
 
 .orderleft h2 {

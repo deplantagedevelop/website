@@ -17,7 +17,7 @@
                 <option name="date-DESC" value="date-DESC"> Datum oud-nieuw </option>
                 <option name="name-ASC" value="name-ASC"> A - Z </option>
             </select>
-            <button type="submit"> verzenden </button>
+            <button class="orderbutton" type="submit"> verzenden </button>
         </form>
     </div>
     <div class="ordersSearch">
