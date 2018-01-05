@@ -6,7 +6,7 @@
     $order->execute(array(
         ":id" => $id
     ));
-    $products = $conn->prepare("SELECT title, amount*price as totaal, amount FROM products P JOIN orderlines OL ON P.ID=OL.ProductID WHERE OL.OrderID=:id");
+    $products = $conn->prepare("SELECT title, amount*P.price as totaal, amount FROM products P JOIN orderlines OL ON P.ID=OL.ProductID WHERE OL.OrderID=:id");
     $products->execute(array(
         ":id" => $id
     ));
