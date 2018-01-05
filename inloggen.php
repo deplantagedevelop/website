@@ -3,32 +3,46 @@
 $succes = false;
 $emailerror = false;
 $loginerror = false;
+$logincaptcha = false;
 
-if($user->is_loggedin() != "")
-{
+if($user->is_loggedin() != "") {
     if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
-    } else {
-        $user->redirect('/');
+    } elseif($user->has_role('Klant')) {
+         $user->redirect('/orders');
     }
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
-    $email = $_POST['loginemail'];
-    $password = $_POST['loginpassword'];
+    if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+        //Recaptcha key
+        $secret = '6LeESTkUAAAAAJ7wfXVne6e9rBBdquHvF2alnBkU';
+        //Response data
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret .
+            '&response=' . $_POST['g-recaptcha-response']);
+        $responseData = json_decode($verifyResponse);
+        if ($responseData->success) {
+            $_POST = array_map('strip_tags', $_POST);
+            $email = $_POST['loginemail'];
+            $password = $_POST['loginpassword'];
 
-    if($user->login($email, $password)) {
-        if(isset($_GET['redirectUrl'])) {
-            $redirecturl = $_GET['redirectUrl'];
-            $user->redirect('/' . $redirecturl);
-        } elseif(!$user->has_role('Klant')) {
-            $user->redirect('/dashboard');
-        } else {
-            $user->redirect('/');
+            if ($user->login($email, $password)) {
+                if (isset($_GET['redirectUrl'])) {
+                    $redirecturl = $_GET['redirectUrl'];
+                    $user->redirect('/' . $redirecturl);
+                } elseif (!$user->has_role('Klant')) {
+                    $user->redirect('/dashboard');
+                } else {
+                    $user->redirect('/orders');
+                }
+                $succeslogin = true;
+            } else {
+                $loginerror = true;
+            }
         }
-        $succeslogin = true;
+        $logincaptcha = false;
     } else {
-        $loginerror = true;
+        $logincaptcha = true;
     }
 }
 
@@ -126,6 +140,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
             <form method="post">
                 <input type="email" name="loginemail" placeholder="E-mail*" required><br><br>
                 <input type="password" name="loginpassword" placeholder="Wachtwoord*"><br><br>
+                <div class="g-recaptcha" data-sitekey="6LeESTkUAAAAAIpBfp_ocb0-21UbKJzthvPaIX3r"></div>
                 <div class="loginsubmit">
                     <button name="submitlogin" type="submit" value="verzend">Inloggen</button>
                 </div>
@@ -134,6 +149,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                 if ($loginerror === true) {
                     echo "<div class='sentregister'>";
                     echo "De door u ingevoerde inloggegevens kloppen niet!";
+                    echo "</div>";
+                } elseif($logincaptcha === true) {
+                    echo "<div class='sentregister'>";
+                    echo "Vul de captcha in!";
                     echo "</div>";
                 }
             ?>

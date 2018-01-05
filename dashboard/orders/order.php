@@ -1,6 +1,5 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
-    $url = "/";
     $id = $_GET["id"];
 
     $order = $conn->prepare("SELECT firstname, middlename, lastname, email, phonenumber, address, city, postalcode, status FROM orders O JOIN customer C ON O.customerID = C.ID WHERE O.ID = :id");
@@ -12,6 +11,9 @@
         ":id" => $id
     ));
 
+    ?>
+    <a href="/dashboard/orders" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+    <?php
     while ($row = $order->fetch()){
         $firstname = $row["firstname"];
         $middlename = $row["middlename"];
@@ -30,11 +32,11 @@
                 <tr> <td class='order-gegevens'> Telefoon: </td> <td> $phonenumber </td></tr>
                 <tr> <td class='order-gegevens'> Adres: </td> <td> $address </td></tr>
                 <tr> <td class='order-gegevens'> Woonplaats: </td> <td> $city </td></tr>
-                <tr> <td class='order-gegevens'> Postcode: </td> <td> $city </td></tr>
+                <tr> <td class='order-gegevens'> Postcode: </td> <td> $postalcode </td></tr>
               </table>";
         echo "<p class='order-index'> Status </p>";
         echo "<p class='reviewText'> $status </p>";
-        echo "<p class='order-index'> producten </p>";
+        echo "<p class='order-index'> Producten </p>";
     }
     $totalprice = 0;
     echo "<table class='ProductOrder-table'>

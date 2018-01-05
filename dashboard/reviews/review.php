@@ -1,13 +1,14 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
-    $url = "/";
     $id = $_GET["id"];
     $review = $conn->prepare("SELECT * FROM reviews WHERE id=:id");
 
     $review->execute(array(
         ':id' => $id
     ));
-    echo "<a href=\"/dashboard/reviews/\"> Ga terug</a> <br>";
+    ?>
+    <a href="/dashboard/reviews" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+    <?php
     while ($row = $review->fetch()) {
         $firstname = $row["firstname"];
         $middlename = $row["middlename"];

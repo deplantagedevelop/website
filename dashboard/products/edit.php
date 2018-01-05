@@ -21,7 +21,7 @@ if(isset($_GET['id'])) {
         if($products->editProduct($title, $description, $price, $categoryID, $available, $image, $imagefile, $id) === true) {
             $message = 'Product is succesvol gewijzigd!';
         } else {
-            $message = 'Product kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
+            $message = 'Product kon niet worden gewijzigd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
         }
         //Get product again to update values
         $product = $products->getProduct($id);
@@ -38,7 +38,7 @@ if(isset($_GET['id'])) {
                     <label>Product beschrijving</label>
                     <textarea name="description" placeholder="Beschrijving" required><?php echo $item["description"]; ?></textarea>
                     <label>Product prijs</label>
-                    <input type="number" name="price" value="<?php echo $item["price"]; ?>" placeholder="Prijs" required>
+                    <input type="number" name="price" value="<?php echo $item["price"]; ?>" placeholder="Prijs" step=".01" required>
                     <label>Product afbeelding</label>
                     <input type="file" name="image" id="image" value="<?php echo $item["image"]; ?>" onchange="readURL(this);">
                     <label>Productcategorie</label>

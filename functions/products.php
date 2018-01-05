@@ -83,9 +83,9 @@ class Product {
         }
     }
 
-    public function getProducts() {
+    public function getProducts($currentRow, $limit) {
         try {
-            $data = $this->db->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID');
+            $data = $this->db->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID LIMIT ' . $currentRow . ', ' . $limit);
             $data->execute();
 
             return $data;

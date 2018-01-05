@@ -1,3 +1,12 @@
+.leftcontent ul li:hover {
+    background-color: #f6f6f6;
+}
+
+.leftcontent ul a {
+    color: black;
+    text-decoration: none;
+}
+
 .leftcontent {
     background-color: white;
     width: 300px;
@@ -46,6 +55,11 @@
     width: calc(100% - 350px);
 }
 
+.rightorder .breadcrumb a {
+    color: black;
+    text-decoration: none;
+}
+
 .rightorder h1 {
     margin: 0;
     -webkit-margin-before: 0;
@@ -62,7 +76,11 @@
 
 .rightorder table tr td {
     width: 20%;
+<<<<<<< HEAD
     height: 100px;
+=======
+    margin: 100px 0;
+>>>>>>> 96ad29177b30eb838553fe768d931c545a879119
     text-align: center;
 }
 
@@ -81,7 +99,95 @@ table thead tr th {
     padding: 10px 5px;
 }
 
+<<<<<<< HEAD
 tbody tr th {
     height: 10px;
     font-size: 17.5px;
 }
+=======
+.rightorder table tfoot tr td {
+    font-size: 17.5px;
+}
+
+.rightorder table tbody tr td {
+   padding-top: 15px;
+}
+
+.mediastatus {
+    display: none;
+}
+
+@media screen and (max-width: 950px) {
+    .fullcontent {
+        display: block;
+    }
+
+    .leftcontent {
+        width: 100%;
+    }
+
+    .rightorder {
+        width: 100%;
+    }
+
+    .breadcrumb {
+        margin-top: 20px;
+    }
+
+    table tfoot tr td {
+        border-top: 2px solid #f6f6f6;
+    }
+
+    .rightorder table tbody tr td {
+        padding-bottom: 15px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .tableimg {
+        display:none;
+        width:0;
+        height:0;
+        opacity:0;
+        visibility: collapse;
+    }
+
+    .rightorder table tfoot tr td {
+        padding-top: 10px;
+        font-size: 15.5px;
+    }
+
+    .rightorder table tbody tr td {
+        font-size: 14px;
+    }
+
+    .leftcontent ul li {
+        padding: 5px;
+    }
+
+    .mediastatus {
+        display: block;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    .priceeach {
+        display:none;
+        width:0;
+        height:0;
+        opacity:0;
+        visibility: collapse;
+    }
+
+    .rightorder table tr th {
+        font-size: 15px;
+    }
+
+    .leftcontent h2 {
+        font-size: 18px;
+    }
+
+}
+>>>>>>> 96ad29177b30eb838553fe768d931c545a879119

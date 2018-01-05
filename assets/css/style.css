@@ -13,6 +13,16 @@ html, body {
 }
 
 /* components */
+a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #99CA3C;
+}
+
 .btn {
     padding: 5px 25px;
     color: #ffffff;
@@ -23,6 +33,12 @@ html, body {
 
 .btn:hover {
     background-color: #a6d73d;
+    color: #ffffff;
+}
+
+button.btn {
+    border: none;
+    cursor: pointer;
 }
 
 /* Header */
@@ -185,6 +201,7 @@ html, body {
     height: 100%;
     max-height: calc(100vh - 136px);
     position: relative;
+    background-size: cover !important;
 }
 
 .slidearrow {
@@ -313,6 +330,23 @@ html, body {
     padding: 50px 0;
 }
 
+.flex-pagination {
+    text-align: center;
+}
+
+.flex-pagination a {
+    padding: 4px 8px;
+    background-color: #99CA3C;
+    margin: 2px;
+}
+
+.flex-pagination a:hover {
+    color: #ffffff;
+}
+
+.flex-pagination .current {
+    color: #ffffff;
+}
 
 /* Footer */
 .footer {
@@ -448,16 +482,35 @@ html, body {
     .footer-items .footer-item {
         margin: 0 auto;
     }
-}
 
-@media only screen and (max-width: 500px) {
-    .logo img {
-        max-width: 200px;
+    .account {
+        padding: 4px 7px;
+    }
+
+    .mobile-none {
+        display: none;
+    }
+
+    .top-header .account ul li {
+        margin-right: 5px;
     }
 }
 
 @media only screen and (max-width: 500px) {
     .logo img {
         max-width: 150px;
+    }
+
+    .top-header {
+        padding-left: 0;
+    }
+
+    .top-header .account ul {
+        -webkit-margin-before: 0;
+        -webkit-padding-start: 0;
+    }
+
+    .account a {
+        font-size: 14px;
     }
 }

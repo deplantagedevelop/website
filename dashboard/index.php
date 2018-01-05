@@ -5,12 +5,19 @@
     $countProducten = $conn->prepare("select count(*) from products");
     $countNews = $conn->prepare("select count(*) from news");
     $countReviews = $conn->prepare("select count(*) from reviews");
+    $countOrders = $conn->prepare("select count(*) from orders");
 ?>
 <div class="dashblocks">
     <div class="dashblock">
         <div class="innerdashblock">
             <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            <a>99+</a>
+            <?php
+                $countOrders->execute();
+                while ($row = $countOrders->fetch()) {
+                    $orderAmount = $row["count(*)"];
+                }
+                echo "<a> $orderAmount</a>";
+            ?>
         </div>
         <div class="dashblocktitle">
             <h2>Bestellingen</h2>
