@@ -11,21 +11,15 @@ if (isset($_SESSION['user_session'])) {
             return date('d-m-Y', time());
         }
 
-<<<<<<< HEAD
-        $order = $conn->prepare("SELECT o.ID, o.date, o.Status, p.title, SUM(amount*be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :userid AND o.ID = :id GROUP BY o.ID");
-=======
         $order = $conn->prepare("SELECT o.ID, o.date, o.Status, p.title , SUM(be.amount * be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :userid AND o.ID = :id GROUP BY o.ID");
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
         $order->bindparam(":userid", $userid);
         $order->bindParam(":id", $id);
         $order->execute();
         $order = $order->fetchAll();
 
-<<<<<<< HEAD
-        $products = $conn->prepare("SELECT title, image, OL.price, amount*OL.price as totaal, amount FROM products P JOIN orderlines OL ON P.ID=OL.ProductID WHERE OL.OrderID=:id");
-=======
+
         $products = $conn->prepare("SELECT p.image, p.title, ol.amount, ol.price FROM orderlines AS ol INNER JOIN orders AS o ON ol.OrderID = o.ID INNER JOIN products AS p ON p.ID = ol.ProductID WHERE ol.OrderID = :id");
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
+
         $products->execute(array(
             ":id" => $id
         ));
@@ -53,19 +47,6 @@ if (isset($_SESSION['user_session'])) {
                     <table>
                         <thead>
                             <tr>
-<<<<<<< HEAD
-                                    <th><b>Bestelnummer <?php echo $id ?></b></th>
-                                    <th><b>Productnaam</b></th>
-                                    <th><b>Aantal</b></th>
-                                    <th><b>Prijs</b></th>
-                                    <th><b>Totaal</b></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th></th>
-                        </tr>
-=======
                                 <th class="tableimg"><b>Bestelnr. <?php echo $id ?></b></th>
                                 <th><b>Productnaam</b></th>
                                 <th><b>Aantal</b></th>
@@ -74,7 +55,6 @@ if (isset($_SESSION['user_session'])) {
                             </tr>
                         </thead>
                         <tbody>
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
                     <?php
                     }
                     $totalprice = 0;
@@ -97,28 +77,8 @@ if (isset($_SESSION['user_session'])) {
                             </div>
                         <?php
                     }
-                    ?>
-<<<<<<< HEAD
-                        <tr>
-                            <td><img src="/assets/images/products/<?php echo $product["image"]; ?>"></td>
-                            <td><?php echo $title ?></td>
-                            <td><?php echo $amount ?></td>
-                            <td>€<?php echo $priceeach ?></td>
-                            <td>€<?php echo $price ?></td>
-                        </tr>
-                    <?php
                     }
                     ?>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th><b>Totaal €<?php echo $totalprice ?></b></th>
-                        </tr>
-                        </tbody>
-
-=======
                     </tbody>
                         <tfoot>
                             <tr>
@@ -139,15 +99,13 @@ if (isset($_SESSION['user_session'])) {
                                 <td><b>Totaal €<?php echo number_format($totalprice, 2); ?></b></td>
                             </tr>
                         </tfoot>
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
                     </table>
                 </div>
             </div>
 
         </section>
         <?php
-    }
-} else {
+    } else {
     $user->redirect('/404');
 }
 

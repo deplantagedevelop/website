@@ -5,13 +5,6 @@ if($user->is_loggedin()) {
     if (isset($_SESSION['user_session'])) {
         $userid = $_SESSION['user_session'];
 
-<<<<<<< HEAD
-    $order = $conn->prepare("SELECT o.ID, o.date, o.Status, SUM(amount*be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :id GROUP BY o.ID");
-    $order->bindparam(":id", $userid);
-    $order->execute();
-    $order=$order->fetchAll();
-
-=======
         $order = $conn->prepare("SELECT o.ID, o.date, o.Status, SUM(be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :id GROUP BY o.ID");
         $order->bindparam(":id", $userid);
         $order->execute();
@@ -22,7 +15,6 @@ if($user->is_loggedin()) {
     }
     ?>
     <section class="content main-info">
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
 
         <div class="allcontent">
 
@@ -66,28 +58,6 @@ if($user->is_loggedin()) {
                         echo 'U heeft nog geen bestellingen geplaatst';
                     }
                 ?>
-<<<<<<< HEAD
-            <div class="fullorder">
-                <div class="ordercontent">
-                    <div class="contentleft">
-                        <p><?php echo "Bestelnummer: <b>" . $bestelling['ID'] . "</b>" ?></p>
-                        <a><?php echo $bestelling['date']; ?></a>
-                    </div>
-                    <div class="contentright">
-                        <div class="active">
-                            <a>Totaal €<?php echo $bestelling['Status']; ?></a>
-                        </div>
-                        <div class="ordertotal">
-                            <a>Totaal €<?php echo $bestelling['totaal']; ?></a>
-                        </div>
-                        <div class="seeorder">
-                            <a href="/vieworder?id=<?php echo $bestelling["ID"]; ?>"><b>Bekijk</b></a>
-                        </div>
-                    </div>
-                </div>
-=======
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
-            </div>
         </div>
 
     </section>

@@ -1,27 +1,35 @@
     <?php include('header.php');
+
+    //Haal minimale en maximale prijs op van de producten.
     $productvars = $conn->prepare('SELECT MIN(price) AS minprice, MAX(price) AS maxprice FROM products');
     $productvars->execute();
     $productvar = $productvars->fetch(PDO::FETCH_ASSOC);
 
-    //Check for page request
+    //Kijken als er een pagina als get parameter meegegeven is in de URL en baseer daar de queries op.
     $limit = 12;
     if(empty($_GET['pagina'])) {
         $currentRow = 0;
         $_GET['pagina'] = 0;
     } else {
-        $pagina = $_GET['pagina'];
-        $currentRow = ($pagina - 1) * $limit;
+        if(is_numeric($_GET['pagina'])) {
+            $pagina = $_GET['pagina'];
+            $currentRow = ($pagina - 1) * $limit;
+        } else {
+            $user->redirect('/shop');
+        }
     }
 
+    //Kijken als er een categorie als get parameter meegegeven is in de URL en baseer daar de queries op.
     if(isset($_GET['categorie'])) {
         $category = $_GET['categorie'];
-        $categoryquery = ' AND pc.name = "' . $category . '"';
+        $categoryquery = ' AND (pc.name = "' . $category . '" OR pcs.name = "' . $category .'")';
     } else {
         $categoryquery = '';
         $category = '';
         $class = '';
     }
 
+    //Kijken als er een minimale en maximale prijs als get parameter meegegeven is in de URL en baseer daar de queries op.
     if((isset($_GET['minprice'])) && (isset($_GET['maxprice']))) {
         $minprice = $_GET['minprice'];
         $maxprice = $_GET['maxprice'];
@@ -55,6 +63,7 @@
         }
     }
 
+    //Kijken als er een zoekwoord als get parameter meegegeven is in de URL en baseer daar de queries op.
     if(isset($_GET['search'])) {
         $search = $_GET['search'];
         $searchquery = ' AND p.title LIKE "%' . $search . '%"';
@@ -63,6 +72,7 @@
         $searchquery = '';
     }
 
+    //Kijken als er een sortering als get parameter meegegeven is in de URL en baseer daar de queries op.
     if(isset($_GET['order'])) {
         $order = $_GET['order'];
         if($order === 'date-asc') {
@@ -81,9 +91,11 @@
         $orderquery = ' ORDER BY date DESC';
     }
 
+    //Kijk als op de "aan winkel wagen toevoegen" knop geklikt is.
     if(isset($_POST["add_to_cart"])) {
+        //Kijken als er al een sessie aangemaakt is met de producten voor in de winkelwagen.
         if(isset($_SESSION["shopping_cart"])) {
-            //Check if Item is not in the cart and create new item after that
+            //Kijk als het product al in de winkelwagen zit of niet.
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
             if(!in_array($_GET["id"], $item_array_id)) {
                 $count = count($_SESSION["shopping_cart"]);
@@ -97,7 +109,7 @@
                 $_SESSION["shopping_cart"][$count + 1] = $item_array;
                 $user->redirect('/shop');
             } else {
-                //Do this to check if Item is already in cart and update amount by 1
+                //Als het product al in de winkelwagen zit pas de waarde aan met 1 extra.
                 $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
                 foreach($_SESSION["shopping_cart"] as $item => $key) {
                     if($key['item_id'] == $_GET["id"]) {
@@ -109,6 +121,7 @@
                             'item_image'  => $_POST["hidden_image"],
                             'item_amount' => $_POST["hidden_amount"] + $amount
                         );
+                        //Unset het product uit de winkelwagen sessie en voeg hem opnieuw toe met de nieuwe waardes.
                         unset($_SESSION["shopping_cart"][$item]);
                         $_SESSION["shopping_cart"][$item] = $item_array;
                         $user->redirect('/shop');
@@ -116,6 +129,7 @@
                 }
             }
         } else {
+            //Als er nog geen product in de winkelwagen zit, maak een nieuwe sessie aan en voer daar de producten aan toe.
             $item_array = array(
                 'item_id'     => $_GET["id"],
                 'item_name'   => $_POST["hidden_name"],
@@ -133,13 +147,15 @@
     $categories = $conn->query('SELECT pc.name, pc.ID, COUNT(p.id) AS amount FROM productcategory AS pc INNER JOIN products AS p ON p.categoryID = pc.ID WHERE p.available = 1 GROUP BY pc.ID');
     $categories->execute();
 
-    $subcategories = $conn->query('SELECT pcs.name, pcs.categoryID, pcs.ID, COUNT(p.id) AS amount FROM productsubcategory AS pcs INNER JOIN products AS p ON pcs.ID = p.subcategoryID WHERE p.available = 1 GROUP BY pcs.categoryID');
-    $subcategories->execute();
-
-    $products = $conn->prepare('SELECT p.*, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery . ' LIMIT ' . $currentRow . ', ' . $limit);
+    $products = $conn->prepare('SELECT p.*, pcs.name as subcategory, pc.name as category FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID INNER JOIN productsubcategory AS pcs ON pcs.ID = p.subcategoryID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery . $orderquery . ' LIMIT ' . $currentRow . ', ' . $limit);
     $products->execute();
 
-    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery);
+    $subcategories = $conn->query('SELECT pcs.name, pcs.categoryID FROM productsubcategory AS pcs INNER JOIN products AS p ON p.subcategoryID = pcs.id WHERE p.available = 1 GROUP BY pcs.ID');
+    $subcategories->execute();
+    $subcategories = $subcategories->fetchAll();
+
+    //Vraag de aantal rijen en aantal pagina's op vanuit de database.
+    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products AS p INNER JOIN productcategory AS pc ON p.categoryID = pc.ID INNER JOIN productsubcategory AS pcs ON p.subcategoryID = pcs.ID WHERE available = 1 ' . $categoryquery . $searchquery . $minpricequery . $maxpricequery);
     $rowCounts->execute();
     $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
     $total_pages = ceil($rowCount['amount'] / $limit);
@@ -150,30 +166,23 @@
             <span class="title">Categorieën</span>
             <ul>
                 <?php
-                if ($categories->rowCount() > 0) {
-                    foreach ($categories as $category) {
-                        if(isset($_GET['categorie'])) {
-                            if($category["name"] === $_GET['categorie']) {
-                                $class = 'class="selected"';
-                            } else {
-                                $class = '';
-                            }
-                        }
-                        ?>
-                        <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
-                        <?php
-                        foreach ($subcategories as $subcategory) {
-                            if($subcategory['categoryID'] == $category['ID']) {
-                                ?>
-                                <li class="sub-cat"><a href="?categorie=<?php echo $subcategory["name"]; ?>" <?php echo $class; ?>> <?php echo $subcategory["name"] . ' (' . $subcategory["amount"] . ')'; ?></a></li>
-                                <?php
-                            }
+                foreach ($categories as $key => $category) {
+                    if(isset($_GET['categorie'])) {
+                        if($category["name"] === $_GET['categorie']) {
+                            $class = 'class="selected"';
+                        } else {
+                            $class = '';
                         }
                     }
-                    if(isset($_GET['categorie']) || isset($_GET['search'])) {
-                        ?>
-                        <li><a href="/shop">Toon alles</a></li>
-                        <?php
+                    ?>
+                    <li><a href="?categorie=<?php echo $category["name"]; ?>" <?php echo $class; ?>> <?php echo $category["name"] . ' ('. $category["amount"] .')'; ?></a></li>
+                    <?php
+                    foreach ($subcategories as $key => $subcategory) {
+                        if($subcategory['categoryID'] === $category['ID']) {
+                            ?>
+                            <li class="sub-cat"><a href="?categorie=<?php echo $subcategory["name"]; ?>" <?php echo $class; ?>> <?php echo $subcategory["name"]; ?></a></li>
+                            <?php
+                        }
                     }
                 }
                 ?>

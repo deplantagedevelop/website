@@ -9,8 +9,12 @@ if(empty($_GET['pagina'])) {
     $currentRow = 0;
     $_GET['pagina'] = 0;
 } else {
-    $pagina = $_GET['pagina'];
-    $currentRow = ($pagina - 1) * $limit;
+    if(is_numeric($_GET['pagina'])) {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    } else {
+        $user->redirect('/dashboard/role');
+    }
 }
 
 if ($user->has_role("Administrator")) {

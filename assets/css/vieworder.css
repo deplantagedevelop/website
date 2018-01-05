@@ -76,11 +76,7 @@
 
 .rightorder table tr td {
     width: 20%;
-<<<<<<< HEAD
-    height: 100px;
-=======
     margin: 100px 0;
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
     text-align: center;
 }
 
@@ -99,12 +95,6 @@ table thead tr th {
     padding: 10px 5px;
 }
 
-<<<<<<< HEAD
-tbody tr th {
-    height: 10px;
-    font-size: 17.5px;
-}
-=======
 .rightorder table tfoot tr td {
     font-size: 17.5px;
 }
@@ -190,4 +180,4 @@ tbody tr th {
     }
 
 }
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
+

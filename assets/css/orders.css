@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-=======
+
 .orderleft ul a {
     color: black;
     text-decoration: none;
 }
 
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
 .orderleft {
     background-color: white;
     width: 300px;
@@ -31,11 +29,7 @@
 }
 
 .orderleft ul li:hover {
-<<<<<<< HEAD
-    background-color: #eeeeee;
-=======
     background-color: #f6f6f6;
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
 }
 
 .orderleft h2 {

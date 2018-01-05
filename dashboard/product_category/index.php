@@ -46,7 +46,7 @@
         </table>
     </div>
     <a href="/dashboard/product_category/create" class="create-btn">Categorie toevoegen</a>
-    <a href="/dashboard/product_subcategory/index" class="create-btn">Subcategorieën</a>
+    <a href="/dashboard/product_subcategory" class="create-btn">Subcategorieën</a>
 
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

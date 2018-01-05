@@ -6,8 +6,12 @@
         $currentRow = 0;
         $_GET['pagina'] = 0;
     } else {
-        $pagina = $_GET['pagina'];
-        $currentRow = ($pagina - 1) * $limit;
+        if(is_numeric($_GET['pagina'])) {
+            $pagina = $_GET['pagina'];
+            $currentRow = ($pagina - 1) * $limit;
+        } else {
+            $user->redirect('/dashboard/news');
+        }
     }
 
     $newsitems = $conn->prepare("SELECT n.*, nc.name AS category FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ORDER BY n.ID DESC LIMIT " . $currentRow . ", " . $limit);

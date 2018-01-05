@@ -231,6 +231,25 @@ button.btn {
     padding: 0 30px 5px 30px;
 }
 
+.slick-arrow {
+    border: none;
+    background: none;
+    font-size: 72px;
+    color: #ffffff;
+    cursor: pointer;
+    position: absolute;
+    z-index: 11;
+    top: 50%;
+}
+
+.slick-prev {
+    left: 20px;
+}
+
+.slick-next {
+    right: 20px;
+}
+
 /* Homepage */
 .home-products {
     display: flex;

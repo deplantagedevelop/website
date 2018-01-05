@@ -13,8 +13,12 @@ if(empty($_GET['pagina'])) {
     $currentRow = 0;
     $_GET['pagina'] = 0;
 } else {
-    $pagina = $_GET['pagina'];
-    $currentRow = ($pagina - 1) * $limit;
+    if(is_numeric($_GET['pagina'])) {
+        $pagina = $_GET['pagina'];
+        $currentRow = ($pagina - 1) * $limit;
+    } else {
+        $user->redirect('/nieuws');
+    }
 }
 
 //check for submit
@@ -78,29 +82,35 @@ function shorten($text, $max) {
         <div class="news-item">
             <span class="title">Nieuws artikelen:</span>
             <?php
-            foreach ($newsitem as $news) {
-                ?>
-                <div class="newsarticle">
-                    <div class="newspicture">
-                        <img src="/assets/images/news/<?php echo $news["image"]; ?>" alt='<?php echo $news["title"]; ?> '>
+            if($newsitem->rowCount() > 0) {
+                foreach ($newsitem as $news) {
+                    ?>
+                    <div class="newsarticle">
+                        <div class="newspicture">
+                            <img src="/assets/images/news/<?php echo $news["image"]; ?>"
+                                 alt='<?php echo $news["title"]; ?> '>
+                        </div>
+                        <div class="newstext">
+                            <div class="newstitle"><?php echo $news["title"]; ?></div>
+                            <?php shorten($news["description"], $descmax); ?>
+                            <a href="artikel/<?php echo $news["ID"]; ?>" alt="'<?php echo $news["title"]; ?>'">Lees meer</a>
+                        </div>
                     </div>
-                    <div class="newstext">
-                        <div class="newstitle"><?php echo $news["title"]; ?></div>
-                        <?php shorten($news["description"], $descmax); ?>
-                        <a href="artikel/<?php echo $news["ID"]; ?>" alt="'<?php echo $news["title"]; ?>'">Lees meer</a>
-                    </div>
-                </div>
-                <?php
+                    <?php
+                }
+            } else {
+                echo '<h1>Er konden geen nieuwsberichten worden gevonden!';
             }
             ?>
         </div>
     </div>
     <div class="flex-pagination">
         <?php
+        if($newsitem->rowCount() > 0) {
             if ($_GET['pagina']) {
                 $current = $_GET['pagina'];
                 if ($current != 1) {
-                    if(isset($_GET['categorie'])) {
+                    if (isset($_GET['categorie'])) {
                         $categorysearch = '?categorie=' . $category;
                     }
                     echo '<a href="/nieuws' . $categorysearch . '"> << </a>';
@@ -136,6 +146,7 @@ function shorten($text, $max) {
                     echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
                 }
             }
+        }
         ?>
     </div>
 </section>

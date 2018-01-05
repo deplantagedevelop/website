@@ -1,20 +1,26 @@
 $(document).ready(function(){
+    //Include slicknav for responsive mobile navbar.
     $('#menu').slicknav({
         prependTo:'.header-mobile'
     });
 
+    //Include slick slider.
     $('.slider').slick({
         infinite: true,
         dots: false,
-        arrows: false,
+        arrows: true,
         autoplay: true,
-        autoplaySpeed: 3500
+        autoplaySpeed: 3500,
+        prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
     });
 
+    //Calculate slider height by checking the screenheight minus header height.
     $('.slide').height(
         $(document).height() - $('.header').height()
     );
 
+    //Check if the page is not homepage to fix contact map height.
     if (window.location.pathname != '/') {
         if(document.getElementById("map")) {
             var map = - ('#map').height();
@@ -24,6 +30,7 @@ $(document).ready(function(){
         $('.content').css('min-height', $('body').height() - $('.header').height() - $('.footer').height() - map);
     }
 
+    //Function that strips the URL to get all the get parameters, use this for the onclick filter functions.
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -34,10 +41,12 @@ $(document).ready(function(){
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+    //create variables that gets the get variables.
     var orderby = getParameterByName('order');
     var minprice = getParameterByName('minprice');
     var maxprice = getParameterByName('maxprice');
 
+    //If selectbox changes from order, refresh the page and add GET parameters to URL with the correct filter type.
     $('#product-filter').change(function () {
         var locAppend = $(this).find('option:selected').attr("name"),
             locSnip = window.location.href.split('?')[0];
@@ -45,6 +54,7 @@ $(document).ready(function(){
         window.location.href = locSnip + '?order=' + locAppend;
     });
 
+    //Check if a key is pressed in the password fields to set and remove classes if the value is correct to the given Regex.
     $('#password1').keyup(function () {
         if((this.value == $('#password2').val()) && (this.value.length != 0)) {
             $('.same-pass').addClass('green-validation');
@@ -86,6 +96,7 @@ $(document).ready(function(){
         }
     });
 
+    //Check if the letters e, c, - or backspace is called so the amount of the product in the cart can NEVER be less then 1.
     document.querySelector("#cart-amount").addEventListener("keypress", function (evt) {
         if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
         {
@@ -93,8 +104,10 @@ $(document).ready(function(){
         }
     });
 
+    //Create constructer and get all amounts of the products in the cart.
     const numInputs = document.querySelectorAll('#cart-amount');
 
+    //Foreach the above constructor with all the input amounts.
     numInputs.forEach(function (input) {
         input.addEventListener('change', function (e) {
             if (e.target.value == '') {
@@ -102,6 +115,8 @@ $(document).ready(function(){
             }
         });
 
+
+        //Update the total price of cart when the amount of a product in the cart goes up.
         $('.cart-row').each(function (index) {
             var i = index + 1;
             var sum = 0;
@@ -113,22 +128,24 @@ $(document).ready(function(){
     });
 });
 
+//Function to calculate the product total price.
 function calculateSum() {
     var sum = 0;
     $('.cart-row').each(function (index) {
         var i = index + 1;
         sum += +$('.item-number-' + i).text();
     });
-    console.log(sum);
     $('.item-total').text(sum.toFixed(2));
 }
 
+//If window resizes, fix the homepage slider height.
 $( window ).resize(function() {
     $('.slide').height(
         $(document).height() - $('.header').height()
     );
 });
 
+//Initialize the Google Maps.
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 52.447351, lng: 5.8343931},
