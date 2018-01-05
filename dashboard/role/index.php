@@ -43,7 +43,6 @@ if ($user->has_role("Administrator")) {
     <table class="dash-table role">
         <thead>
         <tr>
-<<<<<<< HEAD
             <th class="rolefirstname">Voornaam</th>
             <th class="rolemiddlename">Tussenvoegsel</th>
             <th class="rolelastname">Achternaam</th>
@@ -51,16 +50,6 @@ if ($user->has_role("Administrator")) {
             <th class="rolepostalcode">Postcode</th>
             <th class="roleedit">Bewerk</th>
             <th class="roledelete">Verwijder</th>
-=======
-            <th>Voornaam</th>
-            <th>Tussenvoegsel</th>
-            <th>Achternaam</th>
-            <th>Email</th>
-            <th>Postcode</th>
-            <th>Rol</th>
-            <th>Bewerk</th>
-            <th>Verwijder</th>
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
         </tr>
         </thead>
         <tbody>
@@ -68,7 +57,6 @@ if ($user->has_role("Administrator")) {
         foreach ($customer as $item) {
             ?>
             <tr onclick="window.location='/dashboard/role/update?id=<?php echo $item["ID"]; ?>'">
-<<<<<<< HEAD
                 <td class="rolefirstname"><?php echo $item['firstname']; ?></td>
                 <td class="rolemiddlename"><?php echo $item['middlename']; ?></td>
                 <td class="rolelastname"><?php echo $item['lastname']; ?></td>
@@ -77,17 +65,6 @@ if ($user->has_role("Administrator")) {
                 <td class="roleedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
                             href="/dashboard/role/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                 <td class="roledelete"><i class="fa fa-trash-o" aria-hidden="true"></i><a
-=======
-                <td><?php echo $item['firstname']; ?></td>
-                <td><?php echo $item['middlename']; ?></td>
-                <td><?php echo $item['lastname']; ?></td>
-                <td><?php echo $item['email']; ?></td>
-                <td><?php echo $item['postalcode']; ?></td>
-                <td><?php echo $item['name']; ?></td>
-                <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a
-                            href="/dashboard/role/update?id=<?php echo $item['ID']; ?>"> Bewerk</a></td>
-                <td><i class="fa fa-trash-o" aria-hidden="true"></i><a
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
                             href="/dashboard/role/delete?id=<?php echo $item['ID']; ?>"
                             onclick="return confirm('Weet u zeker dat u het account wil verwijderen?');"> Verwijder</a>
                 </td>

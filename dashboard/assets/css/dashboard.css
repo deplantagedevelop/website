@@ -90,12 +90,8 @@ body {
     background-color: #222d32;
     margin-top: 0;
     padding: 0 0;
-<<<<<<< HEAD
     height: calc(100vh - 80px);
-=======
     min-height: calc(100vh - 160px);
-    height: 100%;
->>>>>>> 39d8afca1b8962e19d6c414649049b5b87f0ea77
 }
 
 .dashnav li a {
@@ -167,11 +163,7 @@ ul, menu, dir {
 }
 
 .dashbody {
-<<<<<<< HEAD
-    margin: 25px 40px 0px 40px;
-=======
     margin: 40px 40px 0px 40px;
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
 }
 
 .innerdashblock {

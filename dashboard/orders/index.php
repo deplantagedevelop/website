@@ -81,13 +81,9 @@
                 <option name="status-afgerond" value="status-afgerond"> Afgerond </option>
                 <option name="status-afgerond-verwerken" value="status-afgerond-verwerken"> Beiden </option>
             </select>
-<<<<<<< HEAD
-            <button class="orderbutton" type="submit"> verzenden </button>
-=======
             <button type="submit"> Verzenden </button>
             <input class="search-order" type="text" name="search-orders" class="search-orders" value="<?php echo $search; ?>" placeholder="zoeken">
             <button type="submit"> Zoeken </button>
->>>>>>> 96ad29177b30eb838553fe768d931c545a879119
         </form>
     </div>
     <div class="ordersSearch">
