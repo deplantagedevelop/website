@@ -5,6 +5,7 @@
     $product = new Product($conn);
 
     $categories = $product->getCategories();
+    $subcategories = $product->getSubcategories();
     ?>
     <a href="/dashboard/products" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
     <div class="content">
@@ -19,15 +20,28 @@
                 <label>Product afbeelding</label>
                 <input type="file" name="image" id="image" onchange="readURL(this);" required>
                 <label>Productcategorie</label>
-                <select name="category">
+                <select name="category" id="category">
                     <?php
                         foreach($categories as $category) {
                             ?>
-                            <option value="<?php echo $category['ID'] ?>"><?php echo $category['name']; ?></option>
+                            <option value="<?php echo $category['ID']; ?>" class="<?php echo $category['ID']; ?>"><?php echo $category['name']; ?></option>
                             <?php
                         }
                     ?>
                 </select>
+                <div id="sub-cat">
+                    <label>Product subcategorie</label>
+                    <select name="subcategory" id="subcategory">
+                        <option value="none" id="none" selected>Geen subcategorie</option>
+                        <?php
+                        foreach($subcategories as $subcategory) {
+                            ?>
+                            <option value="<?php echo $subcategory['ID'] ?>" class="<?php echo $subcategory['categoryID']; ?>"><?php echo $subcategory['name']; ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
                 <input type="submit" value="Toevoegen">
             </form>
         </div>
@@ -43,8 +57,12 @@
         $image = uniqid() . "-" . $_FILES['image']['name'];
         $imagefile = $_FILES['image'];
         $categoryID = $_POST['category'];
+        $subcategoryID = $_POST['subcategory'];
+        if($subcategoryID === 'none') {
+            $subcategoryID = NULL;
+        }
 
-        $product->createProduct($title, $description, $price, $image, $categoryID, $imagefile);
+        $product->createProduct($title, $description, $price, $image, $categoryID, $subcategoryID, $imagefile);
     }
 
 

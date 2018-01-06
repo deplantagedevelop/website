@@ -24,21 +24,22 @@ class Product {
         }
     }
 
-    public function createProduct($title, $description, $price, $image, $category, $imagefile) {
+    public function createProduct($title, $description, $price, $image, $category, $subcategory, $imagefile) {
         try {
             $imageFileType = pathinfo(basename($image),PATHINFO_EXTENSION);
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                 echo 'Product kon niet worden toegevoegd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
                 return false;
             } else {
-                $stmt = $this->db->prepare("INSERT INTO products(title, description, price, image, categoryID) 
-                                                       VALUES(:title, :description, :price, :image, :categoryID)");
+                $stmt = $this->db->prepare("INSERT INTO products(title, description, price, image, categoryID, subcategoryID) 
+                                                       VALUES(:title, :description, :price, :image, :categoryID, :subcategoryID)");
 
                 $stmt->bindparam(":title", $title);
                 $stmt->bindparam(":description", $description);
                 $stmt->bindparam(":price", $price);
                 $stmt->bindparam(":image", $image);
                 $stmt->bindparam(":categoryID", $category);
+                $stmt->bindparam(":subcategoryID", $subcategory);
                 $stmt->execute();
                 $this->uploadImage($image, $imagefile);
                 echo 'Product is toegevoegd';
@@ -108,6 +109,17 @@ class Product {
     public function getCategories() {
         try {
             $data = $this->db->prepare('SELECT * FROM productcategory');
+            $data->execute();
+
+            return $data;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getSubcategories() {
+        try {
+            $data = $this->db->prepare('SELECT * FROM productsubcategory');
             $data->execute();
 
             return $data;
