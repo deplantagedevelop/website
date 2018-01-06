@@ -28,12 +28,12 @@
         $reviews->execute();
         if ($reviews->rowCount() > 0) {
             ?>
-            <table class="dash-table">
+            <table class="dash-table tableresp tablereviews">
                 <thead>
                 <tr>
                     <th> Naam</th>
-                    <th> Datum</th>
-                    <th> Aantal sterren</th>
+                    <th class="reviewdate"> Datum</th>
+                    <th class="reviewstars"> Aantal sterren</th>
                     <th> Bekijken</th>
                     <th> Wijzigen</th>
                     <th> verwijderen</th>
@@ -57,7 +57,7 @@
                         } else {
                             echo "<td> $firstname $middlename $lastname";
                         }
-                        echo "<td> $date </td><td>";
+                        echo "<td class='reviewdate'> $date </td><td class='reviewstars'>";
                         for ($i = 0; $i < $rating; $i ++) {
                             echo "<i class=\"starsrating fa fa-star\" aria-hidden=\"true\"></i>";
                         }

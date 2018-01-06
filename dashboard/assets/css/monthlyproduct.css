@@ -61,7 +61,7 @@
 
 .home-products {
     width: 60%;
-    margin: 0 auto;
+    margin: 30px auto;
 }
 
 .single-product {
@@ -107,3 +107,10 @@
     margin-bottom: 20px;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
+
+@media only screen and (max-width: 1200px) {
+    .home-products {
+        width: 100%;
+    }
+}
+

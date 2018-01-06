@@ -85,9 +85,9 @@
                 <option name="status-afgerond" value="status-afgerond"> Afgerond </option>
                 <option name="status-afgerond-verwerken" value="status-afgerond-verwerken"> Beiden </option>
             </select>
-            <button type="submit"> Verzenden </button>
-            <input class="search-order" type="text" name="search-orders" class="search-orders" value="<?php echo $search; ?>" placeholder="zoeken">
-            <button type="submit"> Zoeken </button>
+                <div class="buttonorder leftorderbutton"><button type="submit"> Verzenden </button></div>
+                <input class="search-order search-orders ait" type="text" name="search-orders" value="<?php echo $search; ?>" placeholder="zoeken">
+                <div class="buttonorder ait"><button type="submit"> Zoeken </button></div>
         </form>
     </div>
     <div class="ordersSearch">
@@ -99,16 +99,17 @@
     <?php
     if($orders->rowCount() > 0) {
         ?>
-        <table class="dash-table">
+        <table class="dash-table tableresp">
             <thead>
             <tr>
-                <th> Naam</th>
-                <th> Aantal producten</th>
-                <th> Datum</th>
-                <th> Status</th>
-                <th> Bekijken</th>
-                <th> Afronden</th>
-                <th> Verwijderen</th>
+                <th class="orderid"> ID</th>
+                <th class="ordername"> Naam</th>
+                <th class="orderproducts"> Aantal producten</th>
+                <th class="orderdate"> Datum</th>
+                <th class="orderstatus"> Status</th>
+                <th class="orderview"> Bekijken</th>
+                <th class="orderend"> Afronden</th>
+                <th class="orderid"> Verwijderen</th>
             </tr>
             </thead>
             <tbody>
@@ -122,15 +123,16 @@
                     $datum = $row["datum"];
                     $status = $row["status"];
                     echo "<tr>
-                    <td> $firstname $middlename $lastname </td>
-                    <td> $aantal </td>
-                    <td> $datum </td>
-                    <td> $status </td>
-                    <td> <i class=\"fa fa-eye\" aria-hidden=\"true\"></i> <a href=\"/dashboard/orders/order?id=$id\">Bekijken</a></td>";
+                    <td class='orderid'> $id </td>
+                    <td class='ordername'> $firstname $middlename $lastname </td>
+                    <td class='orderproducts'> $aantal </td>
+                    <td class='orderdate'> $datum </td>
+                    <td class='orderstatus'> $status </td>
+                    <td class='orderview'> <i class=\"fa fa-eye\" aria-hidden=\"true\"></i> <a href=\"/dashboard/orders/order?id=$id\">Bekijken</a></td>";
                     if ($status == "afgerond") {
-                        echo "<td> Afgerond </td>";
+                        echo "<td class='orderend'> Afgerond </td>";
                     } else {
-                        echo "<td> <i class=\"fa fa-check-square-o\" aria-hidden=\"true\"></i> <a href=\"/dashboard/orders/status?id=$id\" onclick=\"return confirm('Weet je zeker dat je de status wilt veranderen?');\">Afronden</a></td>";
+                        echo "<td class='orderdelete'> <i class=\"fa fa-check-square-o\" aria-hidden=\"true\"></i> <a href=\"/dashboard/orders/status?id=$id\" onclick=\"return confirm('Weet je zeker dat je de status wilt veranderen?');\">Afronden</a></td>";
                     }
                     echo "<td> <i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i><a href=\"/dashboard/orders/delete?id=$id\" onclick=\"return confirm('Weet je zeker dat je de bestelling wilt verwijderen?');\"> Verwijderen</a></td>
                   </tr>";

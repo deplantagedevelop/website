@@ -31,15 +31,15 @@
     <?php
         if ($products->rowCount() > 0) {
             ?>
-            <table class="dash-table">
+            <table class="dash-table tableresp">
                 <thead>
                 <tr>
-                    <th>Productnaam</th>
-                    <th>Categorie</th>
-                    <th>Prijs</th>
-                    <th>Beschikbaar</th>
-                    <th>Bewerken</th>
-                    <th>Verwijderen</th>
+                    <th class="productname">Productnaam</th>
+                    <th class="productcategory">Categorie</th>
+                    <th class="productprice">Prijs</th>
+                    <th class="productavailable">Beschikbaar</th>
+                    <th class="productedit">Bewerken</th>
+                    <th class="productdelete">Verwijderen</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,13 +47,13 @@
                     foreach ($products as $item) {
                         ?>
                         <tr>
-                            <td><?php echo $item['title']; ?></td>
-                            <td><?php echo $item['category']; ?></td>
-                            <td><?php echo $item['price']; ?></td>
-                            <td><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
-                            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
+                            <td class="productname"><?php echo $item['title']; ?></td>
+                            <td class="productcategory"><?php echo $item['category']; ?></td>
+                            <td class="productprice"><?php echo $item['price']; ?></td>
+                            <td class="productavailable"><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
+                            <td class="productedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
                                         href="/dashboard/products/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
-                            <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a onclick="return confirm('Weet u zeker dat u het product wil verwijderen?');"
+                            <td class="productdelete"><i class="fa fa-trash-o" aria-hidden="true"></i> <a onclick="return confirm('Weet u zeker dat u het product wil verwijderen?');"
                                         href="/dashboard/products/delete?id=<?php echo $item['ID']; ?>">Verwijder</a></td>
                         </tr>
                         <?php

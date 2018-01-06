@@ -27,13 +27,13 @@
         <a href="/dashboard/news_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
             Categorieën</a>
         <div class="content">
-            <table class="dash-table">
+            <table class="dash-table tableresp">
                 <thead>
                 <tr>
                     <th>Titel</th>
-                    <th>Categorie</th>
-                    <th>Actief</th>
-                    <th>Datum</th>
+                    <th class="categorynews">Categorie</th>
+                    <th class="newsactive">Actief</th>
+                    <th class="newsdate">Datum</th>
                     <th>Bewerken</th>
                     <th>Verwijderen</th>
                 </tr>
@@ -44,9 +44,9 @@
                         ?>
                         <tr>
                             <td><?php echo $item['title']; ?></td>
-                            <td><?php echo $item['category']; ?></td>
-                            <td><?php echo ($item['active'] == 1) ? 'Ja' : 'Nee'; ?></td>
-                            <td><?php echo $item['date']; ?></td>
+                            <td class="categorynews"><?php echo $item['category']; ?></td>
+                            <td class="newsactive"><?php echo ($item['active'] == 1) ? 'Ja' : 'Nee'; ?></td>
+                            <td class="newsdate"><?php echo $item['date']; ?></td>
                             <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
                                         href="/dashboard/news/update?id=<?php echo $item['ID']; ?>">Bewerk</a></td>
                             <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a

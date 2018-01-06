@@ -26,12 +26,12 @@
     if ($contact->rowCount() > 0) {
         ?>
         <div class="content">
-            <table class="dash-table">
+            <table class="dash-table tableresp">
                 <thead>
                 <tr>
                     <th>Onderwerp</th>
-                    <th>Naam</th>
-                    <th>Datum</th>
+                    <th class="contactname">Naam</th>
+                    <th class="contactdate">Datum</th>
                     <th>Bekijken</th>
                     <th>Verwijderen</th>
                 </tr>
@@ -42,9 +42,9 @@
                         ?>
                         <tr>
                             <td><?php echo $formulier['subject']; ?></td>
-                            <td><?php echo $formulier['firstname'] . " " . $formulier['middlename'] . " " .
+                            <td class="contactname"><?php echo $formulier['firstname'] . " " . $formulier['middlename'] . " " .
                                     $formulier['lastname']; ?></td>
-                            <td><?php echo $formulier['date'] ?></td>
+                            <td class="contactdate"><?php echo $formulier['date'] ?></td>
                             <td><i class="fa fa-eye" aria-hidden="true"></i></i> <a
                                         href="/dashboard/contact/view/<?php echo $formulier["ID"]; ?>">Bekijk</a></td>
                             <td><i class="fa fa-trash-o" aria-hidden="true"></i> <a

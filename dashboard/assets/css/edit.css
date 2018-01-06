@@ -105,5 +105,15 @@
     height: 25%;
 }
 
+@media only screen and (max-width: 1200px) {
+    .home-products > .single-product:first-of-type {
+        margin-left: 0;
+        margin-right: 0;
+    }
 
+    .home-products > .single-product:first-of-type {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
 

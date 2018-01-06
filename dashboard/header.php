@@ -54,6 +54,7 @@
                     <a href="/dashboard/news">Nieuws</a>
                     <a href="/dashboard/reviews">Reviews</a>
                     <a href="/dashboard/contact">Contact</a>
+                    <a href="/dashboard/montlyproduct">Product van de maand</a>
                     <a href="/dashboard/slider">Slider</a>
                 </div>
             </div>

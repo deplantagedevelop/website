@@ -312,7 +312,7 @@ ul, menu, dir {
 }
 
 .dashbody textarea {
-    width: 80%;
+    width: calc(100% - 30px);
     resize: none;
     border: none;
     background-color: #ffffff;
@@ -324,9 +324,10 @@ ul, menu, dir {
 
 .dashbody select {
     margin-bottom: 20px;
-    padding: 10px;
+    height: 40px;
     width: 150px;
     display: block;
+
 }
 
 .dashbody .dashboard-right img {
@@ -383,7 +384,7 @@ ul, menu, dir {
     color: #ffffff;
     font-weight: bold;
     text-decoration: none;
-    margin-top: 25px;
+    margin-top: 5px;
     display: inline-block;
 }
 
@@ -541,8 +542,143 @@ ul, menu, dir {
     width: 130px;
 }
 
+.sort-orders select {
+    margin-right: 15px;
+}
+
+.buttonorder button {
+    height: 40px;
+    background-color: #3c8dbc;
+    color: #ffffff;
+    border: none;
+}
+
+.leftorderbutton {
+    margin-right: 50px;
+}
+
+.search-order {
+    margin-right: 15px;
+}
+
+@media only screen and (max-width: 1400px) {
+    .ordername {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .orderproducts {
+        display: none;
+    }
+
+    .newsactive {
+        display: none;
+    }
+
+    .reviewdate {
+        display: none;
+    }
 
 
+}
 
+@media only screen and (max-width: 900px) {
+    .orderstatus {
+        display: none;
+    }
+
+    .leftorderbutton {
+        margin-right: 15px;
+    }
+
+    .newsdate {
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .orderdate {
+        display: none;
+    }
+
+    .ordersSort {
+        display: none;
+    }
+
+    .tableresp tbody td {
+        font-size: 11.5px;
+    }
+
+    .tableresp thead th {
+        font-size: 13.5px;
+    }
+
+    .categorynews {
+        display: none;
+    }
+
+    .reviewstars {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .productavailable, .productcategory {
+        display: none;
+    }
+
+    .create-btn {
+        padding: 7.5px 10px;
+        font-size: 15px;
+    }
+
+    .contactdate {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .productprice {
+        display: none;
+    }
+
+    .productactive {
+        display: none;
+    }
+
+    .create-btn {
+        font-size: 12.5px;
+    }
+
+    .dashbody .dashboard-left {
+        width: 100%;
+    }
+
+    .subcategory {
+        display: none;
+    }
+
+    .dashbody .content {
+        display: block;
+    }
+
+    .tablereviews thead th {
+        font-size: 12px;
+    }
+
+    .tablereviews tbody td {
+        font-size: 10px;
+    }
+
+    .contactname {
+        display: none;
+    }
+
+    .slideid {
+        display: none;
+    }
+}
 
 

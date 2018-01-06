@@ -19,7 +19,7 @@
     <div class="dashboard-left">
         <form method="post">
             <label>Categorie</label>
-            <input type="text" name="category_name" placeholder="Categorienaam" required>
+            <input class="createcategory" type="text" name="category_name" placeholder="Categorienaam" required>
             <span> Actief of non-actief: </span> <br>
             <input type="radio" name="active" class="radio-btn" value="true" checked="checked" required> Actief
             <input type="radio" name="active" class="radio-btn" value="false"> Non-actief <br>

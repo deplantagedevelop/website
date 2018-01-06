@@ -8,12 +8,11 @@
 ?>
     <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
     <div class="content">
-        <table class="dash-table">
+        <table class="dash-table tableresp">
             <thead>
             <tr>
                 <th> Subcategorienaam </th>
-                <th> Categorie </th>
-                <th> Actief </th>
+                <th class="subcategory"> Categorie </th>
                 <th> Bewerken </th>
                 <th> Verwijderen </th>
             </tr>
@@ -29,8 +28,7 @@
                     if ($active == 1) {
                         echo "<tr> 
                     <td> $name </td> 
-                    <td> $category </td>
-                    <td> actief </td> 
+                    <td class='subcategory'> $category </td>
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
                     <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>                
                   </tr>";

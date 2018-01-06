@@ -10,10 +10,10 @@
         <?php
             if ($slides->rowCount() > 0) {
                 ?>
-                <table class="dash-table">
+                <table class="dash-table tableresp">
                     <thead>
                     <tr>
-                        <th>Slide</th>
+                        <th class="slideid">Slide</th>
                         <th>Slidertekst</th>
                         <th>Bewerk</th>
                         <th>Verwijder</th>
@@ -26,7 +26,7 @@
                             $i++;
                             ?>
                             <tr>
-                                <td><?php echo $i; ?></td>
+                                <td class="slideid" ><?php echo $i; ?></td>
                                 <td><?php echo $item['title']; ?></td>
                                 <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
                                         href="/dashboard/slider/edit?id=<?php echo $item['ID']; ?>">Bewerk</a></td>

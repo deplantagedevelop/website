@@ -7,7 +7,7 @@
     $montlyproduct = $conn->prepare("SELECT * FROM monthly_product");
 ?>
 
-<table class="dash-table">
+<table class="dash-table tableresp">
     <thead>
         <tr>
             <th> Product van de maand </th>
