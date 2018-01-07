@@ -106,8 +106,8 @@ if (isset($_POST['submit'])) {
     <?php
 }
 ?>
-    <div class="content">
-        <div class="dashboard-left">
+    <div class="content createcontent displayflex">
+        <div class="leftcreate">
             <form method="post" enctype="multipart/form-data">
                 <label>Voornaam</label>
                 <input type="text" name="firstname" placeholder="Naam*" value="<?php echo $firstname ?>" required>
@@ -139,7 +139,7 @@ if (isset($_POST['submit'])) {
                 </select>
                 <input type="submit" name="register" value="wijzigen">
         </div>
-        <div class="dashboard-right">
+        <div class="rightcreate">
             <label>Adres</label>
             <input type="text" name="address" placeholder="Straat + Huisnummer*" value="<?php echo $address ?>"
                    required>

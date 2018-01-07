@@ -282,6 +282,11 @@ ul, menu, dir {
     margin-right: 30px;
 }
 
+.dashbody .leftcreate {
+    width: calc(50% - 30px);
+    margin-right: 30px;
+}
+
 .dashbody input {
     margin-bottom: 15px;
 }
@@ -292,7 +297,16 @@ ul, menu, dir {
     margin-left: 30px;
 }
 
+.dashbody .rightcreate {
+    width: calc(50% - 30px);
+    margin-left: 30px;
+}
+
 .helper-text ul li {
+    list-style-type: none;
+}
+
+.helper-text-createacc ul li {
     list-style-type: none;
 }
 
@@ -428,6 +442,8 @@ ul, menu, dir {
     }
 }
 
+
+
 @media only screen and (max-width: 1000px) {
     .dashblock {
         width: calc(100% - 40px);
@@ -494,6 +510,16 @@ ul, menu, dir {
         margin-left: 10px;
     }
 
+    .dashbody .leftcreate {
+        width: calc(50% - 10px);
+        margin-right: 10px;
+    }
+
+    .dashbody .rightcreate {
+        width: calc(50% - 10px);
+        margin-left: 10px;
+    }
+
 }
 
 @media only screen and (max-width: 380px) {
@@ -514,6 +540,10 @@ ul, menu, dir {
     }
 
     .helper-text {
+        font-size: 12.5px;
+    }
+
+    .helper-text-createacc {
         font-size: 12.5px;
     }
 }
@@ -661,7 +691,7 @@ ul, menu, dir {
     }
 
     .dashbody .content {
-        display: block;
+        display: flex;
     }
 
     .tablereviews thead th {
@@ -680,5 +710,3 @@ ul, menu, dir {
         display: none;
     }
 }
-
-
