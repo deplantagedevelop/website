@@ -1,6 +1,7 @@
 <?php
     include('header.php');
 
+    //Haal sliders, maandelijkse producten en nieuwsberichten op uit de database.
     $slideritems = $conn->query('SELECT * FROM homepageslider');
     $monthlyitems = $conn->query('SELECT * FROM monthly_product');
     $newsitems = $conn->query('SELECT * FROM news ORDER BY ID DESC LIMIT 3');
@@ -8,7 +9,9 @@
 <section class="home-slider">
     <div class="slider">
         <?php
+            //Controleer als er minimaal 1 slide aanwezig is.
             if ($slideritems->rowCount() > 0) {
+                //Loop door alle sliders heen.
                 foreach ($slideritems as $slideritem) {
                     ?>
                     <div class="slide" style="background: url('assets/images/slider/<?php echo $slideritem["image"]; ?>') no-repeat center center">
@@ -35,7 +38,9 @@
 <section class="content" id="content">
     <div class="home-products">
         <?php
+        //Controleer als er minimaal 1 maandelijks product aanwezig is.
         if ($monthlyitems->rowCount() > 0) {
+            //Loop door alle maandelijkse producten heen.
             foreach ($monthlyitems as $monthlyitem) {
                 ?>
                 <div class="single-product">
@@ -56,7 +61,9 @@
     </div>
     <div class="home-news">
         <?php
+            //Controleer als er minimaal 1 nieuwsbericht aanwezig is.
             if ($newsitems->rowCount() > 0) {
+                //Loop door alle nieuwsberichten heen.
                 foreach ($newsitems as $newsitem) {
                     $description = (strlen($newsitem["description"]) > 125) ? substr($newsitem["description"], 0, 125) . '...' : $newsitem["description"];
                     ?>

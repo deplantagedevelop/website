@@ -1,7 +1,9 @@
 <?php
 include('header.php');
 
+//Controleer als gebruiker is ingelogd.
 if (isset($_SESSION['user_session'])) {
+    //Controleer als er een ID is meegegeven in de URl.
     if (isset($_GET['id'])) {
         $userid = $_SESSION['user_session'];
         $id = $_GET['id'];
@@ -11,13 +13,14 @@ if (isset($_SESSION['user_session'])) {
             return date('d-m-Y', time());
         }
 
+        //Haal ordergegevens op
         $order = $conn->prepare("SELECT o.ID, o.date, o.Status, p.title , SUM(be.amount * be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :userid AND o.ID = :id GROUP BY o.ID");
         $order->bindparam(":userid", $userid);
         $order->bindParam(":id", $id);
         $order->execute();
         $order = $order->fetchAll();
 
-
+        //Haal de producten op.
         $products = $conn->prepare("SELECT p.image, p.title, ol.amount, ol.price FROM orderlines AS ol INNER JOIN orders AS o ON ol.OrderID = o.ID INNER JOIN products AS p ON p.ID = ol.ProductID WHERE ol.OrderID = :id");
 
         $products->execute(array(
@@ -58,7 +61,7 @@ if (isset($_SESSION['user_session'])) {
                     <?php
                     }
                     $totalprice = 0;
-
+                    //Loop door alle producten.
                     foreach ($products as $product) {
                         $title = $product["title"];
                         $amount = $product["amount"];

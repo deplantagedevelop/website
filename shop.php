@@ -268,7 +268,7 @@
                         if ($_GET['pagina']) {
                             $current = $_GET['pagina'];
                             if ($current != 1) {
-                                echo '<a href="/shop?pagina=' . ($current - 1) . $category . $search .'"> << </a>';
+                                echo '<a href="/shop?pagina=1' . $category . $search .'"> << </a>';
                                 echo '<a href="?pagina=' . ($current - 1) . $category . $search .'"> < </a>';
                             }
                         } else {

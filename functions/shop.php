@@ -9,6 +9,7 @@
         }
 
         public function createOrder($CustomerID, $status) {
+            //Maak nieuwe order aan.
             $stmt = $this->db->prepare("INSERT INTO orders(CustomerID, status) 
                                                        VALUES(:CustomerID, :status)");
 
@@ -20,6 +21,7 @@
         }
 
         public function createOrderLine($OrderID, $ProductID, $amount, $price) {
+            //Maak nieuwe orderregel aan.
             $stmt = $this->db->prepare("INSERT INTO orderlines(OrderID, ProductID, Amount, price) 
                                                        VALUES(:OrderID, :ProductID, :Amount, :Price)");
 
@@ -33,6 +35,10 @@
         }
 
         public function comfirmationMail($CustomerID, $ordernumber) {
+            //Verstuur bevestigingsmail voor bestelling.
+            $siteurl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+            //Haal gebruiker op
             $stmt = $this->db->prepare("SELECT firstname, email FROM customer WHERE ID = :customerID");
             $stmt->bindparam(":customerID", $CustomerID);
             $stmt->execute();
@@ -48,7 +54,7 @@
                                                     8081 CW, Elburg<br>
                                                     0525-842787<br>
                                                     info@deplantage-elburg.nl<br><br>
-                                                    <img width="250" src="https://plantagedevelopment.nl/assets/images/logo.png" alt="de Plantage"><br>';
+                                                    <img width="250" src="'. $siteurl .'/assets/images/logo.png" alt="de Plantage"><br>';
                 $headers[] = 'From: de Plantage Elburg <no-reply@plantagedevelopment.nl>' . "\r\n" .
                     'Reply-To: info@plantagedevelopment.nl' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
                 $headers[] = 'MIME-Version: 1.0';
@@ -68,7 +74,7 @@
                                                     8081 CW, Elburg<br>
                                                     0525-842787<br>
                                                     info@deplantage-elburg.nl<br><br>
-                                                    <img width="250" src="https://plantagedevelopment.nl/assets/images/logo.png" alt="de Plantage"><br>';
+                                                    <img width="250" src="'. $siteurl .'/assets/images/logo.png" alt="de Plantage"><br>';
             $headers[] = 'From: de Plantage Elburg <no-reply@plantagedevelopment.nl>' . "\r\n" .
                 'Reply-To: info@plantagedevelopment.nl' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
             $headers[] = 'MIME-Version: 1.0';

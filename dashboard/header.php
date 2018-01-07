@@ -1,8 +1,4 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
     include($_SERVER['DOCUMENT_ROOT'] . '/lib/connection.php');
     include($_SERVER['DOCUMENT_ROOT'] . '/functions/user.php');
 
@@ -49,25 +45,39 @@
                 <div class="dropdown-content">
                     <a href="/dashboard">Home</a>
                     <a href="/dashboard/orders">Bestellingen</a>
-                    <a href="/dashboard/role/">Accounts</a>
                     <a href="/dashboard/products">Producten</a>
-                    <a href="/dashboard/news">Nieuws</a>
                     <a href="/dashboard/reviews">Reviews</a>
-                    <a href="/dashboard/contact">Contact</a>
+                    <?php
+                    if($user->has_role('Eigenaar') || $user->has_role('Administrator')) {
+                        ?>
+                        <a href="/dashboard/role/">Accounts</a>
+                        <a href="/dashboard/news">Nieuws</a>
+                        <a href="/dashboard/contact">Contact</a>
+                        <a href="/dashboard/slider">Slider</a>
+                        <?php
+                    }
+                    ?>
+
                     <a href="/dashboard/montlyproduct">Product van de maand</a>
-                    <a href="/dashboard/slider">Slider</a>
+
                 </div>
             </div>
             <ul id="dashmenu">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="/dashboard">Home</a></li>
                 <li><i class="fa fa-shopping-basket" aria-hidden="true"></i><a href="/dashboard/orders/">Bestellingen</a></li>
-                <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard/role">Accounts</a></li>
                 <li><i class="fa fa-shopping-bag" aria-hidden="true"></i><a href="/dashboard/products">Producten</a></li>
-                <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
                 <li><i class="fa fa-star" aria-hidden="true"></i><a href="/dashboard/reviews">Reviews</a></li>
-                <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard/contact">Contact</a></li>
+                <?php
+                if($user->has_role('Eigenaar') || $user->has_role('Administrator')) {
+                    ?>
+                    <li><i class="fa fa-users" aria-hidden="true"></i><a href="/dashboard/role">Accounts</a></li>
+                    <li><i class="fa fa-newspaper-o" aria-hidden="true"></i><a href="/dashboard/news">Nieuws</a></li>
+                    <li><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a href="/dashboard/contact">Contact</a></li>
+                    <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard/slider">Slider</a></li>
+                    <?php
+                }
+                ?>
                 <li><i class="fa fa-coffee" aria-hidden="true"></i><a href="/dashboard/montlyproduct">Product v/d maand</a></li>
-                <li><i class="fa fa-cog" aria-hidden="true"></i><a href="/dashboard/slider">Slider</a></li>
             </ul>
         </div>
         <div class="header-mobile"></div>

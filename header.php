@@ -3,9 +3,6 @@
     include('functions/user.php');
     $user = new User($conn);
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
 ?>
 <!DOCTYPE HTML>
 <html lang="nl">

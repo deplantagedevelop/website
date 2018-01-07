@@ -1,5 +1,6 @@
 <?php include('header.php');
     $user = new User($conn);
+    //Haal alle variabelen op voor het dashboard.
     $countUsers = $conn->prepare("select count(*) from customer");
     $countContact = $conn->prepare("select count(*) from contact");
     $countProducten = $conn->prepare("select count(*) from products");

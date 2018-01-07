@@ -4,8 +4,10 @@ include('header.php');
 <section class="content content-newsarticle" >
     <div class="main-newsarticle" >
         <?php
+            //Controleer als er een ID parameter in de URL wordt meegegeven.
             if(isset($_GET['ID'])) {
                 $ID = $_GET["ID"];
+                //Haal het nieuwsbericht op.
                 $newsitems = $conn->prepare("SELECT * FROM news WHERE ID ='" . $ID . "'");
                 $newsitems->execute();
                 $newsitem = $newsitems->fetchAll();

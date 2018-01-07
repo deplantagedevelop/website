@@ -8,6 +8,7 @@ $subject = '';
 $message = '';
 $contacterror = false;
 
+//Controleer als er een POST request is gestuurd.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_POST = array_map('strip_tags', $_POST);
     $firstname = $_POST["firstname"];
@@ -18,9 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $subject = $_POST["subject"];
     $message = $_POST["message"];
 
+    //Controleer als alle velden zijn ingevuld.
     if(isset($firstname, $lastname, $email, $phonenumber, $subject, $message) && !empty($firstname && $lastname && $email && $phonenumber && $subject && $message)) {
+            //Controleer als emailadres daadwerkelijk een emailadres is.
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
+                //Controleer als Recaptcha is ingevuld.
                 if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
                     //Recaptcha key
                     $secret = '6LeESTkUAAAAAJ7wfXVne6e9rBBdquHvF2alnBkU';
@@ -28,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
                     $responseData = json_decode($verifyResponse);
                     if ($responseData->success) {
-
+                        //Zet contactinzending in de database.
                         $sql = "INSERT INTO contact (firstname, middlename, lastname, email, phonenumber, subject, message) VALUES (:firstname, :middlename, :lastname, :email, :phonenumber, :subject, :message)";
                         $stm = $conn->prepare($sql);
                         $stm->execute(array(
@@ -41,7 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             ':message' => $message,
                         ));
 
+                        //Haal de website URL op.
                         $siteurl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+                        //Verstuur bevestigingsemail naar de klant.
                         $toklant = $email;
                         $subjectklant = 'Bedankt voor uw bericht';
                         $messageklant = 'Hallo ' . $firstname . ', <br><br>
@@ -61,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         mail($toklant, $subjectklant, $messageklant, implode("\r\n", $headers));
 
+                        //Verstuur email naar de plantage.
                         $tomail = 'info@plantagedevelopment.nl';
                         $subjectmail = 'Contactformulier - Onderwerp: ' . $subject;
                         $messagemail = 'Automatisch bericht (ingevuld contactformulier)<br>
@@ -125,7 +131,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </form>
             <?php
+                //Controleer als er een POST request is gestuurd naar de server.
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    //Controleer als er errors aanwezig zijn, zoja geef de error melding.
                     if($contacterror === false) {
                         if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
                             if ($responseData->success) {

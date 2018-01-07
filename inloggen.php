@@ -5,6 +5,10 @@ $emailerror = false;
 $loginerror = false;
 $logincaptcha = false;
 
+//Haal siteurl op.
+$siteurl = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+
+//Controleer als gebruiker is ingelogd, als het klant is stuur klant naar order pagina, anders naar dashboard.
 if($user->is_loggedin() != "") {
     if(!$user->has_role('Klant')) {
         $user->redirect('/dashboard');
@@ -13,6 +17,7 @@ if($user->is_loggedin() != "") {
     }
 }
 
+//Controleer als er een POST request naar de server wordt gestuurd van login.
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
     if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
         //Recaptcha key
@@ -21,11 +26,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submitlogin'])) {
         $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret .
             '&response=' . $_POST['g-recaptcha-response']);
         $responseData = json_decode($verifyResponse);
+        //Controleer als Recaptcha een succes response terug geeft.
         if ($responseData->success) {
+            //Gebruik striptags functie op alle postdata tegen XSS aanvallen.
             $_POST = array_map('strip_tags', $_POST);
             $email = $_POST['loginemail'];
             $password = $_POST['loginpassword'];
 
+            //Redirect gebruiker naar de desbetreffende pagina van de goede userrole.
             if ($user->login($email, $password)) {
                 if (isset($_GET['redirectUrl'])) {
                     $redirecturl = $_GET['redirectUrl'];
@@ -58,6 +66,7 @@ $repassword = '';
 
 $validationpassword = false;
 
+//Controleer als er een POST request naar de server wordt gestuurd van registreren.
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
     $_POST = array_map('strip_tags', $_POST);
     $firstname = $_POST["firstname"];
@@ -71,6 +80,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
+    //Controleer als het wachtwoord voldoet aan de eisen.
     if (7 < strlen($password)){
         if( preg_match("#[0-9]+#", $password) || preg_match("#\W+#", $password) ) {
             if( preg_match("#[a-z]+#", $password) ) {
@@ -83,6 +93,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
 
     if ($password == $repassword && $validationpassword == true) {
         try {
+            //Controleer als er al een gebruiker bestaat met het emailadres.
             $useremail = $conn->prepare("SELECT email FROM customer WHERE email = :email");
             $useremail->execute(array(':email'=>$email));
             $emailexists = $useremail->fetch(PDO::FETCH_ASSOC);
@@ -90,8 +101,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
             if($emailexists['email'] == $email) {
                 $emailerror = true;
             } else {
+                //Voeg gebruiker toe aan de database.
                 $user->register($firstname, $middlename, $lastname, $email, $phonenumber, $address, $city, $postalcode, $password);
 
+                //Verstuur succesemail naar de gebruiker.
                 $toklant = $email;
                 $subjectklant = 'Bevestiging registratie';
                 $messageklant = 'Hallo ' . $firstname . ', <br><br>
@@ -102,7 +115,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['register'])) {
                                                 8081 CW, Elburg<br>
                                                 0525-842787<br>
                                                 info@deplantage-elburg.nl<br><br>
-                                                <img width="250" src="http://jeffrey.plantagedevelopment.nl/assets/images/logo.png" alt="de Plantage"><br>';
+                                                <img width="250" src="'. $siteurl .'/assets/images/logo.png" alt="de Plantage"><br>';
                 $headers[] = 'From: de Plantage Elburg <no-reply@plantagedevelopment.nl>' . "\r\n" .
                     'Reply-To: info@plantagedevelopment.nl' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();

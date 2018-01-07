@@ -1,45 +1,47 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
+    $user = new User($conn);
+    if($user->has_role('Eigenaar') || $user->has_role('Administrator')) {
 
-    $limit = 20;
-    if(empty($_GET['pagina'])) {
-        $currentRow = 0;
-        $_GET['pagina'] = 0;
-    } else {
-        if(is_numeric($_GET['pagina'])) {
-            $pagina = $_GET['pagina'];
-            $currentRow = ($pagina - 1) * $limit;
+        $limit = 20;
+        if (empty($_GET['pagina'])) {
+            $currentRow = 0;
+            $_GET['pagina'] = 0;
         } else {
-            $user->redirect('/dashboard/news');
+            if (is_numeric($_GET['pagina'])) {
+                $pagina = $_GET['pagina'];
+                $currentRow = ($pagina - 1) * $limit;
+            } else {
+                $user->redirect('/dashboard/news');
+            }
         }
-    }
 
-    $newsitems = $conn->prepare("SELECT n.*, nc.name AS category FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ORDER BY n.ID DESC LIMIT " . $currentRow . ", " . $limit);
-    $newsitems->execute();
+        $newsitems = $conn->prepare("SELECT n.*, nc.name AS category FROM news AS n INNER JOIN newscategory AS nc ON n.categoryID = nc.ID ORDER BY n.ID DESC LIMIT " . $currentRow . ", " . $limit);
+        $newsitems->execute();
 
-    $rowCounts = $conn->prepare('SELECT COUNT(*) AS amount FROM news');
-    $rowCounts->execute();
-    $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
-    $total_pages = ceil($rowCount['amount'] / $limit);
+        $rowCounts = $conn->prepare('SELECT COUNT(*) AS amount FROM news');
+        $rowCounts->execute();
+        $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
+        $total_pages = ceil($rowCount['amount'] / $limit);
 
-    if ($newsitems->rowCount() > 0) {
-        ?>
-        <a href="/dashboard/news_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
-            Categorieën</a>
-        <div class="content">
-            <table class="dash-table tableresp">
-                <thead>
-                <tr>
-                    <th>Titel</th>
-                    <th class="categorynews">Categorie</th>
-                    <th class="newsactive">Actief</th>
-                    <th class="newsdate">Datum</th>
-                    <th>Bewerken</th>
-                    <th>Verwijderen</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
+        if ($newsitems->rowCount() > 0) {
+            ?>
+            <a href="/dashboard/news_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
+                Categorieën</a>
+            <div class="content">
+                <table class="dash-table tableresp">
+                    <thead>
+                    <tr>
+                        <th>Titel</th>
+                        <th class="categorynews">Categorie</th>
+                        <th class="newsactive">Actief</th>
+                        <th class="newsdate">Datum</th>
+                        <th>Bewerken</th>
+                        <th>Verwijderen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
                     foreach ($newsitems as $item) {
                         ?>
                         <tr>
@@ -56,57 +58,69 @@
                         </tr>
                         <?php
                     }
-                ?>
-                </tbody>
-            </table>
-        </div>
-        <div class="flex-pagination">
-            <?php
-            //Reset category Get because of products, only check for get in URL now.
-            if ($_GET['pagina']) {
-                $current = $_GET['pagina'];
-                if ($current != 1) {
-                    echo '<a href="/dashboard/news"> << </a>';
-                    echo '<a href="?pagina=' . ($current - 1) . '"> < </a>';
-                }
-            } else {
-                $current = 1;
-            }
-
-            for ($i = $current; $i <= $current + 2; $i++) {
-                if ($_GET['pagina'] == $i) {
-                    echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
-                } elseif (empty($_GET['pagina']) && $i === 1) {
-                    echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex-pagination">
+                <?php
+                //Kijk als er een GET parameter voor de pagina is meegegeven aan de URL.
+                if ($_GET['pagina']) {
+                    $current = $_GET['pagina'];
+                    //Kijk als de huidige pagina niet pagina nummer 1 is.
+                    if ($current != 1) {
+                        echo '<a href="/dashboard/news"> << </a>';
+                        echo '<a href="?pagina=' . ($current - 1) . '"> < </a>';
+                    }
                 } else {
-                    if ($current != $total_pages) {
-                        if ($current != $total_pages - 1) {
-                            echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                    $current = 1;
+                }
+
+                //Loop door alle pagina's.
+                for ($i = $current; $i <= $current + 2; $i++) {
+                    //Vraag de huidige pagina op en controleer als het pagina 1 is of niet.
+                    if ($_GET['pagina'] == $i) {
+                        echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                    } elseif (empty($_GET['pagina']) && $i === 1) {
+                        echo '<a href="?pagina=' . $i . '" class="current">' . $i . '</a>';
+                    } else {
+                        //controleer als de huidige pagina niet de laatste pagina is.
+                        if ($current != $total_pages) {
+                            if ($current != $total_pages - 1) {
+                                echo '<a href="?pagina=' . $i . '">' . $i . '</a>';
+                            }
                         }
                     }
                 }
-            }
-            if ($_GET['pagina'] != $total_pages) {
-                if ($current <= $total_pages - 3) {
-                    echo '<a href="#">...</a>';
-                    echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+
+                //Controleer als de huidige pagina niet de laatste pagina is.
+                if ($_GET['pagina'] != $total_pages) {
+                    //Controleer als de huidige pagina meer dan 3 pagina's verschil heeft met de laatste pagina.
+                    if ($current <= $total_pages - 3) {
+                        echo '<a href="#">...</a>';
+                        echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                    }
+                    //Controleer als de huidige pagina de op een na laatste pagina is.
+                    if ($current == $total_pages - 1) {
+                        echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
+                    }
+                    //Controleer als de huidige pagina niet de laatste pagina is.
+                    if ($current != $total_pages) {
+                        echo '<a href="?pagina=' . ($current + 1) . '"> > </a>';
+                        echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                    }
                 }
-                if ($current == $total_pages - 1) {
-                    echo '<a href="?pagina=' . $total_pages . '">' . $total_pages . '</a>';
-                }
-                if ($current != $total_pages) {
-                    echo '<a href="?pagina=' . ($current + 1) . '"> > </a>';
-                    echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
-                }
-            }
-            ?>
-        </div>
+                ?>
+            </div>
+            <?php
+        } else {
+            echo '<p>Geen nieuwsberichten gevonden</p>';
+        }
+        ?>
+        <a href="/dashboard/news/create" class="create-btn">Nieuws toevoegen</a>
         <?php
     } else {
-        echo '<p>Geen nieuwsberichten gevonden</p>';
+        $user->redirect('/dashboard');
     }
-    ?>
-    <a href="/dashboard/news/create" class="create-btn">Nieuws toevoegen</a>
-    <?php
 
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');

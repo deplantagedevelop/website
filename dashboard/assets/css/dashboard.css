@@ -616,7 +616,9 @@ ul, menu, dir {
         display: none;
     }
 
-
+    .productsubcategory {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 900px) {
@@ -700,6 +702,10 @@ ul, menu, dir {
         display: flex;
     }
 
+    .dashbody .flex-pagination {
+        margin-bottom: 25px;
+    }
+
     .tablereviews thead th {
         font-size: 12px;
     }
@@ -714,5 +720,9 @@ ul, menu, dir {
 
     .slideid {
         display: none;
+    }
+
+    .search-product {
+        max-width: 150px;
     }
 }

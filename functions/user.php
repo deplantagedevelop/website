@@ -14,8 +14,10 @@ class User
             $options = [
                 'cost' => 16
             ];
+            //Hash het wachtwoord met PHP hash functie.
             $hashed_pass = password_hash($password, PASSWORD_BCRYPT, $options);
 
+            //Voeg gebruiker toe aan de database.
             $stmt = $this->db->prepare("INSERT INTO customer(firstname, middlename, lastname, email, phonenumber, address, city, postalcode, password) 
                                                        VALUES(:firstname, :middlename, :lastname, :email, :phonenumber, :address, :city, :postalcode, :password)");
 
@@ -66,10 +68,12 @@ class User
     }
 
     public function redirect($url) {
+        //Redirect functie.
         header("Location: $url");
     }
 
     public function logout() {
+        //Verwijder alle sessies en haal usersessie weg.
         session_destroy();
         unset($_SESSION['user_session']);
         return true;

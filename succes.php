@@ -2,8 +2,11 @@
 <section class="content main-content">
     <div class="order-succes">
     <?php
+    //Controleer als er een ID wordt meegegeven in de URL.
     if(isset($_GET['id'])) {
+        //Controleer als order succes sessie niet leeg is.
         if (!empty($_SESSION['order_succes'])) {
+            //Haal ordernummer op uit de sessie.
             $ordernumber = $_SESSION['order_number'];
             ?>
             <h1>Uw bestelling is geplaatst, uw ordernummer is <a href="/vieworder.php?id=<?php echo $ordernumber; ?>"> <?php echo $ordernumber;  ?></a> !</h1>

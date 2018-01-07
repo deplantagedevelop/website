@@ -7,13 +7,20 @@
     $user = new User($conn);
     $shop = new Shop($conn);
 
+    //Controleer als er een POST request naar de server is gestuurd.
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //Controleer als de gebruiker wel is ingelogd.
         if($user->is_loggedin()) {
+            //Haal User ID op uit PHP Sessie
             $UserID = $_SESSION['user_session'];
+            //Maak order aan.
             $shop->createOrder($UserID, 'verwerken');
+            //Haal Order ID op.
             $OrderID = $conn->lastInsertId();
+            //Loop door alle producten heen die in de winkelwagen staan.
             foreach($_SESSION["shopping_cart"] as $keys => $values) {
                 $ProductID = $values['item_id'];
+                //Controleer als het aantal van het product minimaal 1 is, zet het product aantal anders op 1.
                 if(isset($_POST['amount-' . $ProductID])) {
                     if(($_POST['amount-' . $ProductID] === 0) || ($_POST['amount-' . $ProductID] < 0)) {
                         $amount = 1;
@@ -24,12 +31,16 @@
                     $amount = 1;
                 }
                 $price = $amount * $values['item_price'];
+                //Voeg orderregel toe aan de database.
                 $shop->createOrderLine($OrderID, $ProductID, $amount, $price);
             }
+            //Leeg de winkelwagen PHP Sessie
             unset($_SESSION["shopping_cart"]);
+            //Maak sessie aan met nieuw ordernummer en een unieke succes pagina.
             $_SESSION['order_succes'] = uniqid();
             $_SESSION['order_number'] = $OrderID;
 
+            //Verstuur bevestigingsmail naar de klant en redirect de gebruiker vervolgens naar de succespagina.
             $shop->comfirmationMail($UserID, $OrderID);
             $user->redirect('/succes?id=' . $_SESSION['order_succes']);
         }
@@ -43,6 +54,7 @@
         <form method="post" action="" id="cart">
         <table class="cart-table">
             <?php
+                //Controleer als er een PHP sessie is aangemaakt voor de winkelwagen.
                 if(!empty($_SESSION["shopping_cart"]))
                 {
                     ?>
@@ -58,6 +70,7 @@
                     <?php
                     $total = 0;
                     $i = 1;
+                    //Loop door alle producten heen die in de sessie staan opgeslagen.
                     foreach($_SESSION["shopping_cart"] as $keys => $values)
                     {
                         if(isset($_GET['action'])) {
@@ -96,6 +109,7 @@
         </table>
         </form>
         <?php
+        //Controleer als er een PHP sessie is aangemaakt voor de winkelwagen.
         if(!empty($_SESSION["shopping_cart"])) {
             if($user->is_loggedin()) {
                 ?>

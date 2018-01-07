@@ -1,10 +1,13 @@
 <?php
 include('header.php');
 
+//Controleer als gebruiker wel is ingelogd.
 if($user->is_loggedin()) {
     if (isset($_SESSION['user_session'])) {
+        //Haal UserID op uit de sessie.
         $userid = $_SESSION['user_session'];
 
+        //Haal alle orders op.
         $order = $conn->prepare("SELECT o.ID, o.date, o.Status, SUM(be.price) as totaal, be.amount FROM orders as o JOIN orderlines as be ON o.ID = be.OrderID JOIN products as p ON be.ProductID = p.ID WHERE o.CustomerID = :id GROUP BY o.ID");
         $order->bindparam(":id", $userid);
         $order->execute();

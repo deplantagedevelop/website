@@ -1,25 +1,27 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
     $user = new User($conn);
-    if (!$user->is_loggedin()) {
-        $user->redirect('/inloggen');
-    }
-    $productcategory = $conn->prepare("SELECT * FROM productcategory");
-?>
-    <a href="/dashboard/products" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
-    <div class="content">
-        <table class="dash-table">
-            <thead>
-            <tr>
-                <th> Categorienaam </th>
-                <th class="productactive"> Actief </th>
-                <th> Bewerken </th>
-                <th> Verwijderen </th>
-            </tr>
-            </thead>
-            <?php
+
+    //Controleer als de gebruiker de rol Eigenaar, administrator of medewerker heeft.
+    if($user->has_role('Eigenaar') || $user->has_role('Administrator') || $user->has_role('Medewerker')) {
+        $productcategory = $conn->prepare("SELECT * FROM productcategory");
+        ?>
+        <a href="/dashboard/products" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;
+            Terug</a>
+        <div class="content">
+            <table class="dash-table">
+                <thead>
+                <tr>
+                    <th> Categorienaam</th>
+                    <th class="productactive"> Actief</th>
+                    <th> Bewerken</th>
+                    <th> Verwijderen</th>
+                </tr>
+                </thead>
+                <?php
                 $productcategory->execute();
                 echo "<tbody>";
+                //Loop door alle productcategorieeen heen.
                 while ($row = $productcategory->fetch()) {
                     $id = $row["ID"];
                     $name = $row["name"];
@@ -42,13 +44,16 @@
                     }
                 }
                 echo "</tbody>";
-            ?>
-        </table>
-    </div>
-    <a href="/dashboard/product_category/create" class="create-btn">Categorie toevoegen</a>
-    <a href="/dashboard/product_subcategory" class="create-btn">Subcategorieën</a>
+                ?>
+            </table>
+        </div>
+        <a href="/dashboard/product_category/create" class="create-btn">Categorie toevoegen</a>
+        <a href="/dashboard/product_subcategory" class="create-btn">Subcategorieën</a>
 
-<?php
-include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
+        <?php
+    } else {
+        $user->redirect('/dashboard');
+    }
 
+    include($_SERVER['DOCUMENT_ROOT'] . '/dashboard/footer.php');
 ?>
