@@ -1,9 +1,7 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/dashboard/header.php');
     $user = new User($conn);
-    if (!$user->is_loggedin()) {
-        $user->redirect('/inloggen');
-    }
+
     $newscategory = $conn->prepare("SELECT * FROM newscategory");
 ?>
     <a href="/dashboard/news" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>

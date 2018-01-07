@@ -126,7 +126,7 @@
                         <input type="radio" class="radio-btn" name="active" value="0" <?php if ($active == 0) {
                             echo "checked='checked'";
                         } ?>> Nee
-                        <input type="submit" name="submit" value="wijzigen">
+                        <input type="submit" name="submit" value="Wijzigen">
                     </form>
                 </div>
                 <div class="dashboard-right">

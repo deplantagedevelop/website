@@ -48,5 +48,5 @@
 <p class="reviewInfo"> Reageren </p>
 <form class='review-form' method="post">
     <textarea name="reaction" placeholder="Reactie" maxlength="200"><?php echo "$reaction";?></textarea> <br>
-    <input type="submit" name="submit" value="plaatsen" onclick="return confirm('Weet je zeker dat je de reactie wil plaatsen?');">
+    <input type="submit" name="submit" value="Plaatsen" onclick="return confirm('Weet je zeker dat je de reactie wil plaatsen?');">
 </form>

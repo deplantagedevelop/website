@@ -250,6 +250,25 @@ button.btn {
     right: 20px;
 }
 
+.slick-dots {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-padding-start: 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+.slick-dots li {
+    display: inline-block;
+    margin: 3px;
+}
+
+.slick-dots .slick-active {
+    font-size: 22px;
+}
+
 /* Homepage */
 .home-products {
     display: flex;
@@ -417,6 +436,11 @@ button.btn {
     margin-right: 25px;
 }
 
+.top-header .account ul {
+    -webkit-margin-before: 0;
+    -webkit-padding-start: 0;
+}
+
 @media only screen and (max-width: 1264px) {
     .header-left {
         padding-left: 15px;
@@ -467,6 +491,10 @@ button.btn {
     .main-header {
         min-height: 98px;
     }
+
+    .slide-text h1 {
+        font-size: 36px;
+    }
 }
 
 @media only screen and (max-width: 750px) {
@@ -502,10 +530,6 @@ button.btn {
         margin: 0 auto;
     }
 
-    .account {
-        padding: 4px 7px;
-    }
-
     .mobile-none {
         display: none;
     }
@@ -524,12 +548,19 @@ button.btn {
         padding-left: 0;
     }
 
-    .top-header .account ul {
-        -webkit-margin-before: 0;
-        -webkit-padding-start: 0;
-    }
-
     .account a {
         font-size: 14px;
+    }
+
+    .main-header {
+        min-height: 64px;
+    }
+
+    .home-slider {
+        padding-top: 103px;
+    }
+
+    .slide-text h1 {
+        font-size: 24px;
     }
 }

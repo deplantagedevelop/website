@@ -15,8 +15,8 @@
             $delete_productcategory->execute(array(
                 ':productcategoryID' => $id
             ));
-            $user->redirect('/dashboard/products');
+            $user->redirect('/dashboard/product_category');
         }
     } else {
-        echo 'Product niet gevonden';
+        echo 'Productcategorie niet gevonden';
     }

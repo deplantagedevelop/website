@@ -154,7 +154,7 @@ if (isset($_GET['id'])) {
                         }
                         ?>
                     </select>
-                    <input type="submit" name="submit" value="wijzigen">
+                    <input type="submit" name="submit" value="Wijzigen">
             </div>
             <div class="dashboard-right">
                 <label>Plaatsnaam</label>

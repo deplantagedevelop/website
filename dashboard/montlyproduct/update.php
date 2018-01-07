@@ -61,7 +61,7 @@
             <textarea name="description"><?php echo "$description";?></textarea>
             <label>Product afbeelding</label>
             <input type="file" name="image" id="image" value="<?php echo $currentimage; ?>" onchange="readURL(this);">
-            <input type="submit" name="submit" value="submit">
+            <input type="submit" name="submit" value="Wijzigen">
         </form>
     </div>
     <div class="dashboard-right">

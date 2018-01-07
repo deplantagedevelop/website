@@ -7,12 +7,16 @@ $(document).ready(function(){
     //Include slick slider.
     $('.slider').slick({
         infinite: true,
-        dots: false,
+        dots: true,
         arrows: true,
         autoplay: true,
         autoplaySpeed: 3500,
         prevArrow:"<button type='button' class='slick-prev pull-left slick-arrow'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
+        nextArrow:"<button type='button' class='slick-next pull-right slick-arrow'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
+        customPaging : function(slider, i) {
+            var thumb = $(slider.$slides[i]).data('thumb');
+            return '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
+        }
     });
 
     //Calculate slider height by checking the screenheight minus header height.
