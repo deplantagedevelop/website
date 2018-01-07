@@ -18,15 +18,28 @@
         }
     }
 
-    $products = $product->getProducts($currentRow, $limit);
+    if(isset($_GET['search'])) {
+        $search = $_GET['search'];
+        $searchquery = ' WHERE p.title LIKE "%' . $search . '%"';
+    } else {
+        $search = '';
+        $searchquery = '';
+    }
 
-    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products');
+    $products = $product->getProducts($searchquery, $currentRow, $limit);
+
+    $rowCounts = $conn->prepare('SELECT COUNT(*) as amount FROM products AS p' . $searchquery);
     $rowCounts->execute();
     $rowCount = $rowCounts->fetch(PDO::FETCH_ASSOC);
     $total_pages = ceil($rowCount['amount'] / $limit);
 ?>
-    <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
-        Categorieën</a>
+    <div class="content-header">
+        <a href="/dashboard/product_category" class="back-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;
+            Categorieën</a>
+        <form method="get" class="search-product">
+            <input type="text" name="search" class="search" value="<?php echo $search; ?>" placeholder="Zoeken">
+        </form>
+    </div>
     <div class="content">
     <?php
         if ($products->rowCount() > 0) {
@@ -36,6 +49,7 @@
                 <tr>
                     <th class="productname">Productnaam</th>
                     <th class="productcategory">Categorie</th>
+                    <th class="productsubcategory">Subcategorie</th>
                     <th class="productprice">Prijs</th>
                     <th class="productavailable">Beschikbaar</th>
                     <th class="productedit">Bewerken</th>
@@ -49,6 +63,7 @@
                         <tr>
                             <td class="productname"><?php echo $item['title']; ?></td>
                             <td class="productcategory"><?php echo $item['category']; ?></td>
+                            <td class="productsubcategory"><?php echo $item['subcategory']; ?></td>
                             <td class="productprice"><?php echo $item['price']; ?></td>
                             <td class="productavailable"><?php echo ($item['available'] == 1) ? 'Ja' : 'Nee'; ?></td>
                             <td class="productedit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <a
@@ -78,11 +93,18 @@
                 } else {
                     $category = '';
                 }
+
+                if(isset($_GET['search'])) {
+                    $search = '&search=' . $_GET['search'];
+                } else {
+                    $search = '';
+                }
+
                 if ($_GET['pagina']) {
                     $current = $_GET['pagina'];
                     if ($current != 1) {
-                        echo '<a href="/shop' . $category . '"> << </a>';
-                        echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                        echo '<a href="/dashboard/products/?pagina=' . ($current - 1) . $search .'"> << </a>';
+                        echo '<a href="?pagina=' . ($current - 1) . $search . '"> < </a>';
                     }
                 } else {
                     $current = 1;
@@ -90,13 +112,13 @@
 
                 for ($i = $current; $i <= $current + 2; $i++) {
                     if ($_GET['pagina'] == $i) {
-                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                        echo '<a href="?pagina=' . $i . $search . '" class="current">' . $i . '</a>';
                     } elseif (empty($_GET['pagina']) && $i === 1) {
-                        echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                        echo '<a href="?pagina=' . $i . $search . '" class="current">' . $i . '</a>';
                     } else {
                         if ($current != $total_pages) {
                             if ($current != $total_pages - 1) {
-                                echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                                echo '<a href="?pagina=' . $i . $search . '">' . $i . '</a>';
                             }
                         }
                     }
@@ -104,14 +126,14 @@
                 if ($_GET['pagina'] != $total_pages) {
                     if ($current <= $total_pages - 3) {
                         echo '<a href="#">...</a>';
-                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                        echo '<a href="?pagina=' . $total_pages . $search . '">' . $total_pages . '</a>';
                     }
                     if ($current == $total_pages - 1) {
-                        echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                        echo '<a href="?pagina=' . $total_pages . $search . '">' . $total_pages . '</a>';
                     }
                     if ($current != $total_pages) {
-                        echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
-                        echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                        echo '<a href="?pagina=' . ($current + 1) . $search . '"> > </a>';
+                        echo '<a href="?pagina=' . $total_pages . $search . '"> >> </a>';
                     }
                 }
             ?>

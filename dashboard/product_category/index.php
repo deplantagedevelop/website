@@ -30,14 +30,14 @@
                     <td> $name </td> 
                     <td class=\"productactive\"> Actief </td> 
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
-                    <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>                
+                    <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>                
                   </tr>";
                     } else {
                         echo "<tr>
                     <td> $name </td>
                     <td> Non-actief </td>
                     <td><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i> <a href=\"update?id=$id\">Bewerk</a></td>
-                    <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete.php/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>
+                    <td><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i> <a href=\"delete/?id=$id\" onclick=\"return confirm('Weet je zeker dat je het wilt verwijderen?');\">Verwijder</a></td>
                   </tr>";
                     }
                 }

@@ -4,6 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/functions/products.php');
 $user = new User($conn);
 $products = new Product($conn);
 $categories = $products->getCategories();
+$subcategories = $products->getSubcategories();
 
 $message = '';
 if(isset($_GET['id'])) {
@@ -14,11 +15,15 @@ if(isset($_GET['id'])) {
         $description = $_POST['description'];
         $price = $_POST['price'];
         $categoryID = $_POST['category'];
+        $subcategoryID = $_POST['subcategory'];
         $available = $_POST['available'];
         $image = uniqid() . "-" . $_FILES['image']['name'];
         $imagefile = $_FILES['image'];
+        if($subcategoryID === 'none') {
+            $subcategoryID = NULL;
+        }
 
-        if($products->editProduct($title, $description, $price, $categoryID, $available, $image, $imagefile, $id) === true) {
+        if($products->editProduct($title, $description, $price, $categoryID, $subcategoryID, $available, $image, $imagefile, $id) === true) {
             $message = 'Product is succesvol gewijzigd!';
         } else {
             $message = 'Product kon niet worden gewijzigd, controleer als de geuploade afbeelding wel een jpg, png of jpeg bestand is!';
@@ -42,21 +47,48 @@ if(isset($_GET['id'])) {
                     <label>Product afbeelding</label>
                     <input type="file" name="image" id="image" value="<?php echo $item["image"]; ?>" onchange="readURL(this);">
                     <label>Productcategorie</label>
-                    <select name="category">
+                    <select name="category" id="category">
                         <?php
                         foreach ($categories as $category) {
                             if($item["categoryID"] == $category['ID']) {
                                 ?>
-                                <option value="<?php echo $category['ID'] ?>" selected><?php echo $category['name']; ?></option>
+                                <option value="<?php echo $category['ID'] ?>" class="<?php echo $category['ID']; ?>" selected><?php echo $category['name']; ?></option>
                                 <?php
                             } else {
                                 ?>
-                                <option value="<?php echo $category['ID'] ?>"><?php echo $category['name']; ?></option>
+                                <option value="<?php echo $category['ID'] ?>" class="<?php echo $category['ID']; ?>"><?php echo $category['name']; ?></option>
                                 <?php
                             }
                         }
                         ?>
                     </select>
+                    <div id="sub-cat">
+                        <label>Product subcategorie</label>
+                        <select name="subcategory" id="subcategory">
+                            <?php
+                            if($item["subcategoryID"] === NULL) {
+                                ?>
+                                <option value="none" id="none" selected>Geen subcategorie</option>
+                                <?php
+                            } else {
+                                ?>
+                                <option value="none" id="none">Geen subcategorie</option>
+                                <?php
+                            }
+                            foreach($subcategories as $subcategory) {
+                                if($item["subcategoryID"] === $subcategory["ID"]) {
+                                    ?>
+                                    <option value="<?php echo $subcategory['ID'] ?>" class="<?php echo $subcategory['categoryID']; ?>" selected><?php echo $subcategory['name']; ?></option>
+                                    <?php
+                                } else {
+                                    ?>
+                                    <option value="<?php echo $subcategory['ID'] ?>" class="<?php echo $subcategory['categoryID']; ?>"><?php echo $subcategory['name']; ?></option>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <span>Product beschikbaar:</span><br>
                     <input type="radio" class="radio-btn" name="available" value="1" <?php echo ($item['available'] == 1) ? 'checked="checked"' : ''; ?>> Ja
                     <input type="radio" class="radio-btn" name="available" value="0" <?php echo ($item['available'] == 0) ? 'checked="checked"' : ''; ?>> Nee

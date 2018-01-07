@@ -23,7 +23,7 @@
 
 ?>
 
-<a href="/dashboard/news" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
+<a href="/dashboard/news_category/" class="back-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp; Terug</a>
 <div class="content">
     <div class="dashboard-left">
         <form method="post">

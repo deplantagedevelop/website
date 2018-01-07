@@ -257,6 +257,7 @@ ul, menu, dir {
     display: flex;
     margin-top: 15px;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .dashbody .radio-btn {
@@ -341,11 +342,16 @@ ul, menu, dir {
     height: 40px;
     width: 150px;
     display: block;
-
 }
 
 .dashbody .dashboard-right img {
     max-width: 100%;
+}
+
+.search-product {
+    max-width: 250px;
+    display: inline-block;
+    float: right;
 }
 
 @media only screen and (max-width: 1300px) {

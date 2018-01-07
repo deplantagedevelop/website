@@ -254,15 +254,22 @@
                     <?php
                         //Reset category Get because of products, only check for get in URL now.
                         if (isset($_GET['categorie'])) {
-                            $category = $_GET['categorie'];
+                            $category = '&categorie=' . $_GET['categorie'];
                         } else {
                             $category = '';
                         }
+
+                        if(isset($_GET['search'])) {
+                            $search = '&search=' . $_GET['search'];
+                        } else {
+                            $search = '';
+                        }
+
                         if ($_GET['pagina']) {
                             $current = $_GET['pagina'];
                             if ($current != 1) {
-                                echo '<a href="/shop' . $category . '"> << </a>';
-                                echo '<a href="?pagina=' . ($current - 1) . $category . '"> < </a>';
+                                echo '<a href="/shop?pagina=' . ($current - 1) . $category . $search .'"> << </a>';
+                                echo '<a href="?pagina=' . ($current - 1) . $category . $search .'"> < </a>';
                             }
                         } else {
                             $current = 1;
@@ -270,13 +277,13 @@
 
                         for ($i = $current; $i <= $current + 2; $i++) {
                             if ($_GET['pagina'] == $i) {
-                                echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                                echo '<a href="?pagina=' . $i . $category . $search .'" class="current">' . $i . '</a>';
                             } elseif (empty($_GET['pagina']) && $i === 1) {
-                                echo '<a href="?pagina=' . $i . $category . '" class="current">' . $i . '</a>';
+                                echo '<a href="?pagina=' . $i . $category . $search .'" class="current">' . $i . '</a>';
                             } else {
                                 if ($current != $total_pages) {
                                     if ($current != $total_pages - 1) {
-                                        echo '<a href="?pagina=' . $i . $category . '">' . $i . '</a>';
+                                        echo '<a href="?pagina=' . $i . $category . $search .'">' . $i . '</a>';
                                     }
                                 }
                             }
@@ -284,14 +291,14 @@
                         if ($_GET['pagina'] != $total_pages) {
                             if ($current <= $total_pages - 3) {
                                 echo '<a href="#">...</a>';
-                                echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                                echo '<a href="?pagina=' . $total_pages . $category . $search .'">' . $total_pages . '</a>';
                             }
                             if ($current == $total_pages - 1) {
-                                echo '<a href="?pagina=' . $total_pages . $category . '">' . $total_pages . '</a>';
+                                echo '<a href="?pagina=' . $total_pages . $category . $search .'">' . $total_pages . '</a>';
                             }
                             if ($current != $total_pages) {
-                                echo '<a href="?pagina=' . ($current + 1) . $category . '"> > </a>';
-                                echo '<a href="?pagina=' . $total_pages . '"> >> </a>';
+                                echo '<a href="?pagina=' . ($current + 1) . $category . $search .'"> > </a>';
+                                echo '<a href="?pagina=' . $total_pages . $category . $search .'"> >> </a>';
                             }
                         }
                     ?>
